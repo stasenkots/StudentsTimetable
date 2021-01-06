@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "184478491695",
+    "project_id": "studentstimetable",
+    "storage_bucket": "studentstimetable.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:184478491695:android:7ca786ae002989f24e92da",
+        "android_client_info": {
+          "package_name": "com.stasenkots.studentstimetable"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "184478491695-3m2s4tqfkc4jq9htaicrnr01gulrmaru.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQl8nJ-VJPIRbVKTR9BvQKEu6KBUpvSjY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "184478491695-3m2s4tqfkc4jq9htaicrnr01gulrmaru.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.StudentsTimetable.AppBarOverlay">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:menu="@menu/absent_users"
+            app:title="@string/app_name" />
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="@style/MyProgressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone" />
+    </com.google.android.material.appbar.AppBarLayout>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.student.absent_students.AbsentStudentsFragment"
+        android:id="@+id/listView">
+    </ListView>
+</LinearLayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_set_up"
+    app:startDestination="@id/navigation_fragment_mode">
+    <fragment android:name="com.stasenkots.studentstimetable.ui.setup.mode.ModeFragment"
+        android:id="@+id/navigation_fragment_mode"
+        android:label="fragment_mode"
+        tools:layout="@layout/fragment_mode">
+        <action
+            android:id="@+id/show_registration_fragment"
+            app:destination="@id/navigation_fragment_registration"
+          />
+    </fragment>
+    <fragment android:name="com.stasenkots.studentstimetable.ui.setup.registration.RegistrationFragment"
+        android:id="@+id/navigation_fragment_registration"
+        android:label="fragment_registration"
+        tools:layout="@layout/fragment_registration">
+        <action
+            android:id="@+id/show_create_group_fragment"
+            app:destination="@id/navigation_fragment_create_group" />
+    </fragment>
+    <fragment android:name="com.stasenkots.studentstimetable.ui.setup.create_group.CreateGroupFragment"
+        android:id="@+id/navigation_fragment_create_group"
+        android:label="fragment_create_group"
+        tools:layout="@layout/fragment_create_group"/>
+
+</navigation>
