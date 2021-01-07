@@ -1,46 +1,37 @@
-package com.stasenkots.logic.db.manager
+package com.stasenkots.logic.domain.all_data.db
 
-import com.stasenkots.logic.db.dao.LessonDao
-import com.stasenkots.logic.db.dao.StateDao
-import com.stasenkots.logic.db.dao.StudentDao
-import com.stasenkots.logic.db.dao.SubjectDao
 import com.stasenkots.logic.di.components.DaggerLogicComponent
 import com.stasenkots.logic.entity.lesson.Lessons
 import com.stasenkots.logic.entity.state.States
 import com.stasenkots.logic.entity.student.Students
 import com.stasenkots.logic.entity.subject.Subjects
-import com.stasenkots.logic.utils.launchIO
 
 
-class DatabaseSaver(
-    lessonDao: LessonDao,
-    subjectDao: SubjectDao,
-    stateDao: StateDao,
-    studentDao: StudentDao
-) : DatabaseWorker(lessonDao, subjectDao, stateDao, studentDao) {
+class SaveDataToDatabaseUseCase : DatabaseUseCase() {
     init {
         DaggerLogicComponent
             .create()
-            .initializeDatabaseSaver(this)
+            .initializeSaveDataToDatabaseUseCase(this)
     }
 
-    override suspend fun doWork() {
+    override suspend fun doWork(params: Params) {
         lessonRepository.saveLessonsToDb(
-            lessonDao,
+            params.lessonDao,
             Lessons.get().values.toList()
         )
 
         stateRepository.saveStatesToDb(
-            stateDao,
+            params.stateDao,
             States.get().values.toList()
         )
         studentRepository.saveStudentsToDb(
-            studentDao,
+            params.studentDao,
             Students.get().values.toList()
         )
         subjectRepository.saveSubjectsToDb(
-            subjectDao,
+            params.subjectDao,
             Subjects.get().values.toList()
         )
     }
+
 }
