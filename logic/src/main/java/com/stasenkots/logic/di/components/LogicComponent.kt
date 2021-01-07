@@ -1,10 +1,10 @@
 package com.stasenkots.logic.di.components
 
-import com.stasenkots.logic.db.manager.DataBaseCleaner
-import com.stasenkots.logic.db.manager.DataBaseLoader
-import com.stasenkots.logic.db.manager.DatabaseSaver
-import com.stasenkots.logic.db.manager.DatabaseWorker
+import com.stasenkots.logic.domain.all_data.db.CleanDatabaseUseCase
+import com.stasenkots.logic.domain.all_data.db.LoadAllDataFromDatabaseUseCase
+import com.stasenkots.logic.domain.all_data.db.SaveDataToDatabaseUseCase
 import com.stasenkots.logic.di.modules.LogicModule
+import com.stasenkots.logic.domain.all_data.server.LoadAllDataUseCase
 import com.stasenkots.logic.domain.group.HasAnyGroupWithUseCase
 import com.stasenkots.logic.domain.group.SaveGroupUseCase
 import com.stasenkots.logic.domain.lesson.DeleteLessonUseCase
@@ -75,15 +75,18 @@ interface LogicComponent {
     fun initializeLoadStudentsFromDbUseCase(
         loadStudentsFromDbUseCase: LoadStudentsFromDbUseCase
     )
-    fun initializeDatabaseSaver(
-        databaseSaver: DatabaseSaver
+    fun initializeSaveDataToDatabaseUseCase(
+        saveDataToDatabaseUseCase: SaveDataToDatabaseUseCase
     )
-    fun initializeDatabaseCleaner(
-        dataBaseCleaner: DataBaseCleaner
+    fun initializeCleanDatabaseUseCase(
+        cleanDatabaseUseCase: CleanDatabaseUseCase
     )
 
-    fun initializeDatabaseLoader(
-        dataBaseLoader: DataBaseLoader
+    fun initializeLoadAllDataFromDatabaseUseCase(
+        loadAllDataFromDatabaseUseCase: LoadAllDataFromDatabaseUseCase
+    )
+    fun initializeLoadAllDataUseCase(
+        loadAllDataUseCase: LoadAllDataUseCase
     )
     fun initializeSaveStudentsToDbUseCase(
         saveStudentsToDbUseCase: SaveStudentsToDbUseCase

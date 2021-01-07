@@ -19,12 +19,14 @@ fun LocalDate.parseToString(pattern: String = "dd MMMM(EE)"): String {
     return this.format(formatter)
 }
 
+fun Pair<Int, Int>.parseAsTime() = String.format("%02d:%02d", first, second)
+
 fun Int.toOddEvenWeek(): Int {
     return this % 2
 }
 
 fun Int.toCalendarWeek(): Int {
-    return if(this==0) 2 else 1
+    return if (this == 0) 2 else 1
 }
 
 fun String.parseTime(): Pair<Int, Int> {
@@ -47,5 +49,6 @@ fun LocalDate.toLong(): Long {
     return atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli()
 }
 
-fun Long.toLocalDate():LocalDate = Instant.ofEpochMilli(this).atZone(ZoneId.systemDefault()).toLocalDate()
+fun Long.toLocalDate(): LocalDate =
+    Instant.ofEpochMilli(this).atZone(ZoneId.systemDefault()).toLocalDate()
 

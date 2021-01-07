@@ -11,12 +11,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import com.stasenkots.logic.entity.LessonItem
+import com.stasenkots.logic.utils.parseAsTime
 import com.stasenkots.logic.utils.parseTime
 import com.stasenkots.logic.utils.toLong
 import com.stasenkots.studentstimetable.R
 import com.stasenkots.studentstimetable.databinding.EditLessonFragmentBinding
 import com.stasenkots.studentstimetable.convertToString
-import com.stasenkots.studentstimetable.parseAsTime
 
 import com.stasenkots.studentstimetable.ui.timetable.dialogs.day_of_week_picker.DayOfWeekPickerFragment
 import com.stasenkots.studentstimetable.ui.timetable.dialogs.day_of_week_picker.DayOfWeekPickerViewModel
@@ -58,7 +58,6 @@ class EditLessonFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val lessonId = arguments?.getString(LESSON_ID_TAG)
-        val date = arguments?.getLong(TAG_DATE)?: LocalDate.now().toLong()
         viewModel.getLessonItem(lessonId)
         bind(viewModel.lessonItem)
         binding.buttonSave.setOnClickListener {
@@ -71,7 +70,8 @@ class EditLessonFragment : Fragment() {
         setTimeClickListener(binding.startLesson)
         setTimeClickListener(binding.endLesson)
         binding.day.setOnClickListener {
-            DayOfWeekPickerFragment.newInstance(date).show(
+            val mDate=binding.day.text.toString().toDayOfWeek(requireContext())
+            DayOfWeekPickerFragment.newInstance(mDate).show(
                 requireActivity().supportFragmentManager, DAY_OF_WEEK_PICKER_TAG
             )
         }

@@ -1,6 +1,7 @@
 package com.stasenkots.studentstimetable.ui.timetable
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,21 +9,11 @@ import com.stasenkots.logic.db.database.LessonDatabaseProvider
 import com.stasenkots.logic.db.database.StateDatabaseProvider
 import com.stasenkots.logic.db.database.StudentDatabaseProvider
 import com.stasenkots.logic.db.database.SubjectDatabaseProvider
-import com.stasenkots.logic.db.manager.DataBaseCleaner
-import com.stasenkots.logic.db.manager.DatabaseSaver
-import com.stasenkots.logic.domain.lesson.LoadLessonsUseCase
-import com.stasenkots.logic.domain.lesson.SaveLessonsToDbUseCase
-import com.stasenkots.logic.domain.states.LoadStatesUseCase
-import com.stasenkots.logic.domain.states.SaveStatesToDbUseCase
-import com.stasenkots.logic.domain.student.LoadStudentsUseCase
-import com.stasenkots.logic.domain.student.SaveStudentsToDbUseCase
-import com.stasenkots.logic.domain.subject.LoadSubjectsUseCase
-import com.stasenkots.logic.domain.subject.SaveSubjectsToDbUseCase
-import com.stasenkots.logic.entity.lesson.Lessons
-import com.stasenkots.logic.entity.state.States
-import com.stasenkots.logic.entity.student.Students
-import com.stasenkots.logic.entity.subject.Subjects
-import com.stasenkots.logic.network.manager.ServerLoader
+import com.stasenkots.logic.domain.all_data.db.CleanDatabaseUseCase
+import com.stasenkots.logic.domain.all_data.db.DatabaseUseCase
+import com.stasenkots.logic.domain.all_data.db.SaveDataToDatabaseUseCase
+import com.stasenkots.logic.domain.all_data.server.LoadAllDataUseCase
+import com.stasenkots.logic.utils.TAG
 import com.stasenkots.logic.utils.launchIO
 
 class TimeTableViewModel(val app: Application) : AndroidViewModel(app) {
@@ -46,21 +37,27 @@ class TimeTableViewModel(val app: Application) : AndroidViewModel(app) {
 
     private suspend fun load() {
         try {
-            ServerLoader().doWork()
+            LoadAllDataUseCase().doWork()
             _isDataLoaded.postValue(true)
             launchIO {
-                DataBaseCleaner(
-                    lessonDao,
-                    subjectDao,
-                    stateDao,
-                    studentDao
-                ).doWork()
-                DatabaseSaver(
-                    lessonDao,
-                    subjectDao,
-                    stateDao,
-                    studentDao
-                ).doWork()
+                CleanDatabaseUseCase()
+                    .doWork(
+                        DatabaseUseCase.Params(
+                            lessonDao,
+                            subjectDao,
+                            stateDao,
+                            studentDao
+                        )
+                    )
+                SaveDataToDatabaseUseCase()
+                    .doWork(
+                        DatabaseUseCase.Params(
+                            lessonDao,
+                            subjectDao,
+                            stateDao,
+                            studentDao
+                        )
+                    )
             }
         } catch (e: java.lang.Exception) {
             _errorBus.postValue(e)

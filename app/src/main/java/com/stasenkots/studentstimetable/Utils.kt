@@ -59,5 +59,5 @@ fun String.toDayOfWeek(context: Context): DayOfWeek {
     return DayOfWeek(dayInt, weekInt)
 }
 
-fun Pair<Int, Int>.parseAsTime() = String.format("%02d:%02d", first, second)
+
 
