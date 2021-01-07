@@ -3,12 +3,9 @@ package com.stasenkots.studentstimetable
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.os.StrictMode
-import android.os.StrictMode.VmPolicy
+
 import androidx.work.*
 import com.parse.Parse
-import com.stasenkots.studentstimetable.constants.AppConstants.NOTIFICATION_CHANNEL_ID
-import com.stasenkots.studentstimetable.workmanager.CheckForUpdatesWorker
 import java.util.concurrent.TimeUnit
 
 
@@ -25,12 +22,12 @@ class App : Application() {
                 .server(BASE_URL)
                 .build()
         )
-        createNotificationChannel()
-        createUpdatesWork()
+    /*    createNotificationChannel()
+        createUpdatesWork()*/
 
     }
 
-    private fun createUpdatesWork() {
+   /* private fun createUpdatesWork() {
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
@@ -58,5 +55,5 @@ class App : Application() {
 
         val manager: NotificationManager = getSystemService(NotificationManager::class.java)
         manager.createNotificationChannel(channel)
-    }
+    }*/
 }

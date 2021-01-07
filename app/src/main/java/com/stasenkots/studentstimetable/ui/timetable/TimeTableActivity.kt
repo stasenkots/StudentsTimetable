@@ -6,11 +6,14 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.ads.*
 import com.google.android.material.tabs.TabLayout
 import com.stasenkots.logic.entity.User
 import com.stasenkots.logic.utils.MODE_STUDENT
+import com.stasenkots.logic.utils.launchUI
 import com.stasenkots.logic.utils.toLong
 import com.stasenkots.studentstimetable.ACTION_DELETE_LESSON
+import com.stasenkots.studentstimetable.ADS_ID
 import com.stasenkots.studentstimetable.R
 import com.stasenkots.studentstimetable.databinding.ActivityTimeTableBinding
 import com.stasenkots.studentstimetable.ui.timetable.dialogs.datepicker.DatePickerFragment
@@ -20,7 +23,12 @@ import com.stasenkots.studentstimetable.ui.timetable.dialogs.detele_dialog.Delet
 import com.stasenkots.studentstimetable.ui.timetable.dialogs.lesson_item_action.*
 
 import com.stasenkots.studentstimetable.ui.timetable.ui.main.SectionsPagerAdapter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.time.LocalDate
+import java.util.*
+import java.util.concurrent.TimeUnit
+import kotlin.concurrent.schedule
 
 private const val DATE_PICKER_TAG = "Date Picker"
 const val LESSON_ITEM_ACTION_TAG = "Lesson item action"
@@ -30,6 +38,7 @@ const val CURRENT_DATE_TAG = "date"
 
 class TimeTableActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTimeTableBinding
+    private lateinit var mInterstitialAd: InterstitialAd
     private val lessonItemActionViewModel by lazy {
         ViewModelProvider(this).get(
             LessonItemActionViewModel::class.java
@@ -43,12 +52,13 @@ class TimeTableActivity : AppCompatActivity() {
         binding = ActivityTimeTableBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        initAd()
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
         binding.viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = findViewById(R.id.tabs)
         tabs.setupWithViewPager(binding.viewPager)
         binding.tabs.tabMode = TabLayout.MODE_SCROLLABLE
-        if(User.mode== MODE_STUDENT) binding.toolbar.menu.clear()
+        if (User.mode == MODE_STUDENT) binding.toolbar.menu.clear()
         else setToolbarListener()
         datePickerViewModel.currentDate.observe(this, {
             binding.viewPager.currentItem = it.dayOfWeek.value - 1
@@ -67,11 +77,30 @@ class TimeTableActivity : AppCompatActivity() {
 
     }
 
+    private fun initAd() {
+        MobileAds.initialize(this)
+        mInterstitialAd = InterstitialAd(this)
+        mInterstitialAd.adUnitId = ADS_ID
+        mInterstitialAd.loadAd(AdRequest.Builder().build())
+        val timer = Timer()
+        timer.schedule(30 * 1000) {
+            launchUI {
+                if (mInterstitialAd.isLoaded) {
+                    mInterstitialAd.show()
+                }
+            }
+        }
+
+    }
+
     private fun observeLessonItemAction() {
         lessonItemActionViewModel.lessonItemAction.observe(this, { action ->
             val bundle = Bundle().apply {
                 putString(LESSON_ID_TAG, lessonItemActionViewModel.lessonId)
-                putLong(CURRENT_DATE_TAG, lessonItemActionViewModel.date ?: LocalDate.now().toLong())
+                putLong(
+                    CURRENT_DATE_TAG,
+                    lessonItemActionViewModel.date ?: LocalDate.now().toLong()
+                )
             }
             val intent = Intent(action).apply {
                 putExtras(bundle)
