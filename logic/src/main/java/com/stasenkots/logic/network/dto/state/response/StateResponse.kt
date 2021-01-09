@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName
 data class StateResponse (
     @SerializedName("comment")
     val comment: String? = null,
+    @SerializedName("updatedAt")
+    val updatedAt:String?=null,
     @SerializedName("date")
     val date: String? = null,
     @SerializedName("homework")

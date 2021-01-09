@@ -8,8 +8,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.stasenkots.logic.entity.DayOfWeek
-import com.stasenkots.logic.utils.TAG
-import com.stasenkots.logic.utils.toLocalDate
 import com.stasenkots.studentstimetable.R
 import com.stasenkots.studentstimetable.databinding.CheckboxDayOfWeekPickerBinding
 import com.stasenkots.studentstimetable.databinding.TitleDayOfWeekPickerBinding
@@ -68,9 +66,10 @@ class DayOfWeekPickerFragment : DialogFragment() {
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         }
-        checkBoxBinding.checkbox.isChecked = (dayOfWeek.week == -1)
+        checkBoxBinding.checkbox.isChecked = viewModel.isCheckedCheckBox
         checkBoxBinding.checkbox.setOnCheckedChangeListener { buttonView, isChecked ->
             checkBoxBinding.checkbox.isChecked = isChecked
+            viewModel.isCheckedCheckBox=isChecked
         }
         var selectedItem = dayOfWeek.dayOfWeek-1
         return MaterialAlertDialogBuilder(requireContext())

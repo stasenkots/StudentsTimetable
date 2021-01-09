@@ -5,7 +5,7 @@ import com.stasenkots.logic.entity.subject.Subject
 import com.stasenkots.logic.entity.subject.Subjects
 
 object Lessons {
-    internal val map= mutableMapOf<String, Lesson>()
+    internal var map = mutableMapOf<String, Lesson>()
     internal val modifiedObject=MutableLiveData<Lesson>()
     internal val createdObject=MutableLiveData<Lesson>()
     internal val deletedObject=MutableLiveData<String>()
@@ -13,8 +13,6 @@ object Lessons {
         return map
     }
     fun put(lessons:List<Lesson>){
-        for (lesson in lessons) {
-            map[lesson.id]=lesson
-        }
+        map=lessons.associateBy { it.id }.toMutableMap()
     }
 }

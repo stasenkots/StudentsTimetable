@@ -17,7 +17,7 @@ class GetLessonItemsUseCase {
             .initializeGetLessonItemsUseCase(this)
     }
 
-    fun doWork(params:Params):Map<String,LessonItem>{
+    fun doWork(params:Params):List<LessonItem>{
         return lessonItemRepository.getLessonItems(params.currentDate)
     }
     data class Params(

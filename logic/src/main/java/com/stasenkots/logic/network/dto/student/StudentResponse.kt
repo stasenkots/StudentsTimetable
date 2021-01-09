@@ -10,4 +10,6 @@ data class StudentResponse(
     val name: String? = null,
     @SerializedName("objectId")
     val objectId: String? = null,
+    @SerializedName("updatedAt")
+    val updatedAt:String?=null,
 )

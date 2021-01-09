@@ -6,10 +6,7 @@ import com.stasenkots.logic.APPLICATION_ID
 import com.stasenkots.logic.BASE_URL
 import com.stasenkots.logic.REST_API_KEY
 import com.stasenkots.logic.entity.User
-import com.stasenkots.logic.network.networking.LessonApi
-import com.stasenkots.logic.network.networking.StateApi
-import com.stasenkots.logic.network.networking.StudentApi
-import com.stasenkots.logic.network.networking.SubjectApi
+import com.stasenkots.logic.network.networking.*
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -19,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import retrofit2.http.GET
 
-
+private const val GROUP_ID_PATH="/classes/group_ids/"
 class RetrofitProvider {
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
@@ -37,7 +34,7 @@ class RetrofitProvider {
         })
         .addInterceptor { chain ->
             val original = chain.request()
-            if (original.method != "GET") chain.proceed(original)
+            if (original.method != "GET" || original.url.encodedPath== GROUP_ID_PATH) chain.proceed(original)
             else {
                 val newUrl = original.url.newBuilder()
                     .addQueryParameter("where", "{\"group_id\":\"${User.groupId}\"}")
@@ -60,6 +57,7 @@ class RetrofitProvider {
     fun provideSubjectApi() = retrofit.create<SubjectApi>()
     fun provideStatesApi() = retrofit.create<StateApi>()
     fun provideStudentApi() = retrofit.create<StudentApi>()
+    fun provideGroupApi() = retrofit.create<GroupApi>()
 
 
 }

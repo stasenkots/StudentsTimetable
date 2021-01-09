@@ -11,11 +11,11 @@ import com.stasenkots.logic.entity.LessonItem
 import com.stasenkots.logic.entity.User
 import com.stasenkots.logic.utils.MODE_STUDENT
 import com.stasenkots.logic.utils.toLong
-import com.stasenkots.studentstimetable.ACTION_VIEW_HOMEWORKS_ARCHIVE
 import com.stasenkots.studentstimetable.R
+import com.stasenkots.studentstimetable.constants.ActionsConstants.ACTION_VIEW_HOMEWORKS_ARCHIVE
+import com.stasenkots.studentstimetable.constants.MainActivityConstants.LESSON_ID_TAG
+import com.stasenkots.studentstimetable.constants.MainActivityConstants.LESSON_ITEM_ACTION_TAG
 import com.stasenkots.studentstimetable.databinding.ItemLessonBinding
-import com.stasenkots.studentstimetable.ui.timetable.LESSON_ID_TAG
-import com.stasenkots.studentstimetable.ui.timetable.LESSON_ITEM_ACTION_TAG
 import com.stasenkots.studentstimetable.ui.timetable.dialogs.lesson_item_action.LessonItemActionFragment
 
 

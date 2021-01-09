@@ -8,6 +8,8 @@ data class SubjectResponse(
     val groupId: String? = null,
     @SerializedName("name")
     val name: String? = null,
+    @SerializedName("updatedAt")
+    val updatedAt:String?=null,
     @SerializedName("objectId")
     val objectId: String? = null,
     @SerializedName("subgroup")

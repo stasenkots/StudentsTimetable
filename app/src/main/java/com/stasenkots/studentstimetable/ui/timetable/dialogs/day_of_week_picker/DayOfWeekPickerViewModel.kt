@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 
 class DayOfWeekPickerViewModel:ViewModel() {
     private val _dayOfWeek=MutableLiveData<String>()
+    var isCheckedCheckBox=true
     val dayOfWeek:LiveData<String>
     get()=_dayOfWeek
      fun setDayOfWeek(value:String){

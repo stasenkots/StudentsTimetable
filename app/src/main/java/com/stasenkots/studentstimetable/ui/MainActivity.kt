@@ -32,9 +32,8 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         MobileAds.initialize(this){ }
-        FirebaseCrashlytics.getInstance().log("asdasd")
         viewModel.isUserRegistered.observe(this, {
-            if (it == false) {
+            if (it == false || User.groupId.isEmpty()) {
                 val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                     .requestServerAuthCode(SERVER_CLIENT_ID)
                     .requestEmail()
@@ -65,6 +64,7 @@ class MainActivity : AppCompatActivity() {
                 if (User.groupId.isEmpty()) {
                     startActivity(Intent(this, SetUpActivity::class.java))
                 } else {
+                    viewModel.loadFromDb()
                     startActivity(Intent(this, TimeTableActivity::class.java))
                 }
                 finish()

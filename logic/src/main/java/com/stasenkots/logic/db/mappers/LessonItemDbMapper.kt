@@ -39,23 +39,4 @@ class LessonItemDbMapper @Inject constructor(
         )
 
     }
-    fun mapToLessonDb(from:LessonItem): LessonDb {
-        return LessonDb(
-            objectId= from.lesson,
-            subjectId = from.subject,
-            timeStart = from.timeStart,
-            timeEnd = from.timeEnd,
-            room = from.room,
-            dayOfWeek = dayOfWeekDbMapper.map(from.dayOfWeek),
-        )
-    }
-    fun mapToSubjectDb(from:LessonItem): SubjectDb {
-        return SubjectDb(
-            objectId= from.subject,
-            name = from.name,
-            teacher = from.teacher,
-            subgroup = from.subgroup,
-            type = from.type
-        )
-    }
 }

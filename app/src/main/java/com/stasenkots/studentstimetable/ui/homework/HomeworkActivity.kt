@@ -7,14 +7,14 @@ import android.view.MenuItem
 import androidx.appcompat.view.ActionMode
 import androidx.lifecycle.ViewModelProvider
 import com.stasenkots.logic.entity.lesson.Lessons
-import com.stasenkots.studentstimetable.ACTION_EDIT_HOMEWORK
-import com.stasenkots.studentstimetable.ACTION_VIEW_HOMEWORKS_ARCHIVE
 import com.stasenkots.studentstimetable.R
+import com.stasenkots.studentstimetable.constants.ActionsConstants.ACTION_EDIT_HOMEWORK
+import com.stasenkots.studentstimetable.constants.ActionsConstants.ACTION_VIEW_HOMEWORKS_ARCHIVE
+import com.stasenkots.studentstimetable.constants.MainActivityConstants.CURRENT_DATE_TAG
+import com.stasenkots.studentstimetable.constants.MainActivityConstants.LESSON_ID_TAG
 import com.stasenkots.studentstimetable.ui.homework.archive.HomeworksArchiveFragment
 import com.stasenkots.studentstimetable.ui.homework.edit.EditHomeworkFragment
-import com.stasenkots.studentstimetable.ui.timetable.CURRENT_DATE_TAG
-import com.stasenkots.studentstimetable.ui.timetable.LESSON_ID_TAG
-import com.stasenkots.studentstimetable.ui.timetable.LESSON_ITEM_ACTION_TAG
+
 
 class HomeworkActivity : AppCompatActivity() {
 
@@ -29,7 +29,7 @@ class HomeworkActivity : AppCompatActivity() {
         val subjectId= Lessons.get()[lessonId]?.subject
         val fragment = when (action) {
             ACTION_EDIT_HOMEWORK -> EditHomeworkFragment.newInstance(subjectId,date)
-            ACTION_VIEW_HOMEWORKS_ARCHIVE-> HomeworksArchiveFragment.newInstance(subjectId)
+            ACTION_VIEW_HOMEWORKS_ARCHIVE -> HomeworksArchiveFragment.newInstance(subjectId)
             else ->  throw Exception(getString(R.string.invalid_action))
         }
         supportFragmentManager.beginTransaction().replace(

@@ -12,7 +12,7 @@ class SaveGroupUseCase {
             .create()
             .initializeSaveGroupUseCase(this)
     }
-    fun doWork(){
+    suspend fun doWork(){
         groupRepository.saveGroup()
     }
 }

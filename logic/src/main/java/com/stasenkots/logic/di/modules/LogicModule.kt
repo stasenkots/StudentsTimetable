@@ -20,7 +20,7 @@ class LogicModule {
     @Provides
     fun provideStudentApi()=retrofitProvider.provideStudentApi()
     @Provides
-    fun provideCalendar()=Calendar.getInstance(Locale.getDefault())
+    fun provideGroupApi()=retrofitProvider.provideGroupApi()
     @Provides
     fun provideParseLiveQueryClient()= ParseLiveQueryClient.Factory.getClient()
 }

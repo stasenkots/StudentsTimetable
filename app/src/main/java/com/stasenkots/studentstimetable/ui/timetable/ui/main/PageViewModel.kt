@@ -12,7 +12,7 @@ import com.stasenkots.logic.entity.LessonItem
 import java.time.LocalDate
 import java.util.*
 
-class PageViewModel(app:Application) : AndroidViewModel(app) {
+class PageViewModel(app: Application) : AndroidViewModel(app) {
 
     private var _index = 0
     private lateinit var _currentDate: LocalDate
@@ -30,16 +30,15 @@ class PageViewModel(app:Application) : AndroidViewModel(app) {
     }
 
     fun setDate(currentDate: LocalDate) {
-        val additionalDays:Long =
+        val additionalDays: Long =
             _index.toLong() - currentDate.dayOfWeek.value
         _currentDate = currentDate.plusDays(additionalDays)
         getLessons()
     }
 
-     fun getLessons() {
-        val collection = getLessonItemsUseCase.doWork(GetLessonItemsUseCase.Params(_currentDate)).values
-        val list = if (collection.isEmpty()) mutableListOf()
-        else collection.sortedBy{ it.timeStart }.toMutableList()
+    fun getLessons() {
+        val list = getLessonItemsUseCase.doWork(GetLessonItemsUseCase.Params(_currentDate))
+            .sortedBy { it.timeStart }.toMutableList()
         _lessons.postValue(list)
     }
 

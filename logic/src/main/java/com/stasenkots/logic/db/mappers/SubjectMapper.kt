@@ -17,7 +17,8 @@ class SubjectMapper @Inject constructor() {
             name = from.name,
             type = from.type,
             teacher = from.teacher,
-            subgroup = from.subgroup
+            subgroup = from.subgroup,
+            updatedAt = from.updatedAt
         )
     }
     fun map(from: Subject):SubjectDb{
@@ -26,7 +27,8 @@ class SubjectMapper @Inject constructor() {
             type = from.type,
             teacher = from.teacher,
             subgroup = from.subgroup,
-            objectId = from.id
+            objectId = from.id,
+            updatedAt = from.updatedAt
         )
     }
 }

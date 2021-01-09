@@ -1,6 +1,8 @@
 package com.stasenkots.studentstimetable.ui.timetable.ui.main
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,13 +25,12 @@ class PlaceholderFragment : Fragment() {
         super.onCreate(savedInstanceState)
         with(pageViewModel) {
             setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?:1)
-            setDate(LocalDate.now())
-            setLiveQuery(this@PlaceholderFragment)
         }
         val datePickerViewModel =
             ViewModelProvider(requireActivity()).get(DatePickerViewModel::class.java)
         datePickerViewModel.currentDate.observe(this, {
             pageViewModel.setDate(it)
+            pageViewModel.setLiveQuery(this@PlaceholderFragment)
         })
 
     }
@@ -45,11 +46,12 @@ class PlaceholderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.recycleViewTimeTable.layoutManager = LinearLayoutManager(context)
         binding.recycleViewTimeTable.adapter = TimeTableAdapter(emptyList())
+        pageViewModel.setDate(timeTableViewModel.selectedDate)
+        pageViewModel.setLiveQuery(this@PlaceholderFragment)
         timeTableViewModel.isDataLoaded.observe(viewLifecycleOwner,{
             pageViewModel.getLessons()
         })
-        pageViewModel.lessons.observe(viewLifecycleOwner,
-            { lessonItems ->
+        pageViewModel.lessons.observe(viewLifecycleOwner, { lessonItems ->
                 val adapter = binding.recycleViewTimeTable.adapter as TimeTableAdapter
                 adapter.update(lessonItems)
                 if (lessonItems.isEmpty()) {
@@ -60,8 +62,8 @@ class PlaceholderFragment : Fragment() {
 
             })
 
-
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

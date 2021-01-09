@@ -27,15 +27,15 @@ class LessonItemRepository @Inject constructor(
     private val subjectRepository: SubjectRepository,
     private val statesRepository: StatesRepository
 ) {
-    fun getLessonItems(currentDate: LocalDate): Map<String, LessonItem> {
-        val lessonItems = mutableMapOf<String, LessonItem>()
+    fun getLessonItems(currentDate: LocalDate): List<LessonItem> {
+        val lessonItems = mutableListOf<LessonItem>()
         val dayOfWeek = currentDate.convertToDayOfWeek()
         val todayLessons = Lessons.get().values.filter { lesson ->
             lesson.dayOfWeek == dayOfWeek
         }
         for (lesson in todayLessons) {
             val lessonItem = lessonItemMapper.map(lesson, currentDate)
-            lessonItems[lessonItem.lesson] = lessonItem
+            lessonItems.add(lessonItem)
         }
         return lessonItems
     }

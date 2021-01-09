@@ -6,6 +6,7 @@ data class Lesson(
     val dayOfWeek: DayOfWeek = DayOfWeek(),
     var subject: String="",
     val id: String="",
+    val updatedAt:String="",
     val room: String="",
     val timeEnd: String="",
     val timeStart: String=""

@@ -21,11 +21,11 @@ class HomeworksArchiveAdapter(private var states: List<State>) :
     RecyclerView.Adapter<HomeworksArchiveAdapter.HomeworksArchiveViewHolder>() {
     private var mode = NORMAL_MODE
     private var actionMode: ActionMode? = null
-
+    private var showedStates:List<State>
     init {
-        states = states.sortedByDescending { it.date }
+        states=states.sortedByDescending { it.date }
+        showedStates=states
     }
-
     inner class HomeworksArchiveViewHolder(val binding: ItemHomeworkBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private var isSelected = false
@@ -55,7 +55,7 @@ class HomeworksArchiveAdapter(private var states: List<State>) :
                 }
             }
         }
-            fun selectItems(root:View,state: State){
+            private fun selectItems(root:View, state: State){
                 itemView.setOnLongClickListener {
                     val activity = itemView.context as HomeworkActivity
                     actionMode = activity.startSupportActionMode(activity.callback)
@@ -108,10 +108,12 @@ class HomeworksArchiveAdapter(private var states: List<State>) :
     private val binding get() = _binding!!
 
     fun filter(text: String) {
-        states = states.filter {
-            it.homework.contains(text, true)
+        showedStates = if (text.isEmpty()) states
+        else{
+            states.filter {
+                it.homework.contains(text, true)
+            }
         }
-        states = states.sortedByDescending { it.date }
         notifyDataSetChanged()
     }
 
@@ -123,7 +125,8 @@ class HomeworksArchiveAdapter(private var states: List<State>) :
     }
 
     fun update(list: List<State>) {
-        states = list
+        states = list.sortedByDescending { it.date }
+        showedStates=states
         notifyDataSetChanged()
     }
 
@@ -133,9 +136,9 @@ class HomeworksArchiveAdapter(private var states: List<State>) :
     }
 
     override fun onBindViewHolder(holder: HomeworksArchiveViewHolder, position: Int) {
-        holder.bind(states[position])
+        holder.bind(showedStates[position])
     }
 
 
-    override fun getItemCount() = states.size
+    override fun getItemCount() = showedStates.size
 }

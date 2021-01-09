@@ -58,8 +58,9 @@ class SubjectRepository @Inject constructor(
     }
 
     fun updateData(lessonsItems: MutableLiveData<MutableList<LessonItem>>, subject: Subject) {
-        for (lessonItem in lessonsItems.value ?: emptyList()) {
-            with(lessonItem) {
+        val lessonsItem = lessonsItems.value?.find { it.subject==subject.id }
+        lessonsItem?.let {
+            with(it) {
                 if (this.subject == subject.id) {
                     type = subject.type
                     name = subject.name
@@ -67,8 +68,8 @@ class SubjectRepository @Inject constructor(
                     subgroup = subject.subgroup
                 }
             }
+            lessonsItems.postValue(lessonsItems.value)
         }
-        lessonsItems.postValue(lessonsItems.value)
     }
 
     suspend fun updateSubjectInDb(subject: Subject, dao: SubjectDao) {

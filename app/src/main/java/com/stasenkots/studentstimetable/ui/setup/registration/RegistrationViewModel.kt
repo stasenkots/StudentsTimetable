@@ -1,21 +1,12 @@
 package com.stasenkots.studentstimetable.ui.setup.registration
 
-import android.app.Application
-import android.content.Context
-import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.stasenkots.logic.domain.group.HasAnyGroupWithUseCase
-import com.stasenkots.logic.domain.lesson.LoadLessonsUseCase
 import com.stasenkots.logic.domain.user.SaveUserUseCase
 import com.stasenkots.logic.entity.User
-import com.stasenkots.logic.network.manager.ServerLoader
-import com.stasenkots.logic.utils.PREFS_NAME
-import com.stasenkots.logic.utils.TAG
 import com.stasenkots.logic.utils.launchIO
-import java.lang.Exception
 
 
 class RegistrationViewModel : ViewModel(){

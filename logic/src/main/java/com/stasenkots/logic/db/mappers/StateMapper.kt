@@ -14,6 +14,7 @@ class StateMapper @Inject constructor() {
             homework = from.homework,
             comment = from.comment,
             absentUsers = parseFromJSONArray(from.absentUsers),
+            updatedAt = from.updatedAt,
             date = from.date.parseDate(),
             subject = from.subjectId
         )
@@ -22,6 +23,7 @@ class StateMapper @Inject constructor() {
         date = from.date.parseToString("yyyyMMdd"),
         homework = from.homework,
         subjectId = from.subject,
+        updatedAt = from.updatedAt,
         comment = from.comment,
         absentUsers = mapToJSONArray(from.absentUsers),
         objectId = from.id

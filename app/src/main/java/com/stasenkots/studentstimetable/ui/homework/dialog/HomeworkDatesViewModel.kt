@@ -14,6 +14,7 @@ import java.util.*
 
 class HomeworkDatesViewModel : ViewModel() {
     private lateinit var items: List<LocalDate>
+    var checkedItem=0
     private val _day = MutableLiveData<LocalDate>()
     val day: LiveData<LocalDate>
         get() = _day

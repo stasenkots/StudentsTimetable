@@ -1,18 +1,11 @@
 package com.stasenkots.studentstimetable.ui.timetable.dialogs.day_of_week_picker
 
-import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.widget.ArrayAdapter
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.stasenkots.logic.utils.TAG
 import com.stasenkots.studentstimetable.R
-import com.stasenkots.studentstimetable.databinding.CheckboxDayOfWeekPickerBinding
-import com.stasenkots.studentstimetable.databinding.TitleDayOfWeekPickerBinding
 
 private const val TAG_DAY = "day"
 private const val TAG_WEEK = "week"

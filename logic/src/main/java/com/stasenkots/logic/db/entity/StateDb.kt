@@ -15,6 +15,7 @@ data class StateDb (
     @PrimaryKey
     val objectId: String,
     val comment: String,
+    val updatedAt:String,
     val date: String,
     val homework: String,
     val subjectId: String,

@@ -50,27 +50,36 @@ class CheckForUpdatesWorker(appContext: Context, workerParams: WorkerParameters)
                     studentDao
                 )
             )
-            val newStates = loadStatesUseCase.doWork()
             val notificationManager = NotificationTimeTableManager()
-            if (States.get().values.toList() != newStates) {
+            val newStatesUpdatesMap = loadStatesUseCase.doWork().associate { it.id to it.updatedAt }
+            val oldStatesUpdatesMap = States.get().mapValues { it.value.updatedAt }
+            if (newStatesUpdatesMap != oldStatesUpdatesMap) {
                 notificationManager.notify(applicationContext)
+                return Result.success()
             }
-            val newLessons = loadLessonsUseCase.doWork()
-            if (Lessons.get().values.toList() != newLessons) {
+            val newLessonUpdatesMap =
+                loadLessonsUseCase.doWork().associate { it.id to it.updatedAt }
+            val oldLessonUpdatesMap = Lessons.get().mapValues { it.value.updatedAt }
+            if (newLessonUpdatesMap != oldLessonUpdatesMap) {
                 notificationManager.notify(applicationContext)
+                return Result.success()
             }
-            val newSubjects = loadSubjectUseCase.doWork()
-            if (Subjects.get().values.toList() != newSubjects) {
+            val newSubjectsUpdatesMap = loadSubjectUseCase.doWork().associate { it.id to it.updatedAt }
+            val oldSubjectsUpdatesMap = Subjects.get().mapValues {it.value.updatedAt }
+            if (newSubjectsUpdatesMap!=oldSubjectsUpdatesMap) {
                 notificationManager.notify(applicationContext)
+                return Result.success()
             }
             if (User.mode == MODE_MODERATOR) {
-                val newStudents = loadStudentsUseCase.doWork()
-                if (Students.get().values.toList() != newStudents) {
+                val newStudentsUpdatesMap = loadStudentsUseCase.doWork().associate { it.id to it.updatedAt }
+                val oldStudentsUpdatesMap = Students.get().mapValues {  it.value.updatedAt }
+                if (newStudentsUpdatesMap!=oldStudentsUpdatesMap) {
                     notificationManager.notify(applicationContext)
+                    return Result.success()
                 }
             }
             return Result.success()
-        }catch (e:Exception){
+        } catch (e: Exception) {
             return Result.retry()
         }
     }

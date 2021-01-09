@@ -3,7 +3,7 @@ package com.stasenkots.studentstimetable.ui.timetable.dialogs.lesson_item_action
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.stasenkots.studentstimetable.*
+import com.stasenkots.studentstimetable.constants.ActionsConstants.activitiesActions
 
 
 class LessonItemActionViewModel : ViewModel() {

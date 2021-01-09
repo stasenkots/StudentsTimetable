@@ -4,6 +4,7 @@ data class Subject(
     var id:String="",
     val subgroup: String="",
     val teacher: String="",
+    val updatedAt:String="",
     val name:String="",
     val type:String="",
 )

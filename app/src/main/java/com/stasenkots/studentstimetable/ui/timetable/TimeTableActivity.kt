@@ -12,9 +12,12 @@ import com.stasenkots.logic.entity.User
 import com.stasenkots.logic.utils.MODE_STUDENT
 import com.stasenkots.logic.utils.launchUI
 import com.stasenkots.logic.utils.toLong
-import com.stasenkots.studentstimetable.ACTION_DELETE_LESSON
 import com.stasenkots.studentstimetable.ADS_ID
 import com.stasenkots.studentstimetable.R
+import com.stasenkots.studentstimetable.constants.ActionsConstants.ACTION_DELETE_LESSON
+import com.stasenkots.studentstimetable.constants.MainActivityConstants.CURRENT_DATE_TAG
+import com.stasenkots.studentstimetable.constants.MainActivityConstants.DELETE_LESSON_TAG
+import com.stasenkots.studentstimetable.constants.MainActivityConstants.LESSON_ID_TAG
 import com.stasenkots.studentstimetable.databinding.ActivityTimeTableBinding
 import com.stasenkots.studentstimetable.ui.timetable.dialogs.datepicker.DatePickerFragment
 import com.stasenkots.studentstimetable.ui.timetable.dialogs.datepicker.DatePickerViewModel
@@ -23,18 +26,11 @@ import com.stasenkots.studentstimetable.ui.timetable.dialogs.detele_dialog.Delet
 import com.stasenkots.studentstimetable.ui.timetable.dialogs.lesson_item_action.*
 
 import com.stasenkots.studentstimetable.ui.timetable.ui.main.SectionsPagerAdapter
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.time.LocalDate
 import java.util.*
-import java.util.concurrent.TimeUnit
 import kotlin.concurrent.schedule
 
 private const val DATE_PICKER_TAG = "Date Picker"
-const val LESSON_ITEM_ACTION_TAG = "Lesson item action"
-const val LESSON_ID_TAG = "Lesson id"
-const val DELETE_LESSON_TAG = "delete Lesson id"
-const val CURRENT_DATE_TAG = "date"
 
 class TimeTableActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTimeTableBinding
@@ -60,8 +56,9 @@ class TimeTableActivity : AppCompatActivity() {
         binding.tabs.tabMode = TabLayout.MODE_SCROLLABLE
         if (User.mode == MODE_STUDENT) binding.toolbar.menu.clear()
         else setToolbarListener()
-        datePickerViewModel.currentDate.observe(this, {
-            binding.viewPager.currentItem = it.dayOfWeek.value - 1
+        datePickerViewModel.currentDate.observe(this, { date ->
+            binding.viewPager.currentItem = date.dayOfWeek.value - 1
+            viewModel.selectedDate = date
         })
         binding.buttonCalendar.setOnClickListener {
             DatePickerFragment().show(supportFragmentManager, DATE_PICKER_TAG)

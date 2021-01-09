@@ -26,6 +26,12 @@ class EditHomeworkViewModel : ViewModel() {
         } ?: State(subject = subjectId, date = currentDate, absentUsers = emptyList())
         date=currentDate
     }
+    fun reinit(subjectId: String, currentDate: LocalDate) {
+        state = States.get().values.find {
+            it.date == currentDate &&
+                    it.subject == subjectId
+        } ?: State(subject = subjectId, date = currentDate, absentUsers = emptyList())
+    }
 
     fun sendState(
         homework: String,
@@ -33,7 +39,6 @@ class EditHomeworkViewModel : ViewModel() {
     ) {
         state.homework = homework
         state.comment = comment
-        state.date = date
         launchIO {
             try {
                 sendStateUseCase.doWork(SendStateUseCase.Params(state))

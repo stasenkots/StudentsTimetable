@@ -9,13 +9,15 @@ class StudentMapper @Inject constructor(){
     fun map(from:Student): StudentDb {
         return StudentDb(
             objectId = from.id,
-            name = from.name
+            name = from.name,
+            updatedAt = from.updatedAt
         )
     }
     fun map(from:StudentDb):Student{
         return Student(
             id = from.objectId,
-            name = from.name
+            name = from.name,
+            updatedAt = from.updatedAt
         )
     }
 }

@@ -17,6 +17,7 @@ class LessonMapper @Inject constructor(private val dayOfWeekMapper: DayOfWeekMap
         room = lessonResponse?.room.orEmpty(),
         dayOfWeek = dayOfWeekMapper.map(lessonResponse?.day),
         id = lessonResponse?.objectId.orEmpty(),
+        updatedAt = lessonResponse?.updatedAt.orEmpty(),
         subject = lessonResponse?.subjectId.orEmpty()
     )
     fun map(
@@ -36,6 +37,7 @@ class LessonMapper @Inject constructor(private val dayOfWeekMapper: DayOfWeekMap
         timeStart = from.getString("time_start").orEmpty(),
         timeEnd = from.getString("time_end").orEmpty(),
         room = from.getString("room").orEmpty(),
+        updatedAt = from.getString("updatedAt").orEmpty(),
         dayOfWeek =dayOfWeekMapper.map(from.getJSONObject("day"))
     )
 }

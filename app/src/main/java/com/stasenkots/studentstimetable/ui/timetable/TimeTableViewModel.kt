@@ -1,6 +1,7 @@
 package com.stasenkots.studentstimetable.ui.timetable
 
 import android.app.Application
+import android.icu.util.LocaleData
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -13,8 +14,9 @@ import com.stasenkots.logic.domain.all_data.db.CleanDatabaseUseCase
 import com.stasenkots.logic.domain.all_data.db.DatabaseUseCase
 import com.stasenkots.logic.domain.all_data.db.SaveDataToDatabaseUseCase
 import com.stasenkots.logic.domain.all_data.server.LoadAllDataUseCase
-import com.stasenkots.logic.utils.TAG
 import com.stasenkots.logic.utils.launchIO
+import java.time.LocalDate
+import java.util.*
 
 class TimeTableViewModel(val app: Application) : AndroidViewModel(app) {
 
@@ -22,6 +24,7 @@ class TimeTableViewModel(val app: Application) : AndroidViewModel(app) {
     private val subjectDao = SubjectDatabaseProvider.provide(app.applicationContext).getDao()
     private val stateDao = StateDatabaseProvider.provide(app.applicationContext).getDao()
     private val studentDao = StudentDatabaseProvider.provide(app.applicationContext).getDao()
+    var selectedDate: LocalDate =LocalDate.now()
     private val _isDataLoaded = MutableLiveData<Boolean>()
     private val _errorBus = MutableLiveData<Exception>()
     val errorBus: LiveData<Exception>

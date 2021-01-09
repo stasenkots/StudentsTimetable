@@ -1,20 +1,13 @@
 package com.stasenkots.studentstimetable.ui.setup.create_group
 
 
-import android.app.Application
-import android.content.Context
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.stasenkots.logic.domain.group.HasAnyGroupWithUseCase
 import com.stasenkots.logic.domain.group.SaveGroupUseCase
-import com.stasenkots.logic.domain.lesson.LoadLessonsUseCase
 import com.stasenkots.logic.domain.user.SaveUserUseCase
 import com.stasenkots.logic.entity.User
-import com.stasenkots.logic.utils.PREFS_NAME
 import com.stasenkots.logic.utils.launchIO
-import java.lang.Exception
 import java.util.*
 
 class CreateGroupViewModel : ViewModel() {

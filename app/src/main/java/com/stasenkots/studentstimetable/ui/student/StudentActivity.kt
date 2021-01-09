@@ -2,18 +2,13 @@ package com.stasenkots.studentstimetable.ui.student
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import androidx.lifecycle.ViewModelProvider
 import com.stasenkots.logic.entity.lesson.Lessons
-import com.stasenkots.studentstimetable.ACTION_VIEW_ABSENT_USERS
 import com.stasenkots.studentstimetable.R
+import com.stasenkots.studentstimetable.constants.ActionsConstants.ACTION_VIEW_ABSENT_USERS
+import com.stasenkots.studentstimetable.constants.MainActivityConstants.CURRENT_DATE_TAG
+import com.stasenkots.studentstimetable.constants.MainActivityConstants.LESSON_ID_TAG
 import com.stasenkots.studentstimetable.databinding.ActivityStudentBinding
-import com.stasenkots.studentstimetable.ui.homework.archive.HomeworksArchiveFragment
-import com.stasenkots.studentstimetable.ui.homework.edit.EditHomeworkFragment
 import com.stasenkots.studentstimetable.ui.student.absent_students.AbsentStudentsFragment
-import com.stasenkots.studentstimetable.ui.timetable.CURRENT_DATE_TAG
-import com.stasenkots.studentstimetable.ui.timetable.LESSON_ID_TAG
-import com.stasenkots.studentstimetable.ui.timetable.LESSON_ITEM_ACTION_TAG
 
 class StudentActivity : AppCompatActivity() {
     private lateinit var binding: ActivityStudentBinding

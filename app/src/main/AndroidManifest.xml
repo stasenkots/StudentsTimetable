@@ -21,23 +21,24 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.StudentsTimetable.NoActionBar">
             <intent-filter>
-                <action android:name="com.stasenkots.studentstimetable.ACTION_VIEW_ABSENT_USERS" />
+                <action android:name="com.stasenkots.studentstimetable.constants.ACTION_VIEW_ABSENT_USERS" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".ui.homework.HomeworkActivity" android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="com.stasenkots.studentstimetable.ACTION_EDIT_HOMEWORK" />
+
+                <action android:name="com.stasenkots.studentstimetable.constants.ACTION_EDIT_HOMEWORK" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.stasenkots.studentstimetable.ACTION_VIEW_HOMEWORKS_ARCHIVE" />
+                <action android:name="com.stasenkots.studentstimetable.constants.ACTION_VIEW_HOMEWORKS_ARCHIVE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".ui.lesson.LessonActivity" android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="com.stasenkots.studentstimetable.ACTION_EDIT_LESSON" />
+                <action android:name="com.stasenkots.studentstimetable.constants.ACTION_EDIT_LESSON" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -48,7 +49,7 @@
             android:label="@string/title_activity_time_table"
             android:theme="@style/Theme.StudentsTimetable.NoActionBar">
             <intent-filter>
-                <action android:name="com.stasenkots.studentstimetable.ACTION_DELETE_LESSON" />
+                <action android:name="com.stasenkots.studentstimetable.constants.ACTION_DELETE_LESSON" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

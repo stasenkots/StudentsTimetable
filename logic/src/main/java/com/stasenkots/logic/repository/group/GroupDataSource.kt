@@ -1,20 +1,21 @@
 package com.stasenkots.logic.repository.group
 
-import com.parse.ParseObject
-import com.parse.ParseQuery
 import com.stasenkots.logic.entity.User
+import com.stasenkots.logic.network.dto.group_id.request.GroupRequest
+import com.stasenkots.logic.network.networking.GroupApi
 import javax.inject.Inject
 
-class GroupDataSource @Inject constructor() {
-    //TODO rewrite with retrofit
-    fun hasAnyGroupWithID(id: String): Boolean {
-        val query = ParseQuery.getQuery<ParseObject>("group_ids")
-        query.whereEqualTo("group_id", id)
-        return query.first != null
+class GroupDataSource @Inject constructor(private val api:GroupApi) {
+    suspend fun hasAnyGroupWithID(id: String): Boolean {
+        val response=api.getGroup("{\"group_id\": \"$id\"}")
+        if (response.isSuccessful){
+            val groupResponse=response.body()
+            return groupResponse?.groupResponses?.isNotEmpty()?:false
+        }
+        else throw Exception(response.message())
     }
-    fun saveGroup() {
-        val groupIds = ParseObject("group_ids")
-        User.groupId?.let { groupIds.put("group_id", it) }
-        groupIds.save()
+    suspend fun saveGroup() {
+        val groupRequest = GroupRequest(User.groupId)
+        api.putGroup(groupRequest)
     }
 }

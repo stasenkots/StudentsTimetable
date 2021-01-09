@@ -14,6 +14,7 @@ class SubjectMapper @Inject constructor() {
             id = from?.objectId.orEmpty(),
             name = from?.name.orEmpty(),
             type = from?.type.orEmpty(),
+            updatedAt = from?.updatedAt.orEmpty(),
             teacher = from?.teacher.orEmpty(),
             subgroup = from?.subgroup.orEmpty()
         )
@@ -30,6 +31,7 @@ class SubjectMapper @Inject constructor() {
     fun map(from:ParseObject?)= Subject(
         id=from?.objectId?:throw Exception("Subject without id"),
         name = from.getString("name").orEmpty(),
+        updatedAt = from.getString("updatedAt").orEmpty(),
         teacher = from.getString("teacher").orEmpty(),
         subgroup = from.getString("subgroup").orEmpty(),
         type = from.getString("type").orEmpty()

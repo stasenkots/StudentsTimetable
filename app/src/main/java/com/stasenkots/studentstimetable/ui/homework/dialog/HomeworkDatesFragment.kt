@@ -37,12 +37,13 @@ class HomeworkDatesFragment : DialogFragment() {
         var checkedItem = 0
         return MaterialAlertDialogBuilder(requireContext())
             .setSingleChoiceItems(
-                datesStrings.toTypedArray(), 0
+                datesStrings.toTypedArray(), viewModel.checkedItem
             ) { dialog, which ->
                 checkedItem = which
             }
             .setPositiveButton(R.string.ok) { _: DialogInterface, _: Int ->
                 viewModel.setDates(checkedItem)
+                viewModel.checkedItem=checkedItem
             }
             .setNegativeButton(R.string.cancel) { dialogInterface: DialogInterface, i: Int ->
                 dialogInterface.dismiss()

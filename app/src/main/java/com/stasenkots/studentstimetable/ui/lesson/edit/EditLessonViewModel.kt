@@ -8,7 +8,6 @@ import com.stasenkots.logic.domain.lesson_item.GetLessonItemUseCase
 import com.stasenkots.logic.domain.lesson_item.SendLessonItemUseCase
 import com.stasenkots.logic.entity.LessonItem
 import com.stasenkots.logic.entity.subject.Subjects
-import com.stasenkots.logic.utils.TAG
 import com.stasenkots.logic.utils.launchIO
 import java.lang.Exception
 import java.time.LocalDate

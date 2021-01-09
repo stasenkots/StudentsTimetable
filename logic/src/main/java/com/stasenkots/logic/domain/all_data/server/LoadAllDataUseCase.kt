@@ -20,10 +20,13 @@ class LoadAllDataUseCase: ServerUseCase(){
     override suspend fun doWork(){
         val subjects = subjectRepository.getSubjects()
         Subjects.put(subjects)
+        subjectRepository.setLiveQuery()
         val lessons = lessonRepository.getLessons()
         Lessons.put(lessons)
+        lessonRepository.setLiveQuery()
         val states = stateRepository.getStates()
         States.put(states)
+        stateRepository.setLiveQuery()
         val students = studentRepository.getStudents()
         Students.put(students)
     }

@@ -65,7 +65,7 @@ class LessonRepository @Inject constructor(
         } else if (lessonsItems.value?.contains(lessonItem) == true) {
             lessonsItems.value?.remove(lessonItem)
         }
-
+        else return
         lessonsItems.value?.sortBy { it.timeStart }
         lessonsItems.postValue(lessonsItems.value)
     }

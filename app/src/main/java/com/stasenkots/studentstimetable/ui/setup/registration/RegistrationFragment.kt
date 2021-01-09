@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.navigation.fragment.findNavController
 import com.stasenkots.logic.entity.User
@@ -55,13 +56,11 @@ class RegistrationFragment : Fragment() {
             binding.textInputLayoutGroupId.error = null
         }
         viewModel.errorBus.observe(viewLifecycleOwner, {
-            if (it==null){
+            if (it == null) {
                 startActivity(Intent(context, TimeTableActivity::class.java))
                 activity?.finish()
-            }else {
-                showError(binding.root,
-                    { valid() }, it.message.toString()
-                )
+            } else {
+                Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show()
             }
         })
 

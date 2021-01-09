@@ -98,11 +98,12 @@ class EditHomeworkFragment : Fragment() {
     }
 
     private fun dayListener() {
-        HomeworkDatesFragment.newInstance(viewModel.state.subject, viewModel.state.date.toLong())
+        HomeworkDatesFragment.newInstance(viewModel.state.subject, viewModel.date.toLong())
             .show(requireActivity().supportFragmentManager, TAG_ALERT_DIALOG)
         homeworkDatesViewModel.day.observe(viewLifecycleOwner, { date ->
-            viewModel.date = date
             binding.day.text = date.parseToString()
+            viewModel.reinit(viewModel.state.subject,date)
+            bind()
         })
     }
 

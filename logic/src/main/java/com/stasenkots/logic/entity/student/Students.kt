@@ -1,11 +1,9 @@
 package com.stasenkots.logic.entity.student
 
 object Students {
-    internal val map = mutableMapOf<String, Student>()
+    internal var map = mutableMapOf<String, Student>()
     fun get() = map
-    fun put(students:List<Student>){
-        for (student in students) {
-            map[student.id]=student
-        }
+    fun put(students: List<Student>) {
+        map = students.associateBy { it.id }.toMutableMap()
     }
 }

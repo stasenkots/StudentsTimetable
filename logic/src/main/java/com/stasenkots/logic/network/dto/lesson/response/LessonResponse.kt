@@ -9,6 +9,8 @@ data class LessonResponse(
     val day: DayResponse? = null,
     @SerializedName("subject_id")
     val subjectId: String? = null,
+    @SerializedName("updatedAt")
+    val updatedAt:String?=null,
     @SerializedName("objectId")
     val objectId: String? = null,
     @SerializedName("room")

@@ -12,7 +12,7 @@ class HasAnyGroupWithUseCase {
             .create()
             .initializeHasAnyGroupWithIdUseCase(this)
     }
-     fun doWork(params:Params):Boolean{
+     suspend fun doWork(params:Params):Boolean{
         return groupRepository.hasAnyGroupWithID(params.id)
     }
     data class Params(

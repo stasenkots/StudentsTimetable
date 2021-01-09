@@ -8,7 +8,8 @@ class StudentMapper @Inject constructor(){
     fun map(from:StudentResponse):Student{
         return Student(
             id =from.objectId?:throw Exception("invalid student id"),
-            name = from.name.orEmpty()
+            name = from.name.orEmpty(),
+            updatedAt = from.updatedAt.orEmpty()
         )
     }
 }
