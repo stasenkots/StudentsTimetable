@@ -26,13 +26,6 @@ class PlaceholderFragment : Fragment() {
         with(pageViewModel) {
             setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?:1)
         }
-        val datePickerViewModel =
-            ViewModelProvider(requireActivity()).get(DatePickerViewModel::class.java)
-        datePickerViewModel.currentDate.observe(this, {
-            pageViewModel.setDate(it)
-            pageViewModel.setLiveQuery(this@PlaceholderFragment)
-        })
-
     }
 
     override fun onCreateView(
@@ -46,10 +39,9 @@ class PlaceholderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.recycleViewTimeTable.layoutManager = LinearLayoutManager(context)
         binding.recycleViewTimeTable.adapter = TimeTableAdapter(emptyList())
-        pageViewModel.setDate(timeTableViewModel.selectedDate)
-        pageViewModel.setLiveQuery(this@PlaceholderFragment)
+        pageViewModel.setDate(viewLifecycleOwner,timeTableViewModel.selectedDate)
         timeTableViewModel.isDataLoaded.observe(viewLifecycleOwner,{
-            pageViewModel.getLessons()
+            pageViewModel.getLessons(viewLifecycleOwner)
         })
         pageViewModel.lessons.observe(viewLifecycleOwner, { lessonItems ->
                 val adapter = binding.recycleViewTimeTable.adapter as TimeTableAdapter
@@ -61,6 +53,11 @@ class PlaceholderFragment : Fragment() {
                 }
 
             })
+        val datePickerViewModel =
+            ViewModelProvider(requireActivity()).get(DatePickerViewModel::class.java)
+        datePickerViewModel.currentDate.observe(viewLifecycleOwner, {
+            pageViewModel.setDate(viewLifecycleOwner,it)
+        })
 
     }
 

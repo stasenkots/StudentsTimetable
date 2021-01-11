@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.ads.*
 import com.google.android.material.tabs.TabLayout
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.stasenkots.logic.entity.User
 import com.stasenkots.logic.utils.MODE_STUDENT
 import com.stasenkots.logic.utils.launchUI
@@ -75,15 +76,21 @@ class TimeTableActivity : AppCompatActivity() {
     }
 
     private fun initAd() {
-        MobileAds.initialize(this)
         mInterstitialAd = InterstitialAd(this)
         mInterstitialAd.adUnitId = ADS_ID
-        mInterstitialAd.loadAd(AdRequest.Builder().build())
+        mInterstitialAd.loadAd(AdRequest.Builder()
+        .build())
         val timer = Timer()
-        timer.schedule(30 * 1000) {
-            launchUI {
-                if (mInterstitialAd.isLoaded) {
-                    mInterstitialAd.show()
+        mInterstitialAd.adListener = object : AdListener() {
+            override fun onAdFailedToLoad(error: LoadAdError?) {
+                FirebaseCrashlytics.getInstance().log(error?.message.orEmpty())
+            }
+
+            override fun onAdLoaded() {
+                timer.schedule(30 * 1000) {
+                    launchUI {
+                        mInterstitialAd.show()
+                    }
                 }
             }
         }

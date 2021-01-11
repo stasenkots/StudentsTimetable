@@ -5,6 +5,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 
 import androidx.work.*
+import com.google.android.gms.ads.MobileAds
 import com.parse.Parse
 import com.stasenkots.studentstimetable.constants.AppConstants.NOTIFICATION_CHANNEL_ID
 import com.stasenkots.studentstimetable.workmanager.CheckForUpdatesWorker
@@ -26,6 +27,8 @@ class App : Application() {
         )
         createNotificationChannel()
         createUpdatesWork()
+        MobileAds.initialize(this)
+
 
     }
 

@@ -29,21 +29,22 @@ class PageViewModel(app: Application) : AndroidViewModel(app) {
         _index = index
     }
 
-    fun setDate(currentDate: LocalDate) {
+    fun setDate(lifecycleOwner: LifecycleOwner,currentDate: LocalDate) {
         val additionalDays: Long =
             _index.toLong() - currentDate.dayOfWeek.value
         _currentDate = currentDate.plusDays(additionalDays)
-        getLessons()
+        getLessons(lifecycleOwner)
     }
 
-    fun getLessons() {
+    fun getLessons(lifecycleOwner: LifecycleOwner) {
         val list = getLessonItemsUseCase.doWork(GetLessonItemsUseCase.Params(_currentDate))
             .sortedBy { it.timeStart }.toMutableList()
         _lessons.postValue(list)
+        setLiveQuery(lifecycleOwner)
     }
 
 
-    fun setLiveQuery(lifecycleOwner: LifecycleOwner) {
+    private fun setLiveQuery(lifecycleOwner: LifecycleOwner) {
         setLiveQueryUseCase.doWork(
             SetLiveQueryUseCase.Params(
                 lifecycleOwner,

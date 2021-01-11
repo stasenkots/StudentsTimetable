@@ -1,6 +1,5 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -8,11 +7,11 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_name"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginHorizontal="15dp"
+        app:layout_constraintTop_toTopOf="parent"
         android:hint="@string/subject_name">
 
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -27,9 +26,8 @@
         android:id="@+id/layout_teacher_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginHorizontal="15dp"
+        app:layout_constraintTop_toBottomOf="@id/layout_name"
         android:hint="@string/teacher">
 
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -41,11 +39,10 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_room"
+        app:layout_constraintTop_toBottomOf="@id/layout_teacher_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginHorizontal="15dp"
         android:hint="@string/room">
 
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -58,11 +55,10 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_subgroup"
+        app:layout_constraintTop_toBottomOf="@id/layout_room"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginHorizontal="15dp"
         android:hint="@string/subgroup">
 
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -80,9 +76,8 @@
         android:id="@+id/layout_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginHorizontal="15dp"
+        app:layout_constraintTop_toBottomOf="@id/layout_subgroup"
         android:hint="@string/lesson_type"
         app:endIconMode="custom">
 
@@ -96,10 +91,10 @@
 
     <TextView
         android:id="@+id/day"
+        app:layout_constraintTop_toBottomOf="@id/layout_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginHorizontal="15dp"
         android:paddingVertical="20dp"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
@@ -109,8 +104,10 @@
         app:drawableTint="@color/dark_grey" />
 
     <View
+        android:id="@+id/div1"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        app:layout_constraintTop_toBottomOf="@id/day"
         android:layout_marginHorizontal="15dp"
         android:background="@color/dark_grey" />
 
@@ -118,28 +115,30 @@
         android:id="@+id/start_lesson"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginHorizontal="15dp"
         android:drawablePadding="5dp"
         android:paddingVertical="20dp"
         android:paddingStart="15dp"
         android:text="@string/start"
+        app:layout_constraintTop_toBottomOf="@id/div1"
         android:textColor="@color/dark_grey"
         app:drawableStartCompat="@drawable/ic_time"
         app:drawableTint="@color/dark_grey"/>
 
     <View
+        android:id="@+id/div2"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        app:layout_constraintTop_toBottomOf="@id/start_lesson"
         android:layout_marginHorizontal="15dp"
         android:background="@color/dark_grey" />
 
     <TextView
         android:id="@+id/end_lesson"
+        app:layout_constraintTop_toBottomOf="@id/start_lesson"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginHorizontal="15dp"
         android:drawablePadding="5dp"
         android:paddingVertical="20dp"
         android:paddingStart="15dp"
@@ -149,6 +148,7 @@
         app:drawableTint="@color/dark_grey"/>
 
     <View
+        app:layout_constraintTop_toBottomOf="@id/end_lesson"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginHorizontal="15dp"
@@ -158,12 +158,14 @@
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/button_save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/end_lesson" />
 
     <Button
+        app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/button_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -171,6 +173,6 @@
         android:layout_marginBottom="10dp"
         android:layout_gravity="bottom"
         android:text="@string/save"
-        app:layout_constraintBottom_toTopOf="@id/button_student_mode" />
+        />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

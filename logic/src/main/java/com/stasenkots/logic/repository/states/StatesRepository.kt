@@ -30,42 +30,49 @@ class StatesRepository @Inject constructor(
             throw Exception(response.message())
         }
     }
-    suspend fun deleteState(id:String){
+
+    suspend fun deleteState(id: String) {
         dataSource.deleteStateFromDb(id)
     }
-    suspend fun getStateFromDb(dao: StateDao):List<State>{
+
+    suspend fun getStateFromDb(dao: StateDao): List<State> {
         return dataSource.getStatesFromDb(dao).map {
             dbMapper.map(it)
         }
     }
-    suspend fun cleanDb(dao: StateDao){
+
+    suspend fun cleanDb(dao: StateDao) {
         dataSource.cleanDb(dao)
     }
-    suspend fun saveStatesToDb(dao: StateDao,list: List<State>){
+
+    suspend fun saveStatesToDb(dao: StateDao, list: List<State>) {
         dataSource.saveStatesToDb(dao, list.map { dbMapper.map(it) })
     }
-    suspend fun updateStateInDb(state: State,dao: StateDao){
-        dataSource.updateStateInDb(dbMapper.map(state),dao)
+
+    suspend fun updateStateInDb(state: State, dao: StateDao) {
+        dataSource.updateStateInDb(dbMapper.map(state), dao)
     }
-    suspend fun deleteStateFromDb(id:String, dao: StateDao){
-        dataSource.deleteStateFromDb(id,dao)
+
+    suspend fun deleteStateFromDb(id: String, dao: StateDao) {
+        dataSource.deleteStateFromDb(id, dao)
     }
+
     fun setLiveQuery() {
         val query = ParseQuery.getQuery<ParseObject>("state")
         val subscriptionHandling: SubscriptionHandling<ParseObject> =
             parseLiveQueryClient.subscribe(query)
         subscriptionHandling.handleEvents { _, event, mObject ->
             val state = mapper.map(mObject)
-            when(event){
-                SubscriptionHandling.Event.DELETE->{
+            when (event) {
+                SubscriptionHandling.Event.DELETE -> {
                     States.map.remove(state.id)
                     States.deletedObject.postValue(state.id)
                 }
-                SubscriptionHandling.Event.UPDATE-> {
+                SubscriptionHandling.Event.UPDATE -> {
                     States.map[state.id] = state
                     States.modifiedObject.postValue(state)
                 }
-                SubscriptionHandling.Event.CREATE->{
+                SubscriptionHandling.Event.CREATE -> {
                     States.map[state.id] = state
                     States.createdObject.postValue(state)
                 }
@@ -76,24 +83,19 @@ class StatesRepository @Inject constructor(
             throw Exception(error)
         }
     }
-    suspend fun insertStateInDb(state: State, dao: StateDao){
-        dataSource.insertStateInDb(dbMapper.map(state),dao)
+
+    suspend fun insertStateInDb(state: State, dao: StateDao) {
+        dataSource.insertStateInDb(dbMapper.map(state), dao)
     }
+
     fun updateData(lessonsItems: MutableLiveData<MutableList<LessonItem>>, state: State) {
-        for (lessonItem in lessonsItems.value ?: emptyList()) {
-            if (lessonItem.subject == state.subject && lessonItem.date == state.date) {
-                lessonItem.state?.let {
-                    it.date = state.date
-                    it.homework = state.homework
-                    it.comment = state.comment
-                    it.absentUsers = state.absentUsers
-                }
-                if (lessonItem.state==null){
-                    lessonItem.state=state
-                }
+        lessonsItems.value?.let { items ->
+            val lessonItem = items.find { it.subject == state.subject && it.date == state.date }
+            lessonItem?.let {
+                lessonItem.state = state
+                lessonsItems.postValue(items)
             }
         }
-        lessonsItems.postValue(lessonsItems.value)
     }
 
     fun moveStates(subjectId: String, oldDayOfWeek: DayOfWeek, newDayOfWeek: DayOfWeek) {

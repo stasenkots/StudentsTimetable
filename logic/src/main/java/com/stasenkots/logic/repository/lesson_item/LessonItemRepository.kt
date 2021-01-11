@@ -73,11 +73,13 @@ class LessonItemRepository @Inject constructor(
             }
         })
         Lessons.deletedObject.observe(lifecycleOwner, { id ->
-            lessonsItems.value?.removeIf { it.lesson == id }
-            launchIO {
-                lessonRepository.deleteLessonFromDb(id, lessonDao)
+            lessonsItems.value?.let { items ->
+                items.removeIf { it.lesson == id }
+                launchIO {
+                    lessonRepository.deleteLessonFromDb(id, lessonDao)
+                }
+                lessonsItems.postValue(items)
             }
-            lessonsItems.postValue(lessonsItems.value)
         })
     }
 
@@ -112,22 +114,22 @@ class LessonItemRepository @Inject constructor(
                 statesRepository.updateStateInDb(state, stateDao)
             }
         })
-        States.createdObject.observe(lifecycleOwner,{state->
+        States.createdObject.observe(lifecycleOwner, { state ->
             statesRepository.updateData(lessonsItems, state)
             launchIO {
                 statesRepository.insertStateInDb(state, stateDao)
             }
         })
         States.deletedObject.observe(lifecycleOwner, { id ->
-            lessonsItems.value?.forEach { lessonItem ->
-                if (lessonItem.state?.id == id) {
-                    lessonItem.state = null
+            lessonsItems.value?.let { items ->
+                items.find { it.state?.id == id }?.also {
+                    it.state=null
                     launchIO {
                         statesRepository.deleteStateFromDb(id, stateDao)
                     }
+                    lessonsItems.postValue(items)
                 }
             }
-            lessonsItems.postValue(lessonsItems.value)
         })
     }
 

@@ -41,6 +41,7 @@ android {
 
 dependencies {
     implementation project(":logic")
+    implementation 'com.google.android.gms:play-services-basement:17.5.0'
     implementation "com.google.android.gms:play-services-ads:$google_ads"
     implementation 'com.google.firebase:firebase-crashlytics:17.3.0'
     implementation 'com.google.firebase:firebase-analytics:18.0.0'
