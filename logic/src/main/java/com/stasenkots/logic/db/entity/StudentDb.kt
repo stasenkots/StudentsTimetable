@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "student_table")
 data class StudentDb(
     val name: String,
-    val updatedAt:String,
+    val updatedAt:Long,
     @PrimaryKey
     val objectId: String
 )

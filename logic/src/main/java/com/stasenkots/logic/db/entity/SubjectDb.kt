@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
 data class SubjectDb(
     @PrimaryKey
     val objectId: String,
-    val updatedAt:String,
+    val updatedAt:Long,
     val name: String,
     val subgroup: String,
     val type: String,

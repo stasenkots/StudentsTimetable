@@ -88,15 +88,6 @@ class StatesRepository @Inject constructor(
         dataSource.insertStateInDb(dbMapper.map(state), dao)
     }
 
-    fun updateData(lessonsItems: MutableLiveData<MutableList<LessonItem>>, state: State) {
-        lessonsItems.value?.let { items ->
-            val lessonItem = items.find { it.subject == state.subject && it.date == state.date }
-            lessonItem?.let {
-                lessonItem.state = state
-                lessonsItems.postValue(items)
-            }
-        }
-    }
 
     fun moveStates(subjectId: String, oldDayOfWeek: DayOfWeek, newDayOfWeek: DayOfWeek) {
         val days = newDayOfWeek - oldDayOfWeek

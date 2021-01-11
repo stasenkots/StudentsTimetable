@@ -2,7 +2,7 @@ package com.stasenkots.logic.db.mappers
 
 import com.stasenkots.logic.db.entity.StateDb
 import com.stasenkots.logic.entity.state.State
-import com.stasenkots.logic.utils.parseDate
+import com.stasenkots.logic.utils.toDate
 import com.stasenkots.logic.utils.parseToString
 import org.json.JSONArray
 import javax.inject.Inject
@@ -15,7 +15,7 @@ class StateMapper @Inject constructor() {
             comment = from.comment,
             absentUsers = parseFromJSONArray(from.absentUsers),
             updatedAt = from.updatedAt,
-            date = from.date.parseDate(),
+            date = from.date.toDate(),
             subject = from.subjectId
         )
 

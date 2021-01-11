@@ -5,21 +5,27 @@ import com.stasenkots.logic.entity.User
 import com.stasenkots.logic.entity.lesson.Lesson
 import com.stasenkots.logic.network.dto.lesson.request.LessonRequest
 import com.stasenkots.logic.network.dto.lesson.response.LessonResponse
+import com.stasenkots.logic.utils.toLong
 import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.time.LocalDate
 import javax.inject.Inject
 
-class LessonMapper @Inject constructor(private val dayOfWeekMapper: DayOfWeekMapper ){
+class LessonMapper @Inject constructor(
+    private val dayOfWeekMapper: DayOfWeekMapper,
+) {
     fun map(
-        lessonResponse: LessonResponse?,
+        from: LessonResponse?,
     ) = Lesson(
-        timeStart = lessonResponse?.timeStart.orEmpty(),
-        timeEnd = lessonResponse?.timeEnd.orEmpty(),
-        room = lessonResponse?.room.orEmpty(),
-        dayOfWeek = dayOfWeekMapper.map(lessonResponse?.day),
-        id = lessonResponse?.objectId.orEmpty(),
-        updatedAt = lessonResponse?.updatedAt.orEmpty(),
-        subject = lessonResponse?.subjectId.orEmpty()
+        timeStart = from?.timeStart.orEmpty(),
+        timeEnd = from?.timeEnd.orEmpty(),
+        room = from?.room.orEmpty(),
+        dayOfWeek = dayOfWeekMapper.map(from?.day),
+        id = from?.objectId.orEmpty(),
+        updatedAt = from?.updatedAt.orEmpty().toLong(),
+        subject = from?.subjectId.orEmpty()
     )
+
     fun map(
         lesson: Lesson,
     ) = LessonRequest(
@@ -31,13 +37,13 @@ class LessonMapper @Inject constructor(private val dayOfWeekMapper: DayOfWeekMap
         groupId = User.groupId
     )
 
-    fun map(from: ParseObject?)= Lesson(
-        id = from?.objectId?:throw Exception("Empty lesson id"),
+    fun map(from: ParseObject?) = Lesson(
+        id = from?.objectId ?: throw Exception("Empty lesson id"),
         subject = from.getString("subject_id").orEmpty(),
         timeStart = from.getString("time_start").orEmpty(),
         timeEnd = from.getString("time_end").orEmpty(),
         room = from.getString("room").orEmpty(),
-        updatedAt = from.getString("updatedAt").orEmpty(),
-        dayOfWeek =dayOfWeekMapper.map(from.getJSONObject("day"))
+        updatedAt = from.updatedAt.time,
+        dayOfWeek = dayOfWeekMapper.map(from.getJSONObject("day"))
     )
 }

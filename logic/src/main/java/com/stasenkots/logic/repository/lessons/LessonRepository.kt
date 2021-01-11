@@ -1,20 +1,14 @@
 package com.stasenkots.logic.repository.lessons
 
-import androidx.lifecycle.MutableLiveData
 import com.parse.ParseObject
 import com.parse.ParseQuery
 import com.parse.livequery.ParseLiveQueryClient
 import com.parse.livequery.SubscriptionHandling
 import com.stasenkots.logic.db.dao.LessonDao
-import com.stasenkots.logic.entity.LessonItem
 import com.stasenkots.logic.entity.lesson.Lesson
 import com.stasenkots.logic.entity.lesson.Lessons
-import com.stasenkots.logic.network.mappers.LessonItemMapper
 import com.stasenkots.logic.network.mappers.LessonMapper
-import com.stasenkots.logic.utils.convertToDayOfWeek
-
-import java.lang.Exception
-import java.time.LocalDate
+import java.util.*
 import javax.inject.Inject
 
 class LessonRepository @Inject constructor(
@@ -52,32 +46,9 @@ class LessonRepository @Inject constructor(
         dataSource.deleteLessonFromDb(id, dao)
     }
 
-    fun updateData(
-        lesson: Lesson,
-        currentDate: LocalDate,
-        lessonsItems: MutableLiveData<MutableList<LessonItem>>,
-        lessonItemMapper: LessonItemMapper
-    ) {
-        lessonsItems.value?.let { items ->
-            val dayOfWeek = currentDate.convertToDayOfWeek()
-            val lessonItem = lessonItemMapper.map(lesson, currentDate)
-            if (lesson.dayOfWeek == dayOfWeek) {
-                val index = items.indexOf(lessonItem)
-                if (index == -1) {
-                    items.add(lessonItem)
-                } else {
-                    items[index] = lessonItem
-                }
-            } else if (items.contains(lessonItem)) {
-                items.remove(lessonItem)
-            } else return
-
-            items.sortBy { it.timeStart }
-            lessonsItems.postValue(items)
-        }
-    }
 
     suspend fun sendLesson(lesson: Lesson) {
+
         val request = mapper.map(lesson)
         if (lesson.id.isEmpty()) {
             dataSource.putLesson(request)

@@ -57,22 +57,6 @@ class SubjectRepository @Inject constructor(
 
     }
 
-    fun updateData(lessonsItems: MutableLiveData<MutableList<LessonItem>>, subject: Subject) {
-        lessonsItems.value?.let {items->
-            val lessonsItem = items.find { it.subject == subject.id }
-            lessonsItem?.let {
-                with(it) {
-                    if (this.subject == subject.id) {
-                        type = subject.type
-                        name = subject.name
-                        teacher = subject.teacher
-                        subgroup = subject.subgroup
-                    }
-                }
-                lessonsItems.postValue(items)
-            }
-        }
-    }
 
     suspend fun updateSubjectInDb(subject: Subject, dao: SubjectDao) {
         dataSource.updateSubjectInDb(dbMapper.map(subject), dao)
