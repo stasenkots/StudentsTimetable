@@ -19,6 +19,7 @@ class PageViewModel(app: Application) : AndroidViewModel(app) {
     private val _lessons = MutableLiveData<MutableList<LessonItem>>()
     private val getLessonItemsUseCase = GetLessonItemsUseCase()
     private val setLiveQueryUseCase = SetLiveQueryUseCase()
+    var hasLiveQuery=false
     val lessons: LiveData<MutableList<LessonItem>>
         get() = _lessons
     private val lessonDao = LessonDatabaseProvider.provide(app.applicationContext).getDao()
@@ -29,22 +30,22 @@ class PageViewModel(app: Application) : AndroidViewModel(app) {
         _index = index
     }
 
-    fun setDate(lifecycleOwner: LifecycleOwner,currentDate: LocalDate) {
+    fun setDate(currentDate: LocalDate) {
         val additionalDays: Long =
             _index.toLong() - currentDate.dayOfWeek.value
         _currentDate = currentDate.plusDays(additionalDays)
-        getLessons(lifecycleOwner)
+        getLessons()
     }
 
-    fun getLessons(lifecycleOwner: LifecycleOwner) {
+    fun getLessons() {
         val list = getLessonItemsUseCase.doWork(GetLessonItemsUseCase.Params(_currentDate))
             .sortedBy { it.timeStart }.toMutableList()
+        hasLiveQuery=false
         _lessons.postValue(list)
-        setLiveQuery(lifecycleOwner)
     }
 
 
-    private fun setLiveQuery(lifecycleOwner: LifecycleOwner) {
+    fun setLiveQuery(lifecycleOwner: LifecycleOwner) {
         setLiveQueryUseCase.doWork(
             SetLiveQueryUseCase.Params(
                 lifecycleOwner,
@@ -55,6 +56,7 @@ class PageViewModel(app: Application) : AndroidViewModel(app) {
                 stateDao
             )
         )
+        hasLiveQuery=true
     }
 
 }
