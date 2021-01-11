@@ -1,6 +1,7 @@
 package com.stasenkots.logic.repository.lesson_item
 
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.stasenkots.logic.db.dao.LessonDao
 import com.stasenkots.logic.db.dao.StateDao
@@ -41,97 +42,85 @@ class LessonItemRepository @Inject constructor(
     }
 
     fun setLiveQuery(
-        lifecycleOwner: LifecycleOwner,
-        lessonsItems: MutableLiveData<MutableList<LessonItem>>,
-        currentDate: LocalDate,
         lessonDao: LessonDao,
         subjectDao: SubjectDao,
         stateDao: StateDao
-    ) {
-        setLessonLiveQuery(lifecycleOwner, lessonsItems, currentDate, lessonDao)
-        setSubjectLiveQuery(lifecycleOwner, lessonsItems, subjectDao)
-        setStatesLiveQuery(lifecycleOwner, lessonsItems, stateDao)
+    ):LiveData<Unit> {
+        val liveQuery = MutableLiveData<Unit>()
+        setLessonLiveQuery(lessonDao, liveQuery)
+        setSubjectLiveQuery(subjectDao,liveQuery)
+        setStatesLiveQuery(stateDao,liveQuery)
+        return liveQuery
 
     }
 
     private fun setLessonLiveQuery(
-        lifecycleOwner: LifecycleOwner,
-        lessonsItems: MutableLiveData<MutableList<LessonItem>>,
-        currentDate: LocalDate,
-        lessonDao: LessonDao
+        lessonDao: LessonDao,
+        liveQuery: MutableLiveData<Unit>
     ) {
-        Lessons.modifiedObject.observe(lifecycleOwner, { lesson ->
-            lessonRepository.updateData(lesson, currentDate, lessonsItems, lessonItemMapper)
+        Lessons.modifiedObject.observeForever { lesson ->
+            liveQuery.postValue(Unit)
             launchIO {
                 lessonRepository.updateLessonInDb(lesson, lessonDao)
             }
-        })
-        Lessons.createdObject.observe(lifecycleOwner, { lesson ->
-            lessonRepository.updateData(lesson, currentDate, lessonsItems, lessonItemMapper)
+        }
+        Lessons.createdObject.observeForever { lesson ->
+            liveQuery.postValue(Unit)
             launchIO {
                 lessonRepository.insertLessonInDb(lesson, lessonDao)
             }
-        })
-        Lessons.deletedObject.observe(lifecycleOwner, { id ->
-            lessonsItems.value?.let { items ->
-                items.removeIf { it.lesson == id }
-                launchIO {
-                    lessonRepository.deleteLessonFromDb(id, lessonDao)
-                }
-                lessonsItems.postValue(items)
+        }
+        Lessons.deletedObject.observeForever { id ->
+            liveQuery.postValue(Unit)
+            launchIO {
+                lessonRepository.deleteLessonFromDb(id, lessonDao)
             }
-        })
+        }
     }
 
 
     private fun setSubjectLiveQuery(
-        lifecycleOwner: LifecycleOwner,
-        lessonsItems: MutableLiveData<MutableList<LessonItem>>,
-        subjectDao: SubjectDao
+        subjectDao: SubjectDao,
+        liveQuery: MutableLiveData<Unit>
     ) {
-        Subjects.modifiedObject.observe(lifecycleOwner, { subject ->
-            subjectRepository.updateData(lessonsItems, subject)
+        Subjects.modifiedObject.observeForever { subject ->
+            liveQuery.postValue(Unit)
             launchIO {
                 subjectRepository.updateSubjectInDb(subject, subjectDao)
             }
-        })
-        Subjects.createdObject.observe(lifecycleOwner, { subject ->
-            subjectRepository.updateData(lessonsItems, subject)
+        }
+        Subjects.createdObject.observeForever { subject ->
+            liveQuery.postValue(Unit)
             launchIO {
                 subjectRepository.insertSubjectInDb(subject, subjectDao)
             }
-        })
+        }
     }
 
     private fun setStatesLiveQuery(
-        lifecycleOwner: LifecycleOwner,
-        lessonsItems: MutableLiveData<MutableList<LessonItem>>,
-        stateDao: StateDao
+        stateDao: StateDao,
+        liveQuery: MutableLiveData<Unit>
     ) {
-        States.modifiedObject.observe(lifecycleOwner, { state ->
-            statesRepository.updateData(lessonsItems, state)
+        States.modifiedObject.observeForever { state ->
+            liveQuery.postValue(Unit)
             launchIO {
                 statesRepository.updateStateInDb(state, stateDao)
             }
-        })
-        States.createdObject.observe(lifecycleOwner, { state ->
-            statesRepository.updateData(lessonsItems, state)
+        }
+        States.createdObject.observeForever { state ->
+            liveQuery.postValue(Unit)
             launchIO {
                 statesRepository.insertStateInDb(state, stateDao)
             }
-        })
-        States.deletedObject.observe(lifecycleOwner, { id ->
-            lessonsItems.value?.let { items ->
-                items.find { it.state?.id == id }?.also {
-                    it.state=null
-                    launchIO {
-                        statesRepository.deleteStateFromDb(id, stateDao)
-                    }
-                    lessonsItems.postValue(items)
-                }
+        }
+        States.deletedObject.observeForever { id ->
+            liveQuery.postValue(Unit)
+            launchIO {
+                statesRepository.deleteStateFromDb(id, stateDao)
             }
-        })
+        }
     }
+
 
     fun getLessonItem(id: String?, date: LocalDate): LessonItem {
         val lesson = Lessons.get()[id]

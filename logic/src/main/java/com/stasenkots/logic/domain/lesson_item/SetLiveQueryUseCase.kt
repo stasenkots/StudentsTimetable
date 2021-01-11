@@ -24,11 +24,8 @@ class SetLiveQueryUseCase {
             .initializeSetLiveQueryUseCase(this)
     }
 
-    fun doWork(params: Params) {
-        lessonItemRepository.setLiveQuery(
-            params.lifecycleOwner,
-            params.lessonItems,
-            params.currentDate,
+    fun doWork(params: Params) :LiveData<Unit>{
+        return lessonItemRepository.setLiveQuery(
             params.lessonDao,
             params.subjectDao,
             params.stateDao
@@ -36,9 +33,6 @@ class SetLiveQueryUseCase {
     }
 
     data class Params(
-        val lifecycleOwner: LifecycleOwner,
-        val lessonItems: MutableLiveData<MutableList<LessonItem>>,
-        val currentDate: LocalDate,
         val lessonDao: LessonDao,
         val subjectDao: SubjectDao,
         val stateDao: StateDao

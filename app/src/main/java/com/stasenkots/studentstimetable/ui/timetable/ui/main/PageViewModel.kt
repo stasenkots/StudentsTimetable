@@ -2,6 +2,7 @@ package com.stasenkots.studentstimetable.ui.timetable.ui.main
 
 import android.app.Application
 import androidx.lifecycle.*
+import androidx.lifecycle.Observer
 import com.stasenkots.logic.db.database.LessonDatabaseProvider
 import com.stasenkots.logic.db.database.StateDatabaseProvider
 import com.stasenkots.logic.db.database.SubjectDatabaseProvider
@@ -40,7 +41,6 @@ class PageViewModel(app: Application) : AndroidViewModel(app) {
     fun getLessons() {
         val list = getLessonItemsUseCase.doWork(GetLessonItemsUseCase.Params(_currentDate))
             .sortedBy { it.timeStart }.toMutableList()
-        hasLiveQuery=false
         _lessons.postValue(list)
     }
 
@@ -48,14 +48,13 @@ class PageViewModel(app: Application) : AndroidViewModel(app) {
     fun setLiveQuery(lifecycleOwner: LifecycleOwner) {
         setLiveQueryUseCase.doWork(
             SetLiveQueryUseCase.Params(
-                lifecycleOwner,
-                _lessons,
-                _currentDate,
                 lessonDao,
                 subjectDao,
                 stateDao
             )
-        )
+        ).observe(lifecycleOwner, Observer{
+            getLessons()
+        })
         hasLiveQuery=true
     }
 
