@@ -20,7 +20,6 @@ class PageViewModel(app: Application) : AndroidViewModel(app) {
     private val _lessons = MutableLiveData<MutableList<LessonItem>>()
     private val getLessonItemsUseCase = GetLessonItemsUseCase()
     private val setLiveQueryUseCase = SetLiveQueryUseCase()
-    var hasLiveQuery=false
     val lessons: LiveData<MutableList<LessonItem>>
         get() = _lessons
     private val lessonDao = LessonDatabaseProvider.provide(app.applicationContext).getDao()
@@ -55,7 +54,6 @@ class PageViewModel(app: Application) : AndroidViewModel(app) {
         ).observe(lifecycleOwner, Observer{
             getLessons()
         })
-        hasLiveQuery=true
     }
 
 }

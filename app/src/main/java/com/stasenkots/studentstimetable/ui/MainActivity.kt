@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        MobileAds.initialize(this){ }
         viewModel.isUserRegistered.observe(this, {
             if (it == false || User.groupId.isEmpty()) {
                 val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -52,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         }
         )
         viewModel.errorBus.observe(this, {
-            showError(binding.root, getString(R.string.unexpexted_error))
+            showError(binding.root, getString(R.string.no_internet_connection))
         })
     }
 

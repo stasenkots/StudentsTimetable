@@ -60,6 +60,7 @@ class RegistrationFragment : Fragment() {
                 startActivity(Intent(context, TimeTableActivity::class.java))
                 activity?.finish()
             } else {
+                binding.registrationProgressBar.visibility=View.GONE
                 Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show()
             }
         })

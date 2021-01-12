@@ -7,7 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.stasenkots.logic.entity.User
+import com.stasenkots.studentstimetable.R
 import com.stasenkots.studentstimetable.databinding.FragmentCreateGroupBinding
 import com.stasenkots.studentstimetable.showError
 import com.stasenkots.studentstimetable.ui.timetable.TimeTableActivity
@@ -43,15 +45,12 @@ class CreateGroupFragment : Fragment() {
         binding.buttonContinue.setOnClickListener {
             viewModel.save()
         }
-        viewModel.isSaved.observe(viewLifecycleOwner, { saved ->
+        viewModel.isSaved.observe(viewLifecycleOwner, { _ ->
             startActivity(Intent(context, TimeTableActivity::class.java))
             activity?.finish()
         })
-        viewModel.errorBus.observe(viewLifecycleOwner,{
-            //TODO check if works
-            showError(binding.root, {
-                viewModel.save()
-            })
+        viewModel.errorBus.observe(viewLifecycleOwner, {
+            Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show()
         })
 
 

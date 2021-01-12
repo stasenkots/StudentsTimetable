@@ -42,9 +42,9 @@ class PlaceholderFragment : Fragment() {
         pageViewModel.setDate(timeTableViewModel.selectedDate)
         timeTableViewModel.isDataLoaded.observe(viewLifecycleOwner,{
             pageViewModel.getLessons()
+            pageViewModel.setLiveQuery(viewLifecycleOwner)
         })
         pageViewModel.lessons.observe(viewLifecycleOwner, { lessonItems ->
-            if(!pageViewModel.hasLiveQuery)pageViewModel.setLiveQuery(viewLifecycleOwner)
                 val adapter = binding.recycleViewTimeTable.adapter as TimeTableAdapter
                 adapter.update(lessonItems)
                 if (lessonItems.isEmpty()) {
