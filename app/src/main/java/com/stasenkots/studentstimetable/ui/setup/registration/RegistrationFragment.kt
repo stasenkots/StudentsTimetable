@@ -48,7 +48,7 @@ class RegistrationFragment : Fragment() {
                     viewModel.saveUser(binding.textInputGroupId.text.toString())
                 }
                 false -> binding.textInputLayoutGroupId.error =
-                    getString(R.string.group_does_not_exist)
+                    getString(R.string.group_with_given_id_doesnt_exist)
             }
 
         })

@@ -14,7 +14,7 @@ object ActionsConstants {
     val activitiesActions = mapOf(
         R.string.edit to ACTION_EDIT_LESSON,
         R.string.add to ACTION_EDIT_LESSON,
-        R.string.add_homework to ACTION_EDIT_HOMEWORK,
+        R.string.homework to ACTION_EDIT_HOMEWORK,
         R.string.archive_homeworks to ACTION_VIEW_HOMEWORKS_ARCHIVE,
         R.string.delete to ACTION_DELETE_LESSON,
         R.string.list_of_passed_users to ACTION_VIEW_ABSENT_USERS

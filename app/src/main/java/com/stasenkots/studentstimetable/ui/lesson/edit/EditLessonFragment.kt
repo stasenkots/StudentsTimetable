@@ -118,7 +118,7 @@ class EditLessonFragment : Fragment() {
     private fun setTimeClickListener(view: TextView) {
         view.setOnClickListener {
             val time =
-                if (view.text.isNullOrEmpty()) getString(R.string.defalt_time).parseTime()
+                if (view.text.isNullOrEmpty()) getString(R.string.defalt_time_start).parseTime()
                 else view.text.toString().parseTime()
             TimePickerFragment.newInstance(time.first, time.second, view.id).show(
                 requireActivity().supportFragmentManager,
@@ -169,7 +169,7 @@ class EditLessonFragment : Fragment() {
                 )
             )
             startLesson.text =
-                if (lessonItem.timeStart.isEmpty()) getString(R.string.defalt_start_time)
+                if (lessonItem.timeStart.isEmpty()) getString(R.string.defalt_time_start)
                 else lessonItem.timeStart
             endLesson.text =
                 if (lessonItem.timeEnd.isEmpty()) getString(R.string.defalt_time_end)

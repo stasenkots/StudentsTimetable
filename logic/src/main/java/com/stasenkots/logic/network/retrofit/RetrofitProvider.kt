@@ -18,11 +18,7 @@ import retrofit2.http.GET
 
 private const val GROUP_ID_PATH="/classes/group_ids/"
 class RetrofitProvider {
-    private val loggingInterceptor = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
-    }
     private val client = OkHttpClient.Builder()
-        .addInterceptor(loggingInterceptor)
         .addInterceptor(Interceptor { chain ->
             val original = chain.request()
             val request = original.newBuilder()

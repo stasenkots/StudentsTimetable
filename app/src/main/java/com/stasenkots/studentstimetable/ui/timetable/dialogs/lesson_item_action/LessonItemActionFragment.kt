@@ -17,7 +17,7 @@ private const val TAG_DATE = "date"
 
 class LessonItemActionFragment : DialogFragment() {
     private val actions = arrayOf(
-        R.string.add_homework,
+        R.string.homework,
         R.string.list_of_passed_users,
         R.string.edit,
         R.string.delete,
@@ -38,7 +38,7 @@ class LessonItemActionFragment : DialogFragment() {
         return MaterialAlertDialogBuilder(requireContext())
             .setItems(
                 items
-            ) { dialog, which: Int ->
+            ) { _, which: Int ->
                 val actionId = actions[which]
                 viewModel.setLessonItemAction(actionId, lessonId, date ?: LocalDate.now().toLong())
             }

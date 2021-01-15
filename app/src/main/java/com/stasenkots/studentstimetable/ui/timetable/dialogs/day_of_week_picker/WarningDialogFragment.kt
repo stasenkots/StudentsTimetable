@@ -19,7 +19,7 @@ class WarningDialogFragment : DialogFragment() {
         return MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.warning)
             .setMessage(R.string.change_weekdays)
-            .setPositiveButton(R.string.ok) { dialogInterface, id ->
+            .setPositiveButton(R.string.ok) { _, _ ->
                 viewModel.setDayOfWeek(
                     String.format(
                         getString(R.string.day_of_week_pattern),
@@ -29,7 +29,7 @@ class WarningDialogFragment : DialogFragment() {
                 )
                 dialog?.dismiss()
             }
-            .setNegativeButton(R.string.cancel) { dialogInterface, id ->
+            .setNegativeButton(R.string.cancel) { _, _ ->
                 dialog?.dismiss()
             }
             .create()

@@ -28,7 +28,7 @@ class TimePickerFragment : DialogFragment() {
         val viewId = arguments?.getInt(TYPE_TAG) ?: 0
         return TimePickerDialog(
             context,
-            { view, hourOfDay, minute ->
+            { _, hourOfDay, minute ->
                 viewModel.setTime(hourOfDay, minute,viewId)
             }, hourArg, minuteArg, true
         )

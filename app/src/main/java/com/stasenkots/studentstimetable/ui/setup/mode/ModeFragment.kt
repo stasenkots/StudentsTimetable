@@ -39,7 +39,7 @@ class ModeFragment : Fragment() {
             findNavController().navigate(R.id.show_registration_fragment)
 
         }
-        binding.textInputName.doOnTextChanged { text, start, before, count ->
+        binding.textInputName.doOnTextChanged { _, _, _, _ ->
             binding.textInputLayoutName.error=null
         }
 

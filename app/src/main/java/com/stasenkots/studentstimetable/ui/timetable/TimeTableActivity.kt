@@ -78,20 +78,16 @@ class TimeTableActivity : AppCompatActivity() {
     private fun initAd() {
         mInterstitialAd = InterstitialAd(this)
         mInterstitialAd.adUnitId = ADS_ID
-        mInterstitialAd.loadAd(AdRequest.Builder()
-        .build())
-        val timer = Timer()
+        mInterstitialAd.loadAd(
+            AdRequest.Builder()
+                .build()
+        )
         mInterstitialAd.adListener = object : AdListener() {
             override fun onAdFailedToLoad(error: LoadAdError?) {
                 FirebaseCrashlytics.getInstance().log(error?.message.orEmpty())
             }
-
             override fun onAdLoaded() {
-                timer.schedule(30 * 1000) {
-                    launchUI {
-                        mInterstitialAd.show()
-                    }
-                }
+                mInterstitialAd.show()
             }
         }
 

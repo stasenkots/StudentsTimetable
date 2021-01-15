@@ -18,10 +18,10 @@ class DeleteDialogFragment : DialogFragment() {
         return MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.Deletion))
             .setMessage(getString(R.string.do_you_want_delete))
-            .setNeutralButton(getString(R.string.cancel)) { dialog, which ->
+            .setNeutralButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
             }
-            .setPositiveButton(resources.getString(R.string.ok)) { dialog, which ->
+            .setPositiveButton(resources.getString(R.string.ok)) { _, _ ->
                 viewModel.deleteLesson(lessonId)
             }
             .create()

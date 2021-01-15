@@ -67,7 +67,7 @@ class DayOfWeekPickerFragment : DialogFragment() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         }
         checkBoxBinding.checkbox.isChecked = viewModel.isCheckedCheckBox
-        checkBoxBinding.checkbox.setOnCheckedChangeListener { buttonView, isChecked ->
+        checkBoxBinding.checkbox.setOnCheckedChangeListener { _, isChecked ->
             checkBoxBinding.checkbox.isChecked = isChecked
             viewModel.isCheckedCheckBox=isChecked
         }
@@ -75,7 +75,7 @@ class DayOfWeekPickerFragment : DialogFragment() {
         return MaterialAlertDialogBuilder(requireContext())
             .setCustomTitle(titleBinding.root.apply {})
             .setView(checkBoxBinding.root)
-            .setPositiveButton(R.string.ok) { dialogInterface, id ->
+            .setPositiveButton(R.string.ok) { _, _ ->
                 val week =
                     if (checkBoxBinding.checkbox.isChecked) getString(R.string.every_week)
                     else titleBinding.title.selectedItem.toString()
@@ -86,7 +86,7 @@ class DayOfWeekPickerFragment : DialogFragment() {
                 )
                 dialog?.dismiss()
             }
-            .setSingleChoiceItems(items, selectedItem) { dialog, which ->
+            .setSingleChoiceItems(items, selectedItem) { _, which ->
                 selectedItem = which
             }
             .create()
