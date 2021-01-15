@@ -36,11 +36,9 @@ class App : Application() {
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
-        val data = Data.Builder().build()
         val uploadWorkRequest =
             PeriodicWorkRequestBuilder<CheckForUpdatesWorker>(1, TimeUnit.DAYS)
                 .setConstraints(constraints)
-                .setInputData(data)
                 .build()
         WorkManager
             .getInstance(applicationContext)
