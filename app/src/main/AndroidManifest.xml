@@ -33,7 +33,11 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.lesson.LessonActivity" android:screenOrientation="portrait">
+        <activity
+            android:name=".ui.lesson.LessonActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/StudentsTimetable.NoActionBar"
+            >
             <intent-filter>
                 <action android:name="com.stasenkots.studentstimetable.constants.ACTION_EDIT_LESSON" />
                 <category android:name="android.intent.category.DEFAULT" />

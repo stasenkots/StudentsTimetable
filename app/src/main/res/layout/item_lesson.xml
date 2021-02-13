@@ -66,6 +66,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/item_teacher_name"
             tools:text="Write your homework here,Write your homework here,Write your homework here" />
+        <TextView
+            android:id="@+id/item_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:maxWidth="300dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/link"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_homework"
+            android:text="@string/link_underlined" />
 
         <TextView
             android:id="@+id/item_comment"
@@ -78,7 +89,7 @@
             android:layout_marginTop="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toBottomOf="@id/item_homework"
+           app:layout_constraintTop_toBottomOf="@id/item_link"
             app:layout_constraintVertical_bias="0.0"
             tools:text="Comment" />
 

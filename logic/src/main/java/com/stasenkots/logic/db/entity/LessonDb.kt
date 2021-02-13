@@ -17,6 +17,7 @@ class LessonDb(
     val dayOfWeek: JSONObject,
     val subjectId: String,
     val updatedAt:Long,
+    val link:String,
     val room: String,
     val timeEnd: String,
     val timeStart: String

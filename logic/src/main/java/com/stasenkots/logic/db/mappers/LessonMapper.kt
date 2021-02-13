@@ -18,7 +18,8 @@ class LessonMapper @Inject constructor(private val dayOfWeekDbMapper: DayOfWeekD
         dayOfWeek = dayOfWeekDbMapper.map(from.dayOfWeek),
         id = from.objectId,
         subject = from.subjectId,
-        updatedAt = from.updatedAt
+        updatedAt = from.updatedAt,
+        link = from.link
     )
     fun map(
         lesson: Lesson,
@@ -29,6 +30,7 @@ class LessonMapper @Inject constructor(private val dayOfWeekDbMapper: DayOfWeekD
         subjectId = lesson.subject,
         dayOfWeek = dayOfWeekDbMapper.map(lesson.dayOfWeek),
         objectId = lesson.id,
+        link = lesson.link,
         updatedAt = lesson.updatedAt
     )
 

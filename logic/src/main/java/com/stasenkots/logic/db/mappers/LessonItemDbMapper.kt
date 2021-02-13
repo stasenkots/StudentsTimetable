@@ -34,6 +34,7 @@ class LessonItemDbMapper @Inject constructor(
             timeStart = lesson.timeStart,
             timeEnd = lesson.timeEnd,
             room = lesson.room,
+            link = lesson.link,
             dayOfWeek = dayOfWeekDbMapper.map(lesson.dayOfWeek),
             state = state
         )

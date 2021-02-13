@@ -20,6 +20,27 @@
         <item name="materialButtonStyle">@style/MyButton</item>
 
     </style>
+
+    <style name="StudentsTimetable.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/green_500</item>
+        <item name="colorPrimaryVariant">@color/green_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/green_500</item>
+        <item name="colorSecondaryVariant">@color/green_200</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="actionModeStyle">@style/Widget.App.ActionMode</item>
+        <item name="actionModeCloseDrawable">@drawable/ic_baseline_close_24</item>
+        <item name="actionBarTheme">@style/ThemeOverlay.MaterialComponents.Dark.ActionBar</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+        <item name="android:textColorAlertDialogListItem">@android:color/black</item>
+        <item name="materialButtonStyle">@style/MyButton</item>
+
+    </style>
     <style name="mySearchView" parent="Widget.AppCompat.SearchView.ActionBar">
         <item name="android:textColorHint">@color/white</item>
     </style>

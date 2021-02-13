@@ -11,6 +11,7 @@ data class LessonItem(
     val timeStart: String = "",
     val timeEnd: String = "",
     val room: String = "",
+    val link: String = "",
     var date: LocalDate= LocalDate.now(),
     val dayOfWeek: DayOfWeek=DayOfWeek(),
     var subgroup: String = "",

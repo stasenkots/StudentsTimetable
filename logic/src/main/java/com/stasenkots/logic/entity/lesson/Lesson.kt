@@ -10,6 +10,7 @@ data class Lesson(
     val id: String="",
     val updatedAt:Long=LocalDate.now().toLong(),
     val room: String="",
+    val link: String="",
     val timeEnd: String="",
-    val timeStart: String=""
+    val timeStart: String="",
 )

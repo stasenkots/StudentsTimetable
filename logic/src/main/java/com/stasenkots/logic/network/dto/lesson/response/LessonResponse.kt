@@ -11,6 +11,8 @@ data class LessonResponse(
     val subjectId: String? = null,
     @SerializedName("updatedAt")
     val updatedAt:String?=null,
+    @SerializedName("link")
+    val link:String? = null,
     @SerializedName("objectId")
     val objectId: String? = null,
     @SerializedName("room")

@@ -8,9 +8,7 @@ import com.stasenkots.logic.entity.subject.Subjects
 import java.time.LocalDate
 import javax.inject.Inject
 
-class LessonItemMapper @Inject constructor(
-    private val dayOfWeekMapper: DayOfWeekMapper,
-) {
+class LessonItemMapper @Inject constructor() {
     fun map(lesson: Lesson, date: LocalDate) :LessonItem{
         val subject = Subjects.get()
             .values.find { subject->
@@ -28,6 +26,7 @@ class LessonItemMapper @Inject constructor(
             type = subject.type,
             teacher = subject.teacher,
             date = date,
+            link = lesson.link,
             subgroup = subject.subgroup,
             timeStart = lesson.timeStart,
             timeEnd = lesson.timeEnd,
@@ -45,6 +44,7 @@ class LessonItemMapper @Inject constructor(
             timeEnd = from.timeEnd,
             room = from.room,
             dayOfWeek = from.dayOfWeek,
+            link = from.link
         )
     }
     fun mapToSubject(from:LessonItem): Subject {

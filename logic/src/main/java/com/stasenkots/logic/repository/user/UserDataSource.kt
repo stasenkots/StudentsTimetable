@@ -1,28 +1,19 @@
 package com.stasenkots.logic.repository.user
 
 
-import android.content.Context
 import android.content.Intent
-import android.provider.ContactsContract
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest
-import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets
-import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse
 import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.client.json.jackson2.JacksonFactory
-import com.parse.BuildConfig
 import com.parse.ParseUser
-import com.parse.boltsinternal.Task
 import com.stasenkots.logic.CLIENT_ID
 import com.stasenkots.logic.CLIENT_SECRET
 import com.stasenkots.logic.REDIRECT_URL
 import com.stasenkots.logic.TOKEN_SERVER_ENCODED_URL
 import com.stasenkots.logic.entity.User
 import com.stasenkots.logic.utils.launchAsync
-import java.io.FileReader
-import java.util.*
 import javax.inject.Inject
 
 
@@ -59,7 +50,6 @@ class UserDataSource @Inject constructor() {
             )
                 .execute()
         }.await()
-
         val accessToken: String = tokenResponse.accessToken
         val authData = mapOf(
             "access_token" to accessToken,

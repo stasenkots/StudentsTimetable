@@ -27,6 +27,8 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 ext{
+    google_api_client='1.22.0'
+    play_services_basement='17.5.0'
     google_ads='19.6.0'
     firebase_bom='26.2.0'
     google_services='19.0.0'

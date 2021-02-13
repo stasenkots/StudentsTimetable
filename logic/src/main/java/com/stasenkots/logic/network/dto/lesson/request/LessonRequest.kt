@@ -10,6 +10,8 @@ class LessonRequest(
     val subjectId: String? = null,
     @SerializedName("room")
     val room: String? = null,
+    @SerializedName("link")
+    val link:String? = null,
     @SerializedName("time_end")
     val timeEnd: String? = null,
     @SerializedName("time_start")

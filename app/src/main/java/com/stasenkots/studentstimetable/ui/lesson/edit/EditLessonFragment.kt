@@ -61,8 +61,8 @@ class EditLessonFragment : Fragment() {
         viewModel.getLessonItem(lessonId)
         bind(viewModel.lessonItem)
         binding.buttonSave.setOnClickListener {
+            binding.progressBar.visibility=View.VISIBLE
             if (!validFields()) return@setOnClickListener
-            binding.progressBar.visibility = View.VISIBLE
             val item = createLessonItem()
             viewModel.lessonItem = item
             viewModel.sendData(item)
@@ -80,7 +80,7 @@ class EditLessonFragment : Fragment() {
         })
         viewModel.status.observe(viewLifecycleOwner, { status ->
             if (status is Throwable) {
-                binding.progressBar.visibility = View.INVISIBLE
+                binding.progressBar.visibility=View.GONE
                 Toast.makeText(
                     context,
                     getString(R.string.no_internet_connection),
@@ -109,7 +109,8 @@ class EditLessonFragment : Fragment() {
                 dayOfWeek = day.text.toString().toDayOfWeek(requireContext()),
                 teacher = teacherName.text.toString(),
                 state = viewModel.lessonItem.state,
-                date = viewModel.lessonItem.date
+                date = viewModel.lessonItem.date,
+                link = link.text.toString()
             )
 
         }

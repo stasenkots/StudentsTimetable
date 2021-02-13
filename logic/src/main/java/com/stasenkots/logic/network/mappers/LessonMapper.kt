@@ -23,7 +23,8 @@ class LessonMapper @Inject constructor(
         dayOfWeek = dayOfWeekMapper.map(from?.day),
         id = from?.objectId.orEmpty(),
         updatedAt = from?.updatedAt.orEmpty().toLong(),
-        subject = from?.subjectId.orEmpty()
+        subject = from?.subjectId.orEmpty(),
+        link = from?.link.orEmpty()
     )
 
     fun map(
@@ -32,6 +33,7 @@ class LessonMapper @Inject constructor(
         timeStart = lesson.timeStart,
         timeEnd = lesson.timeEnd,
         room = lesson.room,
+        link = lesson.link,
         subjectId = lesson.subject,
         day = dayOfWeekMapper.map(lesson.dayOfWeek),
         groupId = User.groupId
@@ -44,6 +46,7 @@ class LessonMapper @Inject constructor(
         timeEnd = from.getString("time_end").orEmpty(),
         room = from.getString("room").orEmpty(),
         updatedAt = from.updatedAt.time,
+        link = from.getString("link").orEmpty(),
         dayOfWeek = dayOfWeekMapper.map(from.getJSONObject("day"))
     )
 }

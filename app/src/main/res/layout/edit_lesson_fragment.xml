@@ -4,22 +4,42 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.StudentsTimetable.AppBarOverlay"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/app_name" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="@style/MyProgressBarStyle"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true" />
+    </com.google.android.material.appbar.AppBarLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_name"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:hint="@string/subject_name">
+        android:layout_marginTop="10dp"
+        android:hint="@string/subject_name"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout">
 
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/name"
             style="@style/MyAutoCompleteTextView"
-            android:maxLines="2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:maxLines="2" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -27,8 +47,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
-        app:layout_constraintTop_toBottomOf="@id/layout_name"
-        android:hint="@string/teacher">
+        android:hint="@string/teacher"
+        app:layout_constraintTop_toBottomOf="@id/layout_name">
 
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/teacher_name"
@@ -39,27 +59,27 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_room"
-        app:layout_constraintTop_toBottomOf="@id/layout_teacher_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
-        android:hint="@string/room">
+        android:hint="@string/room"
+        app:layout_constraintTop_toBottomOf="@id/layout_teacher_name">
 
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/room"
             style="@style/MyAutoCompleteTextView"
             android:layout_width="match_parent"
-            android:maxLines="1"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layout_subgroup"
-        app:layout_constraintTop_toBottomOf="@id/layout_room"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
-        android:hint="@string/subgroup">
+        android:hint="@string/subgroup"
+        app:layout_constraintTop_toBottomOf="@id/layout_room">
 
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/subgroup"
@@ -77,21 +97,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
-        app:layout_constraintTop_toBottomOf="@id/layout_subgroup"
         android:hint="@string/lesson_type"
-        app:endIconMode="custom">
+        app:endIconMode="custom"
+        app:layout_constraintTop_toBottomOf="@id/layout_subgroup">
 
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/type"
             style="@style/MyAutoCompleteTextView"
-            android:maxLines="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/day"
-        app:layout_constraintTop_toBottomOf="@id/layout_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
@@ -101,15 +120,16 @@
         android:text="@string/lesson_days"
         android:textColor="@color/dark_grey"
         app:drawableEndCompat="@drawable/ptr"
-        app:drawableTint="@color/dark_grey" />
+        app:drawableTint="@color/dark_grey"
+        app:layout_constraintTop_toBottomOf="@id/layout_type" />
 
     <View
         android:id="@+id/div1"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        app:layout_constraintTop_toBottomOf="@id/day"
         android:layout_marginHorizontal="15dp"
-        android:background="@color/dark_grey" />
+        android:background="@color/dark_grey"
+        app:layout_constraintTop_toBottomOf="@id/day" />
 
     <TextView
         android:id="@+id/start_lesson"
@@ -120,22 +140,21 @@
         android:paddingVertical="20dp"
         android:paddingStart="15dp"
         android:text="@string/start"
-        app:layout_constraintTop_toBottomOf="@id/div1"
         android:textColor="@color/dark_grey"
         app:drawableStartCompat="@drawable/ic_time"
-        app:drawableTint="@color/dark_grey"/>
+        app:drawableTint="@color/dark_grey"
+        app:layout_constraintTop_toBottomOf="@id/div1" />
 
     <View
         android:id="@+id/div2"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        app:layout_constraintTop_toBottomOf="@id/start_lesson"
         android:layout_marginHorizontal="15dp"
-        android:background="@color/dark_grey" />
+        android:background="@color/dark_grey"
+        app:layout_constraintTop_toBottomOf="@id/start_lesson" />
 
     <TextView
         android:id="@+id/end_lesson"
-        app:layout_constraintTop_toBottomOf="@id/start_lesson"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
@@ -145,34 +164,42 @@
         android:text="@string/end"
         android:textColor="@color/dark_grey"
         app:drawableStartCompat="@drawable/ic_time"
-        app:drawableTint="@color/dark_grey"/>
+        app:drawableTint="@color/dark_grey"
+        app:layout_constraintTop_toBottomOf="@id/start_lesson" />
 
     <View
-        app:layout_constraintTop_toBottomOf="@id/end_lesson"
+        android:id="@+id/divider3"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginHorizontal="15dp"
-        android:background="@color/dark_grey" />
-
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/button_save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/dark_grey"
         app:layout_constraintTop_toBottomOf="@id/end_lesson" />
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_link"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:hint="@string/link"
+        app:layout_constraintTop_toBottomOf="@id/divider3">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/link"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
     <Button
-        app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/button_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:layout_marginHorizontal="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_gravity="bottom"
         android:text="@string/save"
-        />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
