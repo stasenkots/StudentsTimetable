@@ -187,6 +187,7 @@ class EditLessonFragment : Fragment() {
                 )
             )
             day.text = lessonItem.dayOfWeek.convertToString(requireContext())
+            link.setText(lessonItem.link)
         }
     }
 

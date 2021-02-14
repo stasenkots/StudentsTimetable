@@ -36,7 +36,7 @@
 
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/name"
-            style="@style/MyAutoCompleteTextView"
+            style="@style/Theme.StudentsTimetable.AutocompleteTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="2" />
@@ -52,7 +52,7 @@
 
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/teacher_name"
-            style="@style/MyAutoCompleteTextView"
+            style="@style/Theme.StudentsTimetable.AutocompleteTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -67,7 +67,7 @@
 
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/room"
-            style="@style/MyAutoCompleteTextView"
+            style="@style/Theme.StudentsTimetable.AutocompleteTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1" />
@@ -83,9 +83,9 @@
 
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/subgroup"
+            style="@style/Theme.StudentsTimetable.TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:maxLines="1"
             android:paddingHorizontal="15dp"
             android:paddingTop="30dp"
@@ -103,7 +103,7 @@
 
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/type"
-            style="@style/MyAutoCompleteTextView"
+            style="@style/Theme.StudentsTimetable.AutocompleteTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1" />
@@ -118,9 +118,9 @@
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
         android:text="@string/lesson_days"
-        android:textColor="@color/dark_grey"
+        android:textColor="@color/hint"
         app:drawableEndCompat="@drawable/ptr"
-        app:drawableTint="@color/dark_grey"
+        app:drawableTint="@color/hint"
         app:layout_constraintTop_toBottomOf="@id/layout_type" />
 
     <View
@@ -140,9 +140,9 @@
         android:paddingVertical="20dp"
         android:paddingStart="15dp"
         android:text="@string/start"
-        android:textColor="@color/dark_grey"
+        android:textColor="@color/hint"
         app:drawableStartCompat="@drawable/ic_time"
-        app:drawableTint="@color/dark_grey"
+        app:drawableTint="@color/hint"
         app:layout_constraintTop_toBottomOf="@id/div1" />
 
     <View
@@ -162,9 +162,9 @@
         android:paddingVertical="20dp"
         android:paddingStart="15dp"
         android:text="@string/end"
-        android:textColor="@color/dark_grey"
+        android:textColor="@color/hint"
         app:drawableStartCompat="@drawable/ic_time"
-        app:drawableTint="@color/dark_grey"
+        app:drawableTint="@color/hint"
         app:layout_constraintTop_toBottomOf="@id/start_lesson" />
 
     <View
@@ -181,12 +181,13 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
         android:hint="@string/link"
+        app:startIconDrawable="@drawable/ic_baseline_link_24"
         app:layout_constraintTop_toBottomOf="@id/divider3">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/link"
-            android:background="@color/white"
             android:layout_width="match_parent"
+            style="@style/Theme.StudentsTimetable.TextView"
             android:layout_height="wrap_content"
             android:maxLines="2" />
     </com.google.android.material.textfield.TextInputLayout>

@@ -33,7 +33,7 @@ class HomeworksArchiveAdapter(private var states: List<State>) :
             with(binding) {
                 root.setBackgroundColor(
                     itemView.context.resources.getColor(
-                        R.color.white,
+                        R.color.cardview_background,
                         itemView.context.theme
                     )
                 )
@@ -79,7 +79,7 @@ class HomeworksArchiveAdapter(private var states: List<State>) :
                         if (isSelected) {
                             root.setBackgroundColor(
                                 activity.resources.getColor(
-                                    R.color.white,
+                                    R.color.cardview_background,
                                     activity.theme
                                 )
                             )
