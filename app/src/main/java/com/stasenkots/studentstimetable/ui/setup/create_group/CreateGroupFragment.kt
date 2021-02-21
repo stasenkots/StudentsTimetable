@@ -11,7 +11,6 @@ import android.widget.Toast
 import com.stasenkots.logic.entity.User
 import com.stasenkots.studentstimetable.R
 import com.stasenkots.studentstimetable.databinding.FragmentCreateGroupBinding
-import com.stasenkots.studentstimetable.showError
 import com.stasenkots.studentstimetable.ui.timetable.TimeTableActivity
 
 class CreateGroupFragment : Fragment() {

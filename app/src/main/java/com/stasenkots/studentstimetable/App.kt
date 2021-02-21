@@ -9,6 +9,7 @@ import com.google.android.gms.ads.MobileAds
 import com.parse.Parse
 import com.stasenkots.studentstimetable.constants.AppConstants.NOTIFICATION_CHANNEL_ID
 import com.stasenkots.studentstimetable.workmanager.CheckForUpdatesWorker
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 
@@ -25,6 +26,9 @@ class App : Application() {
                 .server(BASE_URL)
                 .build()
         )
+        if (BuildConfig.DEBUG){
+            Timber.plant(Timber.DebugTree())
+        }
         createNotificationChannel()
         createUpdatesWork()
         MobileAds.initialize(this)

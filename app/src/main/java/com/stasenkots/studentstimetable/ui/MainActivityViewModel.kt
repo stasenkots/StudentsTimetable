@@ -14,6 +14,7 @@ import com.stasenkots.logic.domain.all_data.db.LoadAllDataFromDatabaseUseCase
 import com.stasenkots.logic.domain.user.CheckUserRegistrationUseCase
 import com.stasenkots.logic.domain.user.LoginUserUseCase
 import com.stasenkots.logic.utils.launchIO
+import timber.log.Timber
 
 
 class MainActivityViewModel(val app: Application) : AndroidViewModel(app) {
@@ -48,7 +49,15 @@ class MainActivityViewModel(val app: Application) : AndroidViewModel(app) {
     }
 
     private fun checkUserRegistration() {
-        _isUserRegistered.postValue(checkUserRegistrationUseCase.doWork())
+        launchIO {
+            try {
+                val result = checkUserRegistrationUseCase.doWork()
+                _isUserRegistered.postValue(result)
+                Timber.d(result.toString())
+            }catch (e:java.lang.Exception){
+                Timber.e(e)
+            }
+        }
     }
 
 

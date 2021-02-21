@@ -12,7 +12,7 @@ class UserRepository @Inject constructor(private val userDataSource: UserDataSou
     fun saveUserLoginData() {
         userDataSource.saveData()
     }
-    fun isUserRegistered():Boolean{
+    suspend fun isUserRegistered():Boolean{
         return userDataSource.isUserRegistered()
     }
 }

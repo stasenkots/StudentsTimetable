@@ -14,7 +14,6 @@ class DatePickerFragment : DialogFragment() {
         super.onCreateDialog(savedInstanceState)
         val viewModel = ViewModelProvider(requireActivity()).get(DatePickerViewModel::class.java)
         val date = viewModel.currentDate.value?: LocalDate.now()
-        //TODO set date with count of tabs pos
         return DatePickerDialog(
             requireContext(),
             { _, year, month, dayOfMonth ->

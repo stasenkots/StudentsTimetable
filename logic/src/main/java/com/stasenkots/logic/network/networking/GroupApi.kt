@@ -2,8 +2,7 @@ package com.stasenkots.logic.network.networking
 
 
 import com.stasenkots.logic.network.dto.group_id.request.GroupRequest
-import com.stasenkots.logic.network.dto.group_id.response.GroupResponse
-import com.stasenkots.logic.network.dto.group_id.response.GroupsResponse
+import com.stasenkots.logic.network.dto.group_id.response.GroupResponses
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -16,7 +15,7 @@ interface GroupApi {
     suspend fun getGroup(
         @Query("where")
         groupIdRequest: String
-    ): Response<GroupsResponse>
+    ): Response<GroupResponses>
 
     @POST("/classes/group_ids/")
     suspend fun putGroup(

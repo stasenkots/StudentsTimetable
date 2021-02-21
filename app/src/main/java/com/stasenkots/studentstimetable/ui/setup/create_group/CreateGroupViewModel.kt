@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.stasenkots.logic.domain.group.SaveGroupUseCase
 import com.stasenkots.logic.domain.user.SaveUserUseCase
+import com.stasenkots.logic.entity.Group
 import com.stasenkots.logic.entity.User
 import com.stasenkots.logic.utils.launchIO
 import java.util.*
@@ -22,13 +23,14 @@ class CreateGroupViewModel : ViewModel() {
 
     fun setGroupId() {
         User.groupId = UUID.randomUUID().toString().replace("-", "")
+        Group.groupId = User.groupId
     }
 
     fun save() {
         launchIO {
             try {
                 saveUserUseCase.doWork()
-                saveGroupUseCase.doWork()
+                saveGroupUseCase.doWork(SaveGroupUseCase.Params(User.groupId, Group.semStartDate))
                 _isSaved.postValue(Unit)
             } catch (e: Exception) {
                 _errorBus.postValue(e)

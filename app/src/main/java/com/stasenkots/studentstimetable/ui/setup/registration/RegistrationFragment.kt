@@ -39,7 +39,7 @@ class RegistrationFragment : Fragment() {
 
         binding.buttonContinue.setOnClickListener { valid() }
         binding.textViewCreateGroup.setOnClickListener {
-            findNavController().navigate(R.id.show_create_group_fragment)
+            findNavController().navigate(R.id.show_sem_start_fragment)
         }
         viewModel.isGroupExist.observe(viewLifecycleOwner, { existence ->
             binding.registrationProgressBar.visibility = View.GONE

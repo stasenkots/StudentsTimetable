@@ -7,9 +7,10 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.stasenkots.logic.entity.DayOfWeek
 import com.stasenkots.logic.utils.*
-import java.lang.Exception
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.time.format.TextStyle
+import java.time.temporal.WeekFields
 import java.util.*
 
 
@@ -20,16 +21,8 @@ fun Activity.showError(
     Snackbar.make(snackBar, error, Snackbar.LENGTH_SHORT).show()
 }
 
-fun Fragment.showError(
-    snackBar: View,
-    action: View.OnClickListener,
-    error: String = getString(R.string.no_internet_connection),
-    actionLabel: String = getString(R.string.retry)
-) {
-    Snackbar.make(snackBar, error, Snackbar.LENGTH_INDEFINITE)
-        .setAction(actionLabel, action)
-        .show()
-}
+
+
 
 fun DayOfWeek.convertToString(context: Context): String {
     val dayOfWeek = java.time.DayOfWeek.of(dayOfWeek)

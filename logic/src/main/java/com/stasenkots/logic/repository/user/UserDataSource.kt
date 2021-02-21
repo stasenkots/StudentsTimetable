@@ -12,28 +12,41 @@ import com.stasenkots.logic.CLIENT_ID
 import com.stasenkots.logic.CLIENT_SECRET
 import com.stasenkots.logic.REDIRECT_URL
 import com.stasenkots.logic.TOKEN_SERVER_ENCODED_URL
+import com.stasenkots.logic.entity.Group
 import com.stasenkots.logic.entity.User
+import com.stasenkots.logic.repository.group.GroupDataSource
 import com.stasenkots.logic.utils.launchAsync
+import com.stasenkots.logic.utils.launchIO
+import com.stasenkots.logic.utils.toDate
 import javax.inject.Inject
 
 
-class UserDataSource @Inject constructor() {
-    fun isUserRegistered():Boolean {
-        if (ParseUser.getCurrentUser()==null){
+class UserDataSource @Inject constructor(
+    private val groupRepository: GroupDataSource
+) {
+    suspend fun isUserRegistered(): Boolean {
+        if (ParseUser.getCurrentUser() == null) {
             return false
         }
         setUserData()
         return true
 
     }
-    private fun setUserData(){
-        val user= ParseUser.getCurrentUser()
-        User.mode=user.getInt("mode")
-        User.groupId=user.getString("group_id").orEmpty()
-        User.id=user.objectId
-        User.name=user.getString("name").orEmpty()
+
+    private suspend fun setUserData() {
+        val user = ParseUser.getCurrentUser()
+        User.mode = user.getInt("mode")
+        User.groupId = user.getString("group_id").orEmpty()
+        Group.groupId = user.getString("group_id").orEmpty()
+        User.id = user.objectId
+        if (User.groupId.isNotEmpty()) {
+            Group.semStartDate = groupRepository.getGroup(User.groupId)?.date?.toDate()
+                ?: throw Exception("No starter date");
+        }
+        User.name = user.getString("name").orEmpty()
         User.updated.postValue(Unit)
     }
+
     suspend fun loginUser(data: Intent) {
         val task = GoogleSignIn.getSignedInAccountFromIntent(data)
         val account = task.getResult(ApiException::class.java)
@@ -56,15 +69,16 @@ class UserDataSource @Inject constructor() {
             "id" to account.id
         )
         ParseUser.logInWithInBackground("google", authData).onSuccess {
-            setUserData()
+            launchIO { setUserData() }
         }
 
     }
-    fun saveData(){
-        val user= ParseUser.getCurrentUser()
-        user.put("mode",User.mode)
-        user.put("group_id",User.groupId)
-        user.put("name",User.name)
+
+    fun saveData() {
+        val user = ParseUser.getCurrentUser()
+        user.put("mode", User.mode)
+        user.put("group_id", User.groupId)
+        user.put("name", User.name)
         user.saveInBackground()
     }
 

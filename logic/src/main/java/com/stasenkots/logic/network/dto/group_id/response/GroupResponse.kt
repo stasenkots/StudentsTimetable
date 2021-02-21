@@ -8,4 +8,6 @@ data class GroupResponse(
     val groupId: String? = null,
     @SerializedName("objectId")
     val objectId: String? = null,
+    @SerializedName("start_sem_date")
+    val date: String? = null
 )

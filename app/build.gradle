@@ -47,6 +47,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation "androidx.room:room-runtime:$room_version"
+    implementation "com.jakewharton.timber:timber:$timber_version"
     kapt "androidx.room:room-compiler:$room_version"
     implementation "com.google.android.gms:play-services-auth:$google_services"
     implementation 'com.daimajia.androidanimations:library:2.4@aar'

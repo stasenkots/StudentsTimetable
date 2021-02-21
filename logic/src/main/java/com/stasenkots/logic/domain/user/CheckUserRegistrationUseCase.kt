@@ -13,7 +13,7 @@ class CheckUserRegistrationUseCase {
             .initializeCheckUserRegistrationUseCase(this)
 
     }
-    fun doWork():Boolean{
+    suspend fun doWork():Boolean{
         return userRepository.isUserRegistered()
     }
 }

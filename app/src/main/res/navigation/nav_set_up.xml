@@ -18,12 +18,21 @@
         android:label="fragment_registration"
         tools:layout="@layout/fragment_registration">
         <action
-            android:id="@+id/show_create_group_fragment"
-            app:destination="@id/navigation_fragment_create_group" />
+            android:id="@+id/show_sem_start_fragment"
+            app:destination="@id/navigation_fragment_sem_start" />
     </fragment>
     <fragment android:name="com.stasenkots.studentstimetable.ui.setup.create_group.CreateGroupFragment"
         android:id="@+id/navigation_fragment_create_group"
         android:label="fragment_create_group"
         tools:layout="@layout/fragment_create_group"/>
+    <fragment
+        android:name="com.stasenkots.studentstimetable.ui.setup.start_of_sem_picker.SemStartFragment"
+        android:id="@+id/navigation_fragment_sem_start"
+        android:label="fragment_sem_start"
+        tools:layout="@layout/sem_start_fragment">
+        <action
+            android:id="@+id/show_create_group_fragment"
+            app:destination="@id/navigation_fragment_create_group" />
+    </fragment>
 
 </navigation>

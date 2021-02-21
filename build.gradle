@@ -54,5 +54,6 @@ ext{
     work_version = "2.4.0"
     work_version = "2.4.0"
     dagger_version = '2.27'
+    timber_version = '4.7.1'
 }
 
