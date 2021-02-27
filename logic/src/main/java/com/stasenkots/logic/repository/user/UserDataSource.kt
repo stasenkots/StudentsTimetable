@@ -8,40 +8,33 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeToken
 import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.client.json.jackson2.JacksonFactory
 import com.parse.ParseUser
-import com.stasenkots.logic.CLIENT_ID
-import com.stasenkots.logic.CLIENT_SECRET
-import com.stasenkots.logic.REDIRECT_URL
-import com.stasenkots.logic.TOKEN_SERVER_ENCODED_URL
+import com.stasenkots.logic.*
 import com.stasenkots.logic.entity.Group
 import com.stasenkots.logic.entity.User
-import com.stasenkots.logic.repository.group.GroupDataSource
 import com.stasenkots.logic.utils.launchAsync
 import com.stasenkots.logic.utils.launchIO
 import com.stasenkots.logic.utils.toDate
 import javax.inject.Inject
 
 
-class UserDataSource @Inject constructor(
-    private val groupRepository: GroupDataSource
-) {
-    suspend fun isUserRegistered(): Boolean {
+class UserDataSource @Inject constructor() {
+    fun isUserRegistered(sharedPrefs: SharedPrefs): Boolean {
         if (ParseUser.getCurrentUser() == null) {
             return false
         }
-        setUserData()
+        setUserData(sharedPrefs)
         return true
 
     }
 
-    private suspend fun setUserData() {
+    private fun setUserData(sharedPrefs: SharedPrefs?) {
         val user = ParseUser.getCurrentUser()
         User.mode = user.getInt("mode")
         User.groupId = user.getString("group_id").orEmpty()
         Group.groupId = user.getString("group_id").orEmpty()
         User.id = user.objectId
-        if (User.groupId.isNotEmpty()) {
-            Group.semStartDate = groupRepository.getGroup(User.groupId)?.date?.toDate()
-                ?: throw Exception("No starter date");
+        if (User.groupId.isNotEmpty() && sharedPrefs != null) {
+            Group.semStartDate = sharedPrefs.getStartSemDate().toDate()
         }
         User.name = user.getString("name").orEmpty()
         User.updated.postValue(Unit)
@@ -69,7 +62,7 @@ class UserDataSource @Inject constructor(
             "id" to account.id
         )
         ParseUser.logInWithInBackground("google", authData).onSuccess {
-            launchIO { setUserData() }
+            launchIO { setUserData(null) }
         }
 
     }

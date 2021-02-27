@@ -38,7 +38,6 @@ class HomeworksArchiveFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = HomeworksArchiveFragmentBinding.inflate(inflater, container, false)
-
         viewModel.getStates(subjectId)
         return binding.root
     }
@@ -64,7 +63,7 @@ class HomeworksArchiveFragment : Fragment() {
                 .show()
 
         })
-
+        setSearchView()
     }
 
     override fun onDestroyView() {
@@ -80,10 +79,8 @@ class HomeworksArchiveFragment : Fragment() {
                 }
             }
     }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.search, menu);
-        val searchItem = menu.findItem(R.id.menu_item_search)
+    fun setSearchView(){
+        val searchItem = binding.toolbar.menu.findItem(R.id.menu_item_search)
         val searchView = searchItem.actionView as SearchView
         searchView.apply {
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -99,5 +96,6 @@ class HomeworksArchiveFragment : Fragment() {
             })
         }
     }
+
 
 }

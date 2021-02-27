@@ -13,11 +13,14 @@ import com.stasenkots.logic.domain.all_data.db.DatabaseUseCase
 import com.stasenkots.logic.domain.all_data.db.LoadAllDataFromDatabaseUseCase
 import com.stasenkots.logic.domain.user.CheckUserRegistrationUseCase
 import com.stasenkots.logic.domain.user.LoginUserUseCase
+import com.stasenkots.logic.entity.Group
 import com.stasenkots.logic.utils.launchIO
+import com.stasenkots.logic.utils.toDate
+import com.stasenkots.studentstimetable.App
 import timber.log.Timber
 
 
-class MainActivityViewModel(val app: Application) : AndroidViewModel(app) {
+class MainActivityViewModel(app: Application) : AndroidViewModel(app) {
     private val _isDataLoaded = MutableLiveData<Boolean>()
     private val _errorBus = MutableLiveData<Exception>()
     val errorBus: LiveData<Exception>
@@ -51,10 +54,12 @@ class MainActivityViewModel(val app: Application) : AndroidViewModel(app) {
     private fun checkUserRegistration() {
         launchIO {
             try {
-                val result = checkUserRegistrationUseCase.doWork()
+                val sharedPrefs = getApplication<App>().sharedPrefs
+                val result = checkUserRegistrationUseCase
+                    .doWork(CheckUserRegistrationUseCase.Params(sharedPrefs))
                 _isUserRegistered.postValue(result)
                 Timber.d(result.toString())
-            }catch (e:java.lang.Exception){
+            } catch (e: java.lang.Exception) {
                 Timber.e(e)
             }
         }

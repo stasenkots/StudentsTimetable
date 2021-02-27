@@ -14,17 +14,20 @@ import com.stasenkots.logic.domain.all_data.db.CleanDatabaseUseCase
 import com.stasenkots.logic.domain.all_data.db.DatabaseUseCase
 import com.stasenkots.logic.domain.all_data.db.SaveDataToDatabaseUseCase
 import com.stasenkots.logic.domain.all_data.server.LoadAllDataUseCase
+import com.stasenkots.logic.entity.Group
 import com.stasenkots.logic.utils.launchIO
+import com.stasenkots.logic.utils.parseToString
+import com.stasenkots.studentstimetable.App
 import java.time.LocalDate
 import java.util.*
 
-class TimeTableViewModel(val app: Application) : AndroidViewModel(app) {
+class TimeTableViewModel(app: Application) : AndroidViewModel(app) {
 
     private val lessonDao = LessonDatabaseProvider.provide(app.applicationContext).getDao()
     private val subjectDao = SubjectDatabaseProvider.provide(app.applicationContext).getDao()
     private val stateDao = StateDatabaseProvider.provide(app.applicationContext).getDao()
     private val studentDao = StudentDatabaseProvider.provide(app.applicationContext).getDao()
-    var selectedDate: LocalDate =LocalDate.now()
+    var selectedDate: LocalDate = LocalDate.now()
     private val _isDataLoaded = MutableLiveData<Boolean>()
     private val _errorBus = MutableLiveData<Exception>()
     val errorBus: LiveData<Exception>
@@ -61,12 +64,10 @@ class TimeTableViewModel(val app: Application) : AndroidViewModel(app) {
                             studentDao
                         )
                     )
+                getApplication<App>().sharedPrefs.saveStartDate(Group.semStartDate.parseToString("yyyyMMdd"))
             }
         } catch (e: java.lang.Exception) {
             _errorBus.postValue(e)
         }
-
     }
-
-
 }

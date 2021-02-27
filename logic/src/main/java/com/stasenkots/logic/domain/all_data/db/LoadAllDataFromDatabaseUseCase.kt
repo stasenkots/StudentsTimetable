@@ -1,6 +1,7 @@
 package com.stasenkots.logic.domain.all_data.db
 
 import com.stasenkots.logic.di.components.DaggerLogicComponent
+import com.stasenkots.logic.entity.Group
 import com.stasenkots.logic.entity.lesson.Lessons
 import com.stasenkots.logic.entity.state.States
 import com.stasenkots.logic.entity.student.Students

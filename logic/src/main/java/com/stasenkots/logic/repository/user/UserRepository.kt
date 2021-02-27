@@ -2,6 +2,7 @@ package com.stasenkots.logic.repository.user
 
 import android.content.Intent
 import com.parse.ParseUser
+import com.stasenkots.logic.SharedPrefs
 import javax.inject.Inject
 
 class UserRepository @Inject constructor(private val userDataSource: UserDataSource) {
@@ -12,7 +13,7 @@ class UserRepository @Inject constructor(private val userDataSource: UserDataSou
     fun saveUserLoginData() {
         userDataSource.saveData()
     }
-    suspend fun isUserRegistered():Boolean{
-        return userDataSource.isUserRegistered()
+    fun isUserRegistered(sharedPrefs:SharedPrefs):Boolean{
+        return userDataSource.isUserRegistered(sharedPrefs)
     }
 }

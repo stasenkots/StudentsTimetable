@@ -7,6 +7,7 @@ import android.app.NotificationManager
 import androidx.work.*
 import com.google.android.gms.ads.MobileAds
 import com.parse.Parse
+import com.stasenkots.logic.SharedPrefs
 import com.stasenkots.studentstimetable.constants.AppConstants.NOTIFICATION_CHANNEL_ID
 import com.stasenkots.studentstimetable.workmanager.CheckForUpdatesWorker
 import timber.log.Timber
@@ -17,6 +18,7 @@ private const val NOTIFICATION_CHANNEL_NAME = "Channel name"
 private const val CHECK_UPDATES_WORK = "check updates work"
 
 class App : Application() {
+    val sharedPrefs by lazy { SharedPrefs(applicationContext) }
     override fun onCreate() {
         super.onCreate()
         Parse.initialize(
@@ -26,7 +28,7 @@ class App : Application() {
                 .server(BASE_URL)
                 .build()
         )
-        if (BuildConfig.DEBUG){
+        if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
         createNotificationChannel()
