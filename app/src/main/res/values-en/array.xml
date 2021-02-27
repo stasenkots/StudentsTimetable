@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="weeks_array">
+        <item name="first_week">1 неделя</item>
+        <item name="second_week">2 неделя</item>
+    </string-array>
+</resources>
