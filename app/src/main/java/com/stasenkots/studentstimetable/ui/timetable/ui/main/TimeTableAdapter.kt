@@ -1,5 +1,6 @@
 package com.stasenkots.studentstimetable.ui.timetable.ui.main
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.net.Uri
@@ -7,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.stasenkots.logic.entity.LessonItem
@@ -43,7 +45,7 @@ class TimeTableAdapter(private var list: List<LessonItem>) :
                     String.format(itemView.context.getString(R.string.brakets), lessonItem.type)
                 itemTeacherName.text = lessonItem.teacher
                 itemLink.visibility = if (lessonItem.link.isEmpty()) View.GONE else View.VISIBLE
-                itemLink.setOnClickListener { redirect(lessonItem.link)}
+                itemLink.setOnClickListener { redirect(lessonItem.link) }
                 validField(lessonItem.state?.homework, itemHomework)
                 validField(lessonItem.subgroup, itemSubgroup)
                 if (lessonItem.state?.absentUsers?.contains(User.id) == true) {
@@ -71,9 +73,15 @@ class TimeTableAdapter(private var list: List<LessonItem>) :
 
         }
 
-        private fun redirect(link:String) {
-            val intent=Intent(ACTION_VIEW, Uri.parse(link))
+        private fun redirect(link: String) = try {
+            val intent = Intent(ACTION_VIEW, Uri.parse(link))
             itemView.context.startActivity(intent)
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(
+                itemView.context,
+                String.format(itemView.resources.getString(R.string.activity_not_found),link),
+                Toast.LENGTH_LONG
+            ).show()
         }
 
         private fun validField(data: String?, textView: TextView) {
