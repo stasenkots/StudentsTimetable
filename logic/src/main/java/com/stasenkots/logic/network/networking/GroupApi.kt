@@ -1,8 +1,8 @@
 package com.stasenkots.logic.network.networking
 
 
-import com.stasenkots.logic.network.dto.group_id.request.GroupRequest
-import com.stasenkots.logic.network.dto.group_id.response.GroupResponses
+import com.stasenkots.logic.network.dto.group.request.GroupRequest
+import com.stasenkots.logic.network.dto.group.response.GroupResponses
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET

@@ -1,7 +1,7 @@
 package com.stasenkots.logic.repository.group
 
-import com.stasenkots.logic.network.dto.group_id.request.GroupRequest
-import com.stasenkots.logic.network.dto.group_id.response.GroupResponse
+import com.stasenkots.logic.network.dto.group.request.GroupRequest
+import com.stasenkots.logic.network.dto.group.response.GroupResponse
 import com.stasenkots.logic.network.networking.GroupApi
 import com.stasenkots.logic.utils.parseToString
 import java.time.LocalDate

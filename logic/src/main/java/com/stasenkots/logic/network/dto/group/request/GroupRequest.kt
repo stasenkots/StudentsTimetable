@@ -1,4 +1,4 @@
-package com.stasenkots.logic.network.dto.group_id.request
+package com.stasenkots.logic.network.dto.group.request
 
 
 import com.google.gson.annotations.SerializedName
