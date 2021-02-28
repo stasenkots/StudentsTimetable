@@ -60,17 +60,11 @@ class EditLessonFragment : Fragment() {
         val lessonId = arguments?.getString(LESSON_ID_TAG)
         viewModel.getLessonItem(lessonId)
         bind(viewModel.lessonItem)
-        binding.buttonSave.setOnClickListener {
-            binding.progressBar.visibility=View.VISIBLE
-            if (!validFields()) return@setOnClickListener
-            val item = createLessonItem()
-            viewModel.lessonItem = item
-            viewModel.sendData(item)
-        }
+        setupToolbar()
         setTimeClickListener(binding.startLesson)
         setTimeClickListener(binding.endLesson)
         binding.day.setOnClickListener {
-            val mDate=binding.day.text.toString().toDayOfWeek(requireContext())
+            val mDate = binding.day.text.toString().toDayOfWeek(requireContext())
             DayOfWeekPickerFragment.newInstance(mDate).show(
                 requireActivity().supportFragmentManager, DAY_OF_WEEK_PICKER_TAG
             )
@@ -80,7 +74,7 @@ class EditLessonFragment : Fragment() {
         })
         viewModel.status.observe(viewLifecycleOwner, { status ->
             if (status is Throwable) {
-                binding.progressBar.visibility=View.GONE
+                binding.progressBar.visibility = View.GONE
                 Toast.makeText(
                     context,
                     getString(R.string.no_internet_connection),
@@ -93,6 +87,17 @@ class EditLessonFragment : Fragment() {
         })
 
 
+    }
+
+    private fun setupToolbar() {
+        binding.toolbar.menu.getItem(0).setOnMenuItemClickListener {
+            binding.progressBar.visibility = View.VISIBLE
+            if (!validFields()) return@setOnMenuItemClickListener true
+            val item = createLessonItem()
+            viewModel.lessonItem = item
+            viewModel.sendData(item)
+            return@setOnMenuItemClickListener true
+        }
     }
 
     private fun createLessonItem(): LessonItem {

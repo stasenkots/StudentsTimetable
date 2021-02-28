@@ -1,5 +1,9 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -15,192 +19,197 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            app:menu="@menu/save"
             app:title="@string/app_name" />
 
         <ProgressBar
             android:id="@+id/progress_bar"
             style="@style/MyProgressBarStyle"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:indeterminate="true" />
+            android:indeterminate="true"
+            android:visibility="gone" />
     </com.google.android.material.appbar.AppBarLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginTop="10dp"
-        android:hint="@string/subject_name"
-        app:layout_constraintTop_toBottomOf="@id/appBarLayout">
 
-        <com.google.android.material.textfield.MaterialAutoCompleteTextView
-            android:id="@+id/name"
-            style="@style/Theme.StudentsTimetable.AutocompleteTextView"
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="2" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="10dp"
+            android:hint="@string/subject_name"
+            app:layout_constraintTop_toBottomOf="@id/appBarLayout">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_teacher_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
-        android:hint="@string/teacher"
-        app:layout_constraintTop_toBottomOf="@id/layout_name">
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/name"
+                style="@style/Theme.StudentsTimetable.AutocompleteTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.MaterialAutoCompleteTextView
-            android:id="@+id/teacher_name"
-            style="@style/Theme.StudentsTimetable.AutocompleteTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_room"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
-        android:hint="@string/room"
-        app:layout_constraintTop_toBottomOf="@id/layout_teacher_name">
-
-        <com.google.android.material.textfield.MaterialAutoCompleteTextView
-            android:id="@+id/room"
-            style="@style/Theme.StudentsTimetable.AutocompleteTextView"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_teacher_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginHorizontal="15dp"
+            android:hint="@string/teacher"
+            app:layout_constraintTop_toBottomOf="@id/layout_name">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_subgroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
-        android:hint="@string/subgroup"
-        app:layout_constraintTop_toBottomOf="@id/layout_room">
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/teacher_name"
+                style="@style/Theme.StudentsTimetable.AutocompleteTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.MaterialAutoCompleteTextView
-            android:id="@+id/subgroup"
-            style="@style/Theme.StudentsTimetable.TextView"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_room"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:paddingHorizontal="15dp"
-            android:paddingTop="30dp"
-            android:paddingBottom="10dp" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginHorizontal="15dp"
+            android:hint="@string/room"
+            app:layout_constraintTop_toBottomOf="@id/layout_teacher_name">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_type"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
-        android:hint="@string/lesson_type"
-        app:endIconMode="custom"
-        app:layout_constraintTop_toBottomOf="@id/layout_subgroup">
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/room"
+                style="@style/Theme.StudentsTimetable.AutocompleteTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.MaterialAutoCompleteTextView
-            android:id="@+id/type"
-            style="@style/Theme.StudentsTimetable.AutocompleteTextView"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_subgroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginHorizontal="15dp"
+            android:hint="@string/subgroup"
+            app:layout_constraintTop_toBottomOf="@id/layout_room">
 
-    <TextView
-        android:id="@+id/day"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
-        android:paddingVertical="20dp"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:text="@string/lesson_days"
-        android:textColor="@color/hint"
-        app:drawableEndCompat="@drawable/ptr"
-        app:drawableTint="@color/hint"
-        app:layout_constraintTop_toBottomOf="@id/layout_type" />
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/subgroup"
+                style="@style/Theme.StudentsTimetable.TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:paddingHorizontal="15dp"
+                android:paddingTop="30dp"
+                android:paddingBottom="10dp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <View
-        android:id="@+id/div1"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginHorizontal="15dp"
-        android:background="@color/dark_grey"
-        app:layout_constraintTop_toBottomOf="@id/day" />
-
-    <TextView
-        android:id="@+id/start_lesson"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
-        android:drawablePadding="5dp"
-        android:paddingVertical="20dp"
-        android:paddingStart="15dp"
-        android:text="@string/start"
-        android:textColor="@color/hint"
-        app:drawableStartCompat="@drawable/ic_time"
-        app:drawableTint="@color/hint"
-        app:layout_constraintTop_toBottomOf="@id/div1" />
-
-    <View
-        android:id="@+id/div2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginHorizontal="15dp"
-        android:background="@color/dark_grey"
-        app:layout_constraintTop_toBottomOf="@id/start_lesson" />
-
-    <TextView
-        android:id="@+id/end_lesson"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
-        android:drawablePadding="5dp"
-        android:paddingVertical="20dp"
-        android:paddingStart="15dp"
-        android:text="@string/end"
-        android:textColor="@color/hint"
-        app:drawableStartCompat="@drawable/ic_time"
-        app:drawableTint="@color/hint"
-        app:layout_constraintTop_toBottomOf="@id/start_lesson" />
-
-    <View
-        android:id="@+id/divider3"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginHorizontal="15dp"
-        android:background="@color/dark_grey"
-        app:layout_constraintTop_toBottomOf="@id/end_lesson" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_link"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
-        android:hint="@string/link"
-        app:startIconDrawable="@drawable/ic_baseline_link_24"
-        app:layout_constraintTop_toBottomOf="@id/divider3">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/link"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_type"
             android:layout_width="match_parent"
-            style="@style/Theme.StudentsTimetable.TextView"
             android:layout_height="wrap_content"
-            android:maxLines="2" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginHorizontal="15dp"
+            android:hint="@string/lesson_type"
+            app:endIconMode="custom"
+            app:layout_constraintTop_toBottomOf="@id/layout_subgroup">
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/type"
+                style="@style/Theme.StudentsTimetable.AutocompleteTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/day"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:paddingVertical="20dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:text="@string/lesson_days"
+            android:textColor="@color/hint"
+            app:drawableEndCompat="@drawable/ptr"
+            app:drawableTint="@color/hint"
+            app:layout_constraintTop_toBottomOf="@id/layout_type" />
+
+        <View
+            android:id="@+id/div1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="15dp"
+            android:background="@color/dark_grey"
+            app:layout_constraintTop_toBottomOf="@id/day" />
+
+        <TextView
+            android:id="@+id/start_lesson"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:drawablePadding="5dp"
+            android:paddingVertical="20dp"
+            android:paddingStart="15dp"
+            android:text="@string/start"
+            android:textColor="@color/hint"
+            app:drawableStartCompat="@drawable/ic_time"
+            app:drawableTint="@color/hint"
+            app:layout_constraintTop_toBottomOf="@id/div1" />
+
+        <View
+            android:id="@+id/div2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="15dp"
+            android:background="@color/dark_grey"
+            app:layout_constraintTop_toBottomOf="@id/start_lesson" />
+
+        <TextView
+            android:id="@+id/end_lesson"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:drawablePadding="5dp"
+            android:paddingVertical="20dp"
+            android:paddingStart="15dp"
+            android:text="@string/end"
+            android:textColor="@color/hint"
+            app:drawableStartCompat="@drawable/ic_time"
+            app:drawableTint="@color/hint"
+            app:layout_constraintTop_toBottomOf="@id/start_lesson" />
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="15dp"
+            android:background="@color/dark_grey"
+            app:layout_constraintTop_toBottomOf="@id/end_lesson" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_link"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:hint="@string/link"
+            app:layout_constraintTop_toBottomOf="@id/divider3"
+            app:startIconDrawable="@drawable/ic_baseline_link_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/link"
+                style="@style/Theme.StudentsTimetable.TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-    <Button
-        android:id="@+id/button_save"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginBottom="10dp"
-        android:text="@string/save"
-        app:layout_constraintBottom_toBottomOf="parent" />
+    <!--    <Button
+            android:id="@+id/button_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/save"
+            app:layout_constraintBottom_toBottomOf="parent" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
