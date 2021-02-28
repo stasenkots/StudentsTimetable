@@ -1,8 +1,6 @@
 package com.stasenkots.studentstimetable.ui.timetable
 
 import android.app.Application
-import android.icu.util.LocaleData
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -19,7 +17,6 @@ import com.stasenkots.logic.utils.launchIO
 import com.stasenkots.logic.utils.parseToString
 import com.stasenkots.studentstimetable.App
 import java.time.LocalDate
-import java.util.*
 
 class TimeTableViewModel(app: Application) : AndroidViewModel(app) {
 
@@ -37,37 +34,41 @@ class TimeTableViewModel(app: Application) : AndroidViewModel(app) {
 
     init {
         launchIO {
-            load()
+            loadAllData()
+            clearDate()
+            cacheDate()
         }
     }
 
-    private suspend fun load() {
+    private suspend fun loadAllData() {
         try {
             LoadAllDataUseCase().doWork()
             _isDataLoaded.postValue(true)
-            launchIO {
-                CleanDatabaseUseCase()
-                    .doWork(
-                        DatabaseUseCase.Params(
-                            lessonDao,
-                            subjectDao,
-                            stateDao,
-                            studentDao
-                        )
-                    )
-                SaveDataToDatabaseUseCase()
-                    .doWork(
-                        DatabaseUseCase.Params(
-                            lessonDao,
-                            subjectDao,
-                            stateDao,
-                            studentDao
-                        )
-                    )
-                getApplication<App>().sharedPrefs.saveStartDate(Group.semStartDate.parseToString("yyyyMMdd"))
-            }
         } catch (e: java.lang.Exception) {
             _errorBus.postValue(e)
         }
+    }
+    private suspend fun clearDate(){
+        CleanDatabaseUseCase()
+            .doWork(
+                DatabaseUseCase.Params(
+                    lessonDao,
+                    subjectDao,
+                    stateDao,
+                    studentDao
+                )
+            )
+    }
+    private suspend fun cacheDate() {
+        SaveDataToDatabaseUseCase()
+            .doWork(
+                DatabaseUseCase.Params(
+                    lessonDao,
+                    subjectDao,
+                    stateDao,
+                    studentDao
+                )
+            )
+        getApplication<App>().sharedPrefs.saveStartDate(Group.semStartDate.parseToString("yyyyMMdd"))
     }
 }

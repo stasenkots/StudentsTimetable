@@ -28,6 +28,12 @@ class ModeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setButtonsClickListeners()
+        binding.textInputName.doOnTextChanged { _, _, _, _ ->
+            binding.textInputLayoutName.error=null
+        }
+    }
+    private fun setButtonsClickListeners(){
         binding.buttonModeratorMode.setOnClickListener {
             if (!setName())return@setOnClickListener
             viewModel.setUserMode(MODE_MODERATOR)
@@ -39,10 +45,6 @@ class ModeFragment : Fragment() {
             findNavController().navigate(R.id.show_registration_fragment)
 
         }
-        binding.textInputName.doOnTextChanged { _, _, _, _ ->
-            binding.textInputLayoutName.error=null
-        }
-
     }
     private fun setName():Boolean{
         if (binding.textInputName.text.isNullOrBlank()){
@@ -50,6 +52,7 @@ class ModeFragment : Fragment() {
             return false
         }
         viewModel.setUserName(binding.textInputName.text.toString())
+
         return true
     }
     override fun onDestroyView() {

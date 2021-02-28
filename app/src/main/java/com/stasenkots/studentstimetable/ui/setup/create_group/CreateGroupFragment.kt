@@ -16,7 +16,11 @@ import com.stasenkots.studentstimetable.ui.timetable.TimeTableActivity
 class CreateGroupFragment : Fragment() {
     private var _binding: FragmentCreateGroupBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: CreateGroupViewModel
+    private val viewModel: CreateGroupViewModel by lazy {
+        ViewModelProvider(this).get(
+            CreateGroupViewModel::class.java
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,9 +32,14 @@ class CreateGroupFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(CreateGroupViewModel::class.java)
-        viewModel.setGroupId()
         binding.textViewGroupId.text = User.groupId
+        setSharingClick()
+        binding.buttonContinue.setOnClickListener { viewModel.save() }
+        setIsSavedGroupIdObserver()
+        setErrorBusObserver()
+
+    }
+    private fun setSharingClick(){
         binding.textViewGroupId.setOnClickListener {
             val sendIntent = Intent().apply {
                 action = Intent.ACTION_SEND
@@ -41,20 +50,18 @@ class CreateGroupFragment : Fragment() {
             val shareIntent = Intent.createChooser(sendIntent, null)
             startActivity(shareIntent)
         }
-        binding.buttonContinue.setOnClickListener {
-            viewModel.save()
-        }
+    }
+    private fun setErrorBusObserver(){
+        viewModel.errorBus.observe(viewLifecycleOwner, {
+            Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show()
+        })
+    }
+    private fun setIsSavedGroupIdObserver(){
         viewModel.isSaved.observe(viewLifecycleOwner, { _ ->
             startActivity(Intent(context, TimeTableActivity::class.java))
             activity?.finish()
         })
-        viewModel.errorBus.observe(viewLifecycleOwner, {
-            Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show()
-        })
-
-
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

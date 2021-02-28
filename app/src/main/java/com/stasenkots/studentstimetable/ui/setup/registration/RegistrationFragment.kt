@@ -17,7 +17,9 @@ import com.stasenkots.studentstimetable.R
 import com.stasenkots.studentstimetable.databinding.FragmentRegistrationBinding
 import com.stasenkots.studentstimetable.showError
 import com.stasenkots.studentstimetable.ui.timetable.TimeTableActivity
+
 private const val ID_LENGTH = 32
+
 class RegistrationFragment : Fragment() {
     private var _binding: FragmentRegistrationBinding? = null
     private val binding get() = _binding!!
@@ -36,11 +38,20 @@ class RegistrationFragment : Fragment() {
         if (User.mode == MODE_STUDENT) {
             binding.textViewCreateGroup.visibility = View.GONE
         }
-
         binding.buttonContinue.setOnClickListener { valid() }
         binding.textViewCreateGroup.setOnClickListener {
-            findNavController().navigate(R.id.show_sem_start_fragment)
+            navigateToCreateGroup()
         }
+        setIsGroupExistsObserver()
+        setErrorBusObserver()
+        binding.textInputGroupId.doOnTextChanged { _, _, _, _ ->
+            binding.textInputLayoutGroupId.error = null
+        }
+
+
+    }
+
+    private fun setIsGroupExistsObserver() {
         viewModel.isGroupExist.observe(viewLifecycleOwner, { existence ->
             binding.registrationProgressBar.visibility = View.GONE
             when (existence) {
@@ -52,19 +63,18 @@ class RegistrationFragment : Fragment() {
             }
 
         })
-        binding.textInputGroupId.doOnTextChanged { _, _, _, _ ->
-            binding.textInputLayoutGroupId.error = null
-        }
+    }
+
+    private fun setErrorBusObserver() {
         viewModel.errorBus.observe(viewLifecycleOwner, {
             if (it == null) {
                 startActivity(Intent(context, TimeTableActivity::class.java))
                 activity?.finish()
             } else {
-                binding.registrationProgressBar.visibility=View.GONE
+                binding.registrationProgressBar.visibility = View.GONE
                 Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT).show()
             }
         })
-
     }
 
     private fun validInput() =
@@ -86,6 +96,10 @@ class RegistrationFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun navigateToCreateGroup() {
+        findNavController().navigate(R.id.show_sem_start_fragment)
     }
 
     private fun valid() {

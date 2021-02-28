@@ -41,6 +41,7 @@ class HomeworkActivity : AppCompatActivity() {
 
         override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
             menuInflater.inflate(R.menu.contextual_action_bar, menu)
+            viewModel.mode.postValue(CONTEXTUAL_MODE)
             return true
         }
 

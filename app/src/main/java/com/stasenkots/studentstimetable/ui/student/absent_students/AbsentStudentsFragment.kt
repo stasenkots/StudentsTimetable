@@ -52,6 +52,10 @@ class AbsentStudentsFragment : Fragment() {
         viewModel.init(subjectId, currentDate.toLocalDate())
         setToolbarListener()
         bind()
+        setErrorBusObserver()
+    }
+
+    private fun setErrorBusObserver() {
         viewModel.errorBus.observe(viewLifecycleOwner, {
             if (it == null) {
                 Toast.makeText(context, R.string.saved, Toast.LENGTH_SHORT).show()
@@ -65,7 +69,7 @@ class AbsentStudentsFragment : Fragment() {
     private fun bind() {
         with(binding.listView) {
             choiceMode = ListView.CHOICE_MODE_MULTIPLE
-            binding.progressBar.visibility=View.GONE
+            binding.progressBar.visibility = View.GONE
             adapter =
                 ArrayAdapter(
                     requireContext(),
@@ -73,15 +77,16 @@ class AbsentStudentsFragment : Fragment() {
                     viewModel.students.map { it.name }
                 )
             viewModel.checkedItemPositions.forEach { key, value ->
-                setItemChecked(key,value)
+                setItemChecked(key, value)
             }
         }
     }
+
     private fun setToolbarListener() {
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.save -> {
-                    binding.progressBar.visibility= View.VISIBLE
+                    binding.progressBar.visibility = View.VISIBLE
                     viewModel.save(binding.listView.checkedItemPositions)
                     true
                 }

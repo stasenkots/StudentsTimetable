@@ -35,6 +35,9 @@ class SemStartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setButtonContinueClickListener()
+    }
+    private fun setButtonContinueClickListener(){
         binding.buttonContinue.setOnClickListener {
             val day = binding.calender.dayOfMonth
             val month = binding.calender.month + 1
@@ -44,7 +47,6 @@ class SemStartFragment : Fragment() {
             findNavController().navigate(R.id.show_create_group_fragment)
         }
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

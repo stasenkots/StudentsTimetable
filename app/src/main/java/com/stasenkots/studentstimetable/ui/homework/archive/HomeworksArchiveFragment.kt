@@ -44,6 +44,12 @@ class HomeworksArchiveFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupHomeworksView()
+        setupErrorBus()
+        setSearchView()
+    }
+
+    private fun setupHomeworksView() {
         binding.homeworks.apply {
             layoutManager = LinearLayoutManager(context)
             val adapter = HomeworksArchiveAdapter(viewModel.states)
@@ -53,6 +59,9 @@ class HomeworksArchiveFragment : Fragment() {
             })
             this.adapter = adapter
         }
+    }
+
+    private fun setupErrorBus() {
         homeworkViewModel.errorBus.observe(viewLifecycleOwner, { status ->
             if (status == null) {
                 viewModel.getStates(subjectId)
@@ -60,10 +69,9 @@ class HomeworksArchiveFragment : Fragment() {
                 Toast.makeText(context, R.string.deleted, Toast.LENGTH_SHORT).show()
             } else
                 Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_SHORT)
-                .show()
+                    .show()
 
         })
-        setSearchView()
     }
 
     override fun onDestroyView() {
@@ -79,7 +87,8 @@ class HomeworksArchiveFragment : Fragment() {
                 }
             }
     }
-    fun setSearchView(){
+
+    private fun setSearchView() {
         val searchItem = binding.toolbar.menu.findItem(R.id.menu_item_search)
         val searchView = searchItem.actionView as SearchView
         searchView.apply {

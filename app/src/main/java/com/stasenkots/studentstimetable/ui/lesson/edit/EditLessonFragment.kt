@@ -63,15 +63,12 @@ class EditLessonFragment : Fragment() {
         setupToolbar()
         setTimeClickListener(binding.startLesson)
         setTimeClickListener(binding.endLesson)
-        binding.day.setOnClickListener {
-            val mDate = binding.day.text.toString().toDayOfWeek(requireContext())
-            DayOfWeekPickerFragment.newInstance(mDate).show(
-                requireActivity().supportFragmentManager, DAY_OF_WEEK_PICKER_TAG
-            )
-        }
-        dayOfWeekPickerViewModel.dayOfWeek.observe(viewLifecycleOwner, {
-            binding.day.text = it
-        })
+        setDayOfWeekClickListener()
+        observeStatus()
+
+    }
+
+    private fun observeStatus() {
         viewModel.status.observe(viewLifecycleOwner, { status ->
             if (status is Throwable) {
                 binding.progressBar.visibility = View.GONE
@@ -85,14 +82,27 @@ class EditLessonFragment : Fragment() {
                 requireActivity().finish()
             }
         })
+    }
 
-
+    private fun setDayOfWeekClickListener() {
+        binding.day.setOnClickListener {
+            val mDate = binding.day.text.toString().toDayOfWeek(requireContext())
+            DayOfWeekPickerFragment.newInstance(mDate).show(
+                requireActivity().supportFragmentManager, DAY_OF_WEEK_PICKER_TAG
+            )
+        }
+        dayOfWeekPickerViewModel.dayOfWeek.observe(viewLifecycleOwner, {
+            binding.day.text = it
+        })
     }
 
     private fun setupToolbar() {
         binding.toolbar.menu.getItem(0).setOnMenuItemClickListener {
             binding.progressBar.visibility = View.VISIBLE
-            if (!validFields()) return@setOnMenuItemClickListener true
+            if (!validFields()) {
+                binding.progressBar.visibility = View.GONE
+                return@setOnMenuItemClickListener true
+            }
             val item = createLessonItem()
             viewModel.lessonItem = item
             viewModel.sendData(item)
@@ -139,6 +149,59 @@ class EditLessonFragment : Fragment() {
     }
 
     private fun bind(lessonItem: LessonItem) {
+        bindName(lessonItem)
+        bindTeacherName(lessonItem)
+        bindRoom(lessonItem)
+        bindSubgroup(lessonItem)
+        bindStartTime(lessonItem)
+        bindEndTime(lessonItem)
+        bindType(lessonItem)
+        bindDay(lessonItem)
+        bindLink(lessonItem)
+
+    }
+
+    private fun bindLink(lessonItem: LessonItem) {
+        binding.link.setText(lessonItem.link)
+    }
+
+    private fun bindDay(lessonItem: LessonItem) {
+        binding.day.text = lessonItem.dayOfWeek.convertToString(requireContext())
+    }
+
+    private fun bindType(lessonItem: LessonItem) {
+        with(binding) {
+            type.setText(lessonItem.type)
+            type.doOnTextChanged { _, _, _, _ ->
+                layoutType.error = null
+            }
+            type.setAdapter(
+                ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_dropdown_item_1line,
+                    viewModel.subjectType
+                )
+            )
+        }
+    }
+
+    private fun bindEndTime(lessonItem: LessonItem) {
+        with(binding) {
+            endLesson.text =
+                if (lessonItem.timeEnd.isEmpty()) getString(R.string.defalt_time_end)
+                else lessonItem.timeEnd
+        }
+    }
+
+    private fun bindStartTime(lessonItem: LessonItem) {
+        with(binding) {
+            startLesson.text =
+                if (lessonItem.timeStart.isEmpty()) getString(R.string.defalt_time_start)
+                else lessonItem.timeStart
+        }
+    }
+
+    private fun bindName(lessonItem: LessonItem) {
         with(binding) {
             name.setText(lessonItem.name)
             name.doOnTextChanged { _, _, _, _ ->
@@ -151,6 +214,11 @@ class EditLessonFragment : Fragment() {
                     viewModel.subjectNames
                 )
             )
+        }
+    }
+
+    private fun bindTeacherName(lessonItem: LessonItem) {
+        with(binding) {
             teacherName.setText(lessonItem.teacher)
             teacherName.doOnTextChanged { _, _, _, _ ->
                 layoutTeacherName.error = null
@@ -162,10 +230,20 @@ class EditLessonFragment : Fragment() {
                     viewModel.subjectTeachers
                 )
             )
+        }
+    }
+
+    private fun bindRoom(lessonItem: LessonItem) {
+        with(binding) {
             room.setText(lessonItem.room)
             room.doOnTextChanged { _, _, _, _ ->
                 layoutRoom.error = null
             }
+        }
+    }
+
+    private fun bindSubgroup(lessonItem: LessonItem) {
+        with(binding) {
             subgroup.setText(lessonItem.subgroup)
             subgroup.setAdapter(
                 ArrayAdapter(
@@ -174,25 +252,6 @@ class EditLessonFragment : Fragment() {
                     viewModel.subjectSubgroups
                 )
             )
-            startLesson.text =
-                if (lessonItem.timeStart.isEmpty()) getString(R.string.defalt_time_start)
-                else lessonItem.timeStart
-            endLesson.text =
-                if (lessonItem.timeEnd.isEmpty()) getString(R.string.defalt_time_end)
-                else lessonItem.timeEnd
-            type.setText(lessonItem.type)
-            type.doOnTextChanged { _, _, _, _ ->
-                layoutType.error = null
-            }
-            type.setAdapter(
-                ArrayAdapter(
-                    requireContext(),
-                    android.R.layout.simple_dropdown_item_1line,
-                    viewModel.subjectType
-                )
-            )
-            day.text = lessonItem.dayOfWeek.convertToString(requireContext())
-            link.setText(lessonItem.link)
         }
     }
 

@@ -20,8 +20,10 @@ class CreateGroupViewModel : ViewModel() {
         get() = _errorBus
     private val saveUserUseCase = SaveUserUseCase()
     private val saveGroupUseCase = SaveGroupUseCase()
-
-    fun setGroupId() {
+    init {
+        setGroupId()
+    }
+    private fun setGroupId() {
         User.groupId = UUID.randomUUID().toString().replace("-", "")
         Group.groupId = User.groupId
     }

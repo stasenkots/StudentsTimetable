@@ -21,6 +21,16 @@ class App : Application() {
     val sharedPrefs by lazy { SharedPrefs(applicationContext) }
     override fun onCreate() {
         super.onCreate()
+        initParse()
+        initTimber()
+        createNotificationChannel()
+        createUpdatesWork()
+        MobileAds.initialize(this)
+
+
+    }
+
+    private fun initParse() {
         Parse.initialize(
             Parse.Configuration.Builder(applicationContext)
                 .applicationId(APPLICATION_ID)
@@ -28,14 +38,12 @@ class App : Application() {
                 .server(BASE_URL)
                 .build()
         )
+    }
+
+    private fun initTimber() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
-        createNotificationChannel()
-        createUpdatesWork()
-        MobileAds.initialize(this)
-
-
     }
 
     private fun createUpdatesWork() {

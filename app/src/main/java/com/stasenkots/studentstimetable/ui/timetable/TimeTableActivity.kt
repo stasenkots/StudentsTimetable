@@ -11,7 +11,6 @@ import com.google.android.material.tabs.TabLayout
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.stasenkots.logic.entity.User
 import com.stasenkots.logic.utils.MODE_STUDENT
-import com.stasenkots.logic.utils.launchUI
 import com.stasenkots.logic.utils.toLong
 import com.stasenkots.studentstimetable.ADS_ID
 import com.stasenkots.studentstimetable.R
@@ -28,8 +27,6 @@ import com.stasenkots.studentstimetable.ui.timetable.dialogs.lesson_item_action.
 
 import com.stasenkots.studentstimetable.ui.timetable.ui.main.SectionsPagerAdapter
 import java.time.LocalDate
-import java.util.*
-import kotlin.concurrent.schedule
 
 private const val DATE_PICKER_TAG = "Date Picker"
 
@@ -50,21 +47,25 @@ class TimeTableActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         initAd()
-        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
-        binding.viewPager.adapter = sectionsPagerAdapter
-        val tabs: TabLayout = findViewById(R.id.tabs)
-        tabs.setupWithViewPager(binding.viewPager)
-        binding.tabs.tabMode = TabLayout.MODE_SCROLLABLE
-        if (User.mode == MODE_STUDENT) binding.toolbar.menu.clear()
-        else setToolbarListener()
+        setupTabViewAdapter()
+        setupToolbar()
+        setupCalendar()
+        observeLessonItemAction()
+        setIsDataLoadedObserver()
+
+
+    }
+    private fun setupCalendar(){
+        binding.buttonCalendar.setOnClickListener {
+            DatePickerFragment().show(supportFragmentManager, DATE_PICKER_TAG)
+        }
         datePickerViewModel.currentDate.observe(this, { date ->
             binding.viewPager.currentItem = date.dayOfWeek.value - 1
             viewModel.selectedDate = date
         })
-        binding.buttonCalendar.setOnClickListener {
-            DatePickerFragment().show(supportFragmentManager, DATE_PICKER_TAG)
-        }
-        observeLessonItemAction()
+
+    }
+    private fun setIsDataLoadedObserver(){
         viewModel.isDataLoaded.observe(this, {
             binding.progressBar.visibility = View.GONE
         })
@@ -72,7 +73,18 @@ class TimeTableActivity : AppCompatActivity() {
             binding.progressBar.visibility = View.GONE
             Toast.makeText(this, R.string.some_data_non_actual, Toast.LENGTH_LONG).show()
         })
+    }
+    private fun setupTabViewAdapter() {
+        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
+        binding.viewPager.adapter = sectionsPagerAdapter
+        val tabs: TabLayout = findViewById(R.id.tabs)
+        tabs.setupWithViewPager(binding.viewPager)
+        binding.tabs.tabMode = TabLayout.MODE_SCROLLABLE
+    }
 
+    private fun setupToolbar() {
+        if (User.mode == MODE_STUDENT) binding.toolbar.menu.clear()
+        else setToolbarListener()
     }
 
     private fun initAd() {
@@ -86,6 +98,7 @@ class TimeTableActivity : AppCompatActivity() {
             override fun onAdFailedToLoad(error: LoadAdError?) {
                 FirebaseCrashlytics.getInstance().log(error?.message.orEmpty())
             }
+
             override fun onAdLoaded() {
                 mInterstitialAd.show()
             }
