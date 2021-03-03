@@ -33,7 +33,7 @@ fun Int.toOddEvenWeek(): Int {
 }
 
 fun Int.toCalendarWeek(): Int {
-    return if (this == 0) 1 else 2
+    return if (this == 0) 2 else 1
 }
 
 fun String.parseTime(): Pair<Int, Int> {
@@ -45,10 +45,10 @@ fun String.parseTime(): Pair<Int, Int> {
 fun LocalDate.convertToDayOfWeek(): DayOfWeek {
     val day = dayOfWeek.value
     val currentWeek = week()
-    val semStartWeek = Group.semStartDate.week()
+    val semStartWeek = Group.mGroup.semStartDate.week()
     var diffWeeks = currentWeek - semStartWeek - 1
     if (diffWeeks < 0) {
-        diffWeeks += getNumberOfWeeksInYear(Group.semStartDate.year)
+        diffWeeks += getNumberOfWeeksInYear(Group.mGroup.semStartDate.year)
     }
     return DayOfWeek(
         dayOfWeek = day,

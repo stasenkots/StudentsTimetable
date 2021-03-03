@@ -39,7 +39,10 @@ class HomeworkDatesViewModel : ViewModel() {
             val period = if (dayOfWeek.week == EVERY_WEEK_INT) 1 else 2
             val day = DayOfWeek.of(dayOfWeek.dayOfWeek)
             var mDate = currentDate.with(TemporalAdjusters.nextOrSame(day))
-            if (mDate.convertToDayOfWeek().week != dayOfWeek.week) {
+            if (
+                mDate.convertToDayOfWeek().week != dayOfWeek.week &&
+                        dayOfWeek.week != EVERY_WEEK_INT
+            ) {
                 mDate = mDate.plusWeeks(1)
             }
             for (i in 1..2) {

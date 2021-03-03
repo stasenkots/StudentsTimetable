@@ -69,6 +69,6 @@ class TimeTableViewModel(app: Application) : AndroidViewModel(app) {
                     studentDao
                 )
             )
-        getApplication<App>().sharedPrefs.saveStartDate(Group.semStartDate.parseToString("yyyyMMdd"))
+        getApplication<App>().sharedPrefs.saveStartDate(Group.mGroup.semStartDate.parseToString("yyyyMMdd"))
     }
 }

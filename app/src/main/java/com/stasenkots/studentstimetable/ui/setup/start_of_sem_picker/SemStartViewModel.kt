@@ -6,6 +6,6 @@ import java.time.LocalDate
 
 class SemStartViewModel : ViewModel() {
     fun setStartOfSemesters(date:LocalDate){
-        Group.semStartDate= date
+        Group.mGroup.semStartDate= date
     }
 }

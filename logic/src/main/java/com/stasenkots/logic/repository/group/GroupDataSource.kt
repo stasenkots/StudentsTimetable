@@ -16,7 +16,7 @@ class GroupDataSource @Inject constructor(private val api: GroupApi) {
         } else throw Exception(response.message())
     }
 
-    suspend fun getGroup(id: String): GroupResponse? {
+    suspend fun getGroup(id: String): GroupResponse?{
         val response = api.getGroup("{\"group_id\": \"$id\"}")
         if (response.isSuccessful) {
             return response.body()?.groupResponses?.get(0)

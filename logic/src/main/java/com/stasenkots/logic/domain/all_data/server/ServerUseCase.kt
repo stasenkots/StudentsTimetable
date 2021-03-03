@@ -1,5 +1,6 @@
 package com.stasenkots.logic.domain.all_data.server
 
+import com.stasenkots.logic.repository.group.GroupRepository
 import com.stasenkots.logic.repository.lessons.LessonRepository
 import com.stasenkots.logic.repository.states.StatesRepository
 import com.stasenkots.logic.repository.student.StudentRepository
@@ -18,6 +19,9 @@ abstract class ServerUseCase {
 
     @Inject
     lateinit var subjectRepository: SubjectRepository
+
+    @Inject
+    lateinit var groupRepository: GroupRepository
 
     abstract suspend fun doWork()
 

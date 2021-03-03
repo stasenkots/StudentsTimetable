@@ -5,6 +5,7 @@ import com.stasenkots.logic.domain.all_data.db.LoadAllDataFromDatabaseUseCase
 import com.stasenkots.logic.domain.all_data.db.SaveDataToDatabaseUseCase
 import com.stasenkots.logic.di.modules.LogicModule
 import com.stasenkots.logic.domain.all_data.server.LoadAllDataUseCase
+import com.stasenkots.logic.domain.group.GetGroupUseCase
 import com.stasenkots.logic.domain.group.HasAnyGroupWithUseCase
 import com.stasenkots.logic.domain.group.SaveGroupUseCase
 import com.stasenkots.logic.domain.lesson.DeleteLessonUseCase
@@ -36,6 +37,7 @@ interface LogicComponent {
     fun initializeLoadLessonsFromDbUseCase(
         loadLessonFromDbUseCase: LoadLessonFromDbUseCase
     )
+
     fun initializeSaveLessonsFromDbUseCase(
         saveLessonsToDbUseCase: SaveLessonsToDbUseCase
     )
@@ -47,9 +49,11 @@ interface LogicComponent {
     fun initializeLoadSubjectsFromDbUseCase(
         loadSubjectsFromDbUseCase: LoadSubjectsFromDbUseCase
     )
+
     fun initializeSaveSubjectsToDbUseCase(
         saveSubjectsToDbUseCase: SaveSubjectsToDbUseCase
     )
+
     fun initializeLoadStatesUseCase(
         loadStatesUseCase: LoadStatesUseCase
     )
@@ -57,9 +61,11 @@ interface LogicComponent {
     fun initializeLoadStatesFromDbUseCase(
         loadStatesFromDbUseCase: LoadStatesFromDbUseCase
     )
+
     fun initializeSaveStatesToDbUseCase(
         saveStatesToDbUseCase: SaveStatesToDbUseCase
     )
+
     fun initializeDeleteStateUseCase(
         deleteStateUseCase: DeleteStateUseCase
     )
@@ -75,9 +81,11 @@ interface LogicComponent {
     fun initializeLoadStudentsFromDbUseCase(
         loadStudentsFromDbUseCase: LoadStudentsFromDbUseCase
     )
+
     fun initializeSaveDataToDatabaseUseCase(
         saveDataToDatabaseUseCase: SaveDataToDatabaseUseCase
     )
+
     fun initializeCleanDatabaseUseCase(
         cleanDatabaseUseCase: CleanDatabaseUseCase
     )
@@ -85,9 +93,11 @@ interface LogicComponent {
     fun initializeLoadAllDataFromDatabaseUseCase(
         loadAllDataFromDatabaseUseCase: LoadAllDataFromDatabaseUseCase
     )
+
     fun initializeLoadAllDataUseCase(
         loadAllDataUseCase: LoadAllDataUseCase
     )
+
     fun initializeSaveStudentsToDbUseCase(
         saveStudentsToDbUseCase: SaveStudentsToDbUseCase
     )
@@ -100,12 +110,18 @@ interface LogicComponent {
         hasAnyGroupWithUseCase: HasAnyGroupWithUseCase
     )
 
+    fun initializeGetGroupUseCase(
+        getGroupUseCase: GetGroupUseCase
+    )
+
     fun initializeSaveUserUseCase(
         saveUserUseCase: SaveUserUseCase
     )
+
     fun initializeCheckUserRegistrationUseCase(
         checkUserRegistrationUseCase: CheckUserRegistrationUseCase
     )
+
     fun initializeSaveGroupUseCase(
         saveGroupUseCase: SaveGroupUseCase
     )

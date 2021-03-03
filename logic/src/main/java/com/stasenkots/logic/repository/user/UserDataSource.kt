@@ -31,10 +31,10 @@ class UserDataSource @Inject constructor() {
         val user = ParseUser.getCurrentUser()
         User.mode = user.getInt("mode")
         User.groupId = user.getString("group_id").orEmpty()
-        Group.groupId = user.getString("group_id").orEmpty()
+        Group.mGroup.groupId = user.getString("group_id").orEmpty()
         User.id = user.objectId
         if (User.groupId.isNotEmpty() && sharedPrefs != null) {
-            Group.semStartDate = sharedPrefs.getStartSemDate().toDate()
+            Group.mGroup.semStartDate = sharedPrefs.getStartSemDate().toDate()
         }
         User.name = user.getString("name").orEmpty()
         User.updated.postValue(Unit)

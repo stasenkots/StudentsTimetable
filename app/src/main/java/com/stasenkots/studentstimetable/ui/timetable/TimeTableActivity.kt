@@ -68,6 +68,7 @@ class TimeTableActivity : AppCompatActivity() {
     private fun setIsDataLoadedObserver(){
         viewModel.isDataLoaded.observe(this, {
             binding.progressBar.visibility = View.GONE
+            binding.viewPager.adapter?.notifyDataSetChanged()
         })
         viewModel.errorBus.observe(this, {
             binding.progressBar.visibility = View.GONE
@@ -81,6 +82,7 @@ class TimeTableActivity : AppCompatActivity() {
         tabs.setupWithViewPager(binding.viewPager)
         binding.tabs.tabMode = TabLayout.MODE_SCROLLABLE
     }
+
 
     private fun setupToolbar() {
         if (User.mode == MODE_STUDENT) binding.toolbar.menu.clear()

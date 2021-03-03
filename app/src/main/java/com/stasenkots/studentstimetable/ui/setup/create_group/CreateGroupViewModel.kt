@@ -25,14 +25,14 @@ class CreateGroupViewModel : ViewModel() {
     }
     private fun setGroupId() {
         User.groupId = UUID.randomUUID().toString().replace("-", "")
-        Group.groupId = User.groupId
+        Group.mGroup.groupId = User.groupId
     }
 
     fun save() {
         launchIO {
             try {
                 saveUserUseCase.doWork()
-                saveGroupUseCase.doWork(SaveGroupUseCase.Params(User.groupId, Group.semStartDate))
+                saveGroupUseCase.doWork(SaveGroupUseCase.Params(User.groupId, Group.mGroup.semStartDate))
                 _isSaved.postValue(Unit)
             } catch (e: Exception) {
                 _errorBus.postValue(e)

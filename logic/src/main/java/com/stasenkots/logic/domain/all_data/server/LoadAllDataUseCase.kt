@@ -5,6 +5,8 @@ import com.stasenkots.logic.domain.lesson.LoadLessonsUseCase
 import com.stasenkots.logic.domain.states.LoadStatesUseCase
 import com.stasenkots.logic.domain.student.LoadStudentsUseCase
 import com.stasenkots.logic.domain.subject.LoadSubjectsUseCase
+import com.stasenkots.logic.entity.Group
+import com.stasenkots.logic.entity.User
 import com.stasenkots.logic.entity.lesson.Lessons
 import com.stasenkots.logic.entity.state.States
 import com.stasenkots.logic.entity.student.Students
@@ -29,5 +31,8 @@ class LoadAllDataUseCase: ServerUseCase(){
         stateRepository.setLiveQuery()
         val students = studentRepository.getStudents()
         Students.put(students)
+        val group = groupRepository.getGroup(User.groupId)
+        Group.mGroup.groupId = group.groupId
+        Group.mGroup.semStartDate =group.semStartDate
     }
 }
