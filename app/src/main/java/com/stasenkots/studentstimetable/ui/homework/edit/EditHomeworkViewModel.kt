@@ -7,11 +7,13 @@ import com.stasenkots.logic.domain.states.SendStateUseCase
 import com.stasenkots.logic.entity.state.State
 import com.stasenkots.logic.entity.state.States
 import com.stasenkots.logic.utils.*
+import com.stasenkots.studentstimetable.Analytics
+import timber.log.Timber
 import java.lang.Exception
 import java.time.LocalDate
 
 
-class EditHomeworkViewModel : ViewModel() {
+class EditHomeworkViewModel(private val analytics: Analytics) : ViewModel() {
     lateinit var date: LocalDate
     lateinit var state: State
     private val sendStateUseCase = SendStateUseCase()
@@ -44,6 +46,8 @@ class EditHomeworkViewModel : ViewModel() {
                 sendStateUseCase.doWork(SendStateUseCase.Params(state))
                 _errorBus.postValue(null)
             } catch (e: Exception) {
+                analytics.logError(e)
+                Timber.e(e)
                 _errorBus.postValue(e)
             }
         }

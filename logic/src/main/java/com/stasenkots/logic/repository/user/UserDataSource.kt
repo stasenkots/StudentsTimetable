@@ -61,8 +61,12 @@ class UserDataSource @Inject constructor() {
             "access_token" to accessToken,
             "id" to account.id
         )
-        ParseUser.logInWithInBackground("google", authData).onSuccess {
-            launchIO { setUserData(null) }
+      ParseUser.logInWithInBackground("google", authData).continueWith {
+            if (it.error == null) {
+                setUserData(null)
+            } else {
+                throw it.error
+            }
         }
 
     }

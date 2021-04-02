@@ -35,7 +35,12 @@ class EditLessonFragment : Fragment() {
     private val binding
         get() = _binding!!
 
-    private val viewModel by lazy { ViewModelProvider(this).get(EditLessonViewModel::class.java) }
+    private val viewModel by lazy {
+        ViewModelProvider(
+            this,
+            EditLessonViewModelFactory(requireActivity().application)
+        ).get(EditLessonViewModel::class.java)
+    }
     private val timePickerViewModel by lazy {
         ViewModelProvider(requireActivity()).get(
             TimePickerViewModel::class.java
@@ -265,7 +270,7 @@ class EditLessonFragment : Fragment() {
             )
             for (field in fields) {
                 if (field.key.text.isNullOrEmpty()) {
-                    field.value.error = getString(R.string.lesson_name_cannot_be_empty)
+                    field.value.error = getString(R.string.this_field_cannot_be_empty)
                     return false
                 }
             }

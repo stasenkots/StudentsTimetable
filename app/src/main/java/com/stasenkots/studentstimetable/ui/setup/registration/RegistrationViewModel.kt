@@ -7,9 +7,11 @@ import com.stasenkots.logic.domain.group.HasAnyGroupWithUseCase
 import com.stasenkots.logic.domain.user.SaveUserUseCase
 import com.stasenkots.logic.entity.User
 import com.stasenkots.logic.utils.launchIO
+import com.stasenkots.studentstimetable.Analytics
+import timber.log.Timber
 
 
-class RegistrationViewModel : ViewModel(){
+class RegistrationViewModel(private val analytics: Analytics) : ViewModel(){
     private val _isGroupExist = MutableLiveData<Boolean>()
     val isGroupExist: LiveData<Boolean>
         get() = _isGroupExist
@@ -25,6 +27,8 @@ class RegistrationViewModel : ViewModel(){
                 _isGroupExist.postValue(hasAnyGroupWithUseCase.doWork(params))
             }catch (e:Exception){
                 _errorBus.postValue(e)
+                Timber.e(e)
+                analytics.logError(e)
             }
         }
     }
@@ -36,7 +40,8 @@ class RegistrationViewModel : ViewModel(){
                 saveUserUseCase.doWork()
                 _errorBus.postValue(null)
             }catch (e:Exception){
-                e.printStackTrace()
+                analytics.logError(e)
+                Timber.e(e)
                 _errorBus.postValue(e)
             }
         }

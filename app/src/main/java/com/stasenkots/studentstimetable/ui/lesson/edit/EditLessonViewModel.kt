@@ -8,9 +8,11 @@ import com.stasenkots.logic.domain.lesson_item.SendLessonItemUseCase
 import com.stasenkots.logic.entity.LessonItem
 import com.stasenkots.logic.entity.subject.Subjects
 import com.stasenkots.logic.utils.launchIO
+import com.stasenkots.studentstimetable.Analytics
+import timber.log.Timber
 import java.time.LocalDate
 
-class EditLessonViewModel : ViewModel() {
+class EditLessonViewModel(private val analytics: Analytics) : ViewModel() {
     private val getLessonItemUseCase = GetLessonItemUseCase()
     private val sendLessonItemUseCase = SendLessonItemUseCase()
     val subjectNames by lazy { Subjects.get().values.map { it.name }.distinct() }
@@ -34,6 +36,8 @@ class EditLessonViewModel : ViewModel() {
                 sendLessonItemUseCase.doWork(params)
                 _status.postValue(null)
             } catch (e: Throwable) {
+                analytics.logError(e)
+                Timber.e(e)
                 _status.postValue(e)
             }
 

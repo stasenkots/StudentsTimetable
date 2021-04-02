@@ -23,6 +23,7 @@ import com.stasenkots.studentstimetable.ui.timetable.dialogs.datepicker.DatePick
 import com.stasenkots.studentstimetable.ui.timetable.dialogs.datepicker.DatePickerViewModel
 import com.stasenkots.studentstimetable.ui.timetable.dialogs.detele_dialog.DeleteDialogFragment
 import com.stasenkots.studentstimetable.ui.timetable.dialogs.detele_dialog.DeleteDialogViewModel
+import com.stasenkots.studentstimetable.ui.timetable.dialogs.detele_dialog.DeleteDialogViewModelFactory
 import com.stasenkots.studentstimetable.ui.timetable.dialogs.lesson_item_action.*
 
 import com.stasenkots.studentstimetable.ui.timetable.ui.main.SectionsPagerAdapter
@@ -40,7 +41,13 @@ class TimeTableActivity : AppCompatActivity() {
     }
     private val viewModel by lazy { ViewModelProvider(this).get(TimeTableViewModel::class.java) }
     private val datePickerViewModel by lazy { ViewModelProvider(this).get(DatePickerViewModel::class.java) }
-    private val deleteDialogViewModel by lazy { ViewModelProvider(this).get(DeleteDialogViewModel::class.java) }
+    private val deleteDialogViewModel by lazy {
+        ViewModelProvider(
+            this,
+            DeleteDialogViewModelFactory(application)
+        ).get(DeleteDialogViewModel::class.java)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTimeTableBinding.inflate(layoutInflater)
@@ -55,7 +62,8 @@ class TimeTableActivity : AppCompatActivity() {
 
 
     }
-    private fun setupCalendar(){
+
+    private fun setupCalendar() {
         binding.buttonCalendar.setOnClickListener {
             DatePickerFragment().show(supportFragmentManager, DATE_PICKER_TAG)
         }
@@ -65,7 +73,8 @@ class TimeTableActivity : AppCompatActivity() {
         })
 
     }
-    private fun setIsDataLoadedObserver(){
+
+    private fun setIsDataLoadedObserver() {
         viewModel.isDataLoaded.observe(this, {
             binding.progressBar.visibility = View.GONE
             binding.viewPager.adapter?.notifyDataSetChanged()
@@ -75,6 +84,7 @@ class TimeTableActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.some_data_non_actual, Toast.LENGTH_LONG).show()
         })
     }
+
     private fun setupTabViewAdapter() {
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
         binding.viewPager.adapter = sectionsPagerAdapter

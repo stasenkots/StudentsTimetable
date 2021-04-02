@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         }
         )
         viewModel.errorBus.observe(this, {
-            showError(binding.root, getString(R.string.no_internet_connection))
+            showError(binding.root, it.message.orEmpty())
         })
     }
 

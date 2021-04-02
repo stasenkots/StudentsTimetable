@@ -32,7 +32,12 @@ class EditHomeworkFragment : Fragment() {
         }
     }
 
-    private val viewModel by lazy { ViewModelProvider(this).get(EditHomeworkViewModel::class.java) }
+    private val viewModel by lazy {
+        ViewModelProvider(
+            this,
+            EditHomeworkViewModelFactory(requireActivity().application)
+        ).get(EditHomeworkViewModel::class.java)
+    }
     private val homeworkDatesViewModel by lazy {
         ViewModelProvider(requireActivity()).get(
             HomeworkDatesViewModel::class.java
@@ -102,7 +107,7 @@ class EditHomeworkFragment : Fragment() {
             .show(requireActivity().supportFragmentManager, TAG_ALERT_DIALOG)
         homeworkDatesViewModel.day.observe(viewLifecycleOwner, { date ->
             binding.day.text = date.parseToString()
-            viewModel.reinit(viewModel.state.subject,date)
+            viewModel.reinit(viewModel.state.subject, date)
             bind()
         })
     }

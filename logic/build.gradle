@@ -43,6 +43,7 @@ dependencies {
         exclude group: 'org.apache.httpcomponents'
         exclude group:'com.google.guava'
     }
+
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"

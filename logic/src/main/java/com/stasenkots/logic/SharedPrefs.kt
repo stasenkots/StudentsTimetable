@@ -15,6 +15,6 @@ class SharedPrefs(private val appContext: Context) {
 
     fun getStartSemDate(): String {
         return appContext.getSharedPreferences(PREFERENCE_FILE_KEY, Context.MODE_PRIVATE)
-            .getString(startSemDateKey,"")!!
+            .getString(startSemDateKey,"19700101")!!
     }
 }

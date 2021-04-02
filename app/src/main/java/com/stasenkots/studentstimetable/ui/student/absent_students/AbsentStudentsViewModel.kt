@@ -10,10 +10,12 @@ import com.stasenkots.logic.entity.state.States
 import com.stasenkots.logic.entity.student.Student
 import com.stasenkots.logic.entity.student.Students
 import com.stasenkots.logic.utils.launchIO
+import com.stasenkots.studentstimetable.Analytics
+import timber.log.Timber
 import java.lang.Exception
 import java.time.LocalDate
 
-class AbsentStudentsViewModel : ViewModel() {
+class AbsentStudentsViewModel(private val analytics: Analytics) : ViewModel() {
     lateinit var students: List<Student>
     private lateinit var state: State
     private lateinit var date: LocalDate
@@ -43,6 +45,8 @@ class AbsentStudentsViewModel : ViewModel() {
                 sendStateUseCase.doWork(SendStateUseCase.Params(state))
                 _errorBus.postValue(null)
             }catch (e:Exception){
+                analytics.logError(e)
+                Timber.e(e)
                 _errorBus.postValue(e)
             }
 

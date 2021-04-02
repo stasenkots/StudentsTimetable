@@ -23,7 +23,12 @@ private const val ID_LENGTH = 32
 class RegistrationFragment : Fragment() {
     private var _binding: FragmentRegistrationBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by lazy { ViewModelProvider(this).get(RegistrationViewModel::class.java) }
+    private val viewModel by lazy {
+        ViewModelProvider(
+            this,
+            RegistrationViewModelFactory(requireActivity().application)
+        ).get(RegistrationViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -35,7 +35,12 @@ class AbsentStudentsFragment : Fragment() {
         }
     }
 
-    private val viewModel by lazy { ViewModelProvider(this).get(AbsentStudentsViewModel::class.java) }
+    private val viewModel by lazy {
+        ViewModelProvider(
+            this,
+            AbsentStudentsViewModelFactory(requireActivity().application)
+        ).get(AbsentStudentsViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -5,8 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.stasenkots.logic.domain.lesson.DeleteLessonUseCase
 import com.stasenkots.logic.utils.launchIO
+import com.stasenkots.studentstimetable.Analytics
+import timber.log.Timber
 
-class DeleteDialogViewModel : ViewModel() {
+class DeleteDialogViewModel(private val analytics: Analytics) : ViewModel() {
     private val deleteLessonUseCase = DeleteLessonUseCase()
     private val _status = MutableLiveData<Exception?>()
     val status: LiveData<Exception?>
@@ -18,6 +20,8 @@ class DeleteDialogViewModel : ViewModel() {
                 deleteLessonUseCase.doWork(DeleteLessonUseCase.Params(id))
                 _status.postValue(null)
             } catch (e:Exception) {
+                analytics.logError(e)
+                Timber.e(e)
                 _status.postValue(e)
             }
         }

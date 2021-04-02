@@ -3,9 +3,12 @@ package com.stasenkots.studentstimetable
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
-
 import androidx.work.*
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.analytics.GoogleAnalytics
+import com.google.android.gms.analytics.Tracker
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.parse.Parse
 import com.stasenkots.logic.SharedPrefs
 import com.stasenkots.studentstimetable.constants.AppConstants.NOTIFICATION_CHANNEL_ID
@@ -18,6 +21,8 @@ private const val NOTIFICATION_CHANNEL_NAME = "Channel name"
 private const val CHECK_UPDATES_WORK = "check updates work"
 
 class App : Application() {
+    lateinit var analytics: FirebaseAnalytics
+    lateinit var crashlytics: FirebaseCrashlytics
     val sharedPrefs by lazy { SharedPrefs(applicationContext) }
     override fun onCreate() {
         super.onCreate()
@@ -25,6 +30,7 @@ class App : Application() {
         initTimber()
         createNotificationChannel()
         createUpdatesWork()
+        initAnalytics()
         MobileAds.initialize(this)
 
 
@@ -39,7 +45,10 @@ class App : Application() {
                 .build()
         )
     }
-
+    private fun initAnalytics(){
+        analytics = FirebaseAnalytics.getInstance(this)
+        crashlytics= FirebaseCrashlytics.getInstance()
+    }
     private fun initTimber() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())

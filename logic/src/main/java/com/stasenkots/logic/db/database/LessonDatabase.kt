@@ -7,13 +7,16 @@ import androidx.room.RoomDatabase
 import com.stasenkots.logic.db.dao.LessonDao
 import com.stasenkots.logic.db.entity.LessonDb
 
-private const val DATABASE_NAME="Lesson Database"
-@Database(entities = [LessonDb::class], version = 1)
+private const val DATABASE_NAME = "Lesson Database"
+
+@Database(entities = [LessonDb::class], version = 2)
 abstract class LessonDatabase : RoomDatabase() {
     abstract fun getDao(): LessonDao
 }
 
 object LessonDatabaseProvider {
     fun provide(context: Context) =
-        Room.databaseBuilder(context, LessonDatabase::class.java, DATABASE_NAME ).build()
+        Room.databaseBuilder(context, LessonDatabase::class.java, DATABASE_NAME)
+            .fallbackToDestructiveMigration()
+            .build()
 }

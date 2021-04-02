@@ -17,9 +17,8 @@ class CreateGroupFragment : Fragment() {
     private var _binding: FragmentCreateGroupBinding? = null
     private val binding get() = _binding!!
     private val viewModel: CreateGroupViewModel by lazy {
-        ViewModelProvider(this).get(
-            CreateGroupViewModel::class.java
-        )
+        ViewModelProvider(this, CreateGroupViewModelFactory(requireActivity().application))
+            .get(CreateGroupViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -32,6 +31,7 @@ class CreateGroupFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.setGroupId()
         binding.textViewGroupId.text = User.groupId
         setSharingClick()
         binding.buttonContinue.setOnClickListener { viewModel.save() }

@@ -9,9 +9,11 @@ import com.stasenkots.logic.domain.user.SaveUserUseCase
 import com.stasenkots.logic.entity.Group
 import com.stasenkots.logic.entity.User
 import com.stasenkots.logic.utils.launchIO
+import com.stasenkots.studentstimetable.Analytics
+import timber.log.Timber
 import java.util.*
 
-class CreateGroupViewModel : ViewModel() {
+class CreateGroupViewModel(private val analytics: Analytics) : ViewModel() {
     private val _isSaved = MutableLiveData<Unit>()
     val isSaved: LiveData<Unit>
         get() = _isSaved
@@ -20,10 +22,7 @@ class CreateGroupViewModel : ViewModel() {
         get() = _errorBus
     private val saveUserUseCase = SaveUserUseCase()
     private val saveGroupUseCase = SaveGroupUseCase()
-    init {
-        setGroupId()
-    }
-    private fun setGroupId() {
+    fun setGroupId() {
         User.groupId = UUID.randomUUID().toString().replace("-", "")
         Group.mGroup.groupId = User.groupId
     }
@@ -35,7 +34,9 @@ class CreateGroupViewModel : ViewModel() {
                 saveGroupUseCase.doWork(SaveGroupUseCase.Params(User.groupId, Group.mGroup.semStartDate))
                 _isSaved.postValue(Unit)
             } catch (e: Exception) {
+                analytics.logError(e)
                 _errorBus.postValue(e)
+                Timber.e(e)
             }
 
         }

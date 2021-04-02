@@ -15,11 +15,13 @@ import com.stasenkots.logic.domain.all_data.server.LoadAllDataUseCase
 import com.stasenkots.logic.entity.Group
 import com.stasenkots.logic.utils.launchIO
 import com.stasenkots.logic.utils.parseToString
+import com.stasenkots.studentstimetable.Analytics
 import com.stasenkots.studentstimetable.App
+import timber.log.Timber
 import java.time.LocalDate
 
 class TimeTableViewModel(app: Application) : AndroidViewModel(app) {
-
+    private val analytics = Analytics(app)
     private val lessonDao = LessonDatabaseProvider.provide(app.applicationContext).getDao()
     private val subjectDao = SubjectDatabaseProvider.provide(app.applicationContext).getDao()
     private val stateDao = StateDatabaseProvider.provide(app.applicationContext).getDao()
@@ -35,8 +37,6 @@ class TimeTableViewModel(app: Application) : AndroidViewModel(app) {
     init {
         launchIO {
             loadAllData()
-            clearDate()
-            cacheDate()
         }
     }
 
@@ -44,11 +44,16 @@ class TimeTableViewModel(app: Application) : AndroidViewModel(app) {
         try {
             LoadAllDataUseCase().doWork()
             _isDataLoaded.postValue(true)
-        } catch (e: java.lang.Exception) {
+            clearDate()
+            cacheDate()
+        } catch (e: Exception) {
+            analytics.logError(e)
+            Timber.e(e)
             _errorBus.postValue(e)
         }
     }
-    private suspend fun clearDate(){
+
+    private suspend fun clearDate() {
         CleanDatabaseUseCase()
             .doWork(
                 DatabaseUseCase.Params(
@@ -59,6 +64,7 @@ class TimeTableViewModel(app: Application) : AndroidViewModel(app) {
                 )
             )
     }
+
     private suspend fun cacheDate() {
         SaveDataToDatabaseUseCase()
             .doWork(

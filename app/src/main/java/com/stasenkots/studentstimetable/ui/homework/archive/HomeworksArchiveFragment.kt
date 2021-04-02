@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.stasenkots.studentstimetable.R
 import com.stasenkots.studentstimetable.databinding.HomeworksArchiveFragmentBinding
 import com.stasenkots.studentstimetable.ui.homework.HomeworkViewModel
+import com.stasenkots.studentstimetable.ui.homework.HomeworkArchiveViewModelFactory
 
 private const val TAG_SUBJECT_ID = "subject id"
 
@@ -18,7 +19,10 @@ class HomeworksArchiveFragment : Fragment() {
 
     private val viewModel by lazy { ViewModelProvider(this).get(HomeworksArchiveViewModel::class.java) }
     private val homeworkViewModel by lazy {
-        ViewModelProvider(requireActivity()).get(
+        ViewModelProvider(
+            requireActivity(),
+            HomeworkArchiveViewModelFactory(requireActivity().application)
+        ).get(
             HomeworkViewModel::class.java
         )
     }
