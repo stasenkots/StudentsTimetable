@@ -8,6 +8,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        'signing.gradle' {
+            storeFile file('/home/kotozavrina/keystore/key.jks')
+            storePassword 'okkojocker'
+            keyAlias 'key0'
+            keyPassword 'okkojocker'
+        }
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
@@ -15,8 +23,8 @@ android {
         applicationId "com.stasenkots.studentstimetable"
         minSdkVersion 26
         targetSdkVersion 30
-        versionCode 2
-        versionName "2.0"
+        versionCode 6
+        versionName "6.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -37,17 +45,21 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
 }
 
 dependencies {
     implementation project(":logic")
     implementation platform("com.google.firebase:firebase-bom:$firebase_bom")
-    implementation "com.google.android.gms:play-services-basement:$play_services_basement"
-    implementation "com.google.android.gms:play-services-ads:$google_ads"
+    implementation "com.google.android.gms:play-services-basement:17.6.0"
+    implementation 'com.google.android.gms:play-services-analytics:10.2.4'
+    implementation "com.google.android.gms:play-services-ads:19.7.0"
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation "androidx.room:room-runtime:$room_version"
     implementation "com.jakewharton.timber:timber:$timber_version"
+    implementation 'com.google.firebase:firebase-crashlytics:17.3.1'
+    implementation 'com.google.firebase:firebase-analytics:18.0.2'
     kapt "androidx.room:room-compiler:$room_version"
     implementation "com.google.android.gms:play-services-auth:$google_services"
     implementation 'com.daimajia.androidanimations:library:2.4@aar'
