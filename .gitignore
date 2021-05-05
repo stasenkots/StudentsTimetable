@@ -16,10 +16,9 @@ local.properties
 /logic/src/main/java/com/stasenkots/logic/util/Constants.kt
 /logic/src/main/java/com/stasenkots/logic/Keys.kt
 /app/src/main/java/com/stasenkots/studentstimetable/Keys.kt
-/app/src/main/res/values-en/strings.xml
-/app/src/main/res/values/strings.xml
 /app-ads.txt
 /app/google-services.json
 /app/release/app-release.apk
 /app/release/app-release.aab
 /app/release/output-metadata.json
+/app/src/main/res/values/config.xml
