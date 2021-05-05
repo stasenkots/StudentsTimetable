@@ -1,0 +1,80 @@
+<resources>
+    <string name="app_name" translatable="false">Students Timetable</string>
+    <string name="who_are_you">Кто вы?</string>
+    <string name="student">Студент</string>
+    <string name="moderator">Модератор</string>
+    <string name="no_internet_connection">Нет подключения к интернету</string>
+    <string name="retry">Повторить</string>
+    <string name="have_not_got_group">Нет группы? Нажми здесь чтобы создать!</string>
+    <string name="join">Присоединиться</string>
+    <string name="group_id">ID группы</string>
+    <string name="id_length_must_be">Длинна ID должна быть %1$d символа</string>
+    <string name="group_with_given_id_doesnt_exist">Группы с таким id не существует</string>
+    <string name="helper_text_uid">Это уникальный индефикатор вашей группы.Нажмите на него чтобы поделиться</string>
+    <string name="title_activity_time_table">TimeTableActivity</string>
+    <string name="some_data_non_actual">Нет подключения к интернету. Некоторые данные могут быть неактульны</string>
+    <string name="time" translatable="false">%1$s - %2$s</string>
+    <string name="pass">Пропуск</string>
+    <string name="now_you_join">Теперь вы можете присоединиться к группе</string>
+    <string name="id_cannot_be_empty">ID не может быть пустым</string>
+    <string name="name_cannot_be_empty">Имя не может быть пустым</string>
+    <string name="no_lessons">Занятий нет</string>
+    <string name="search">Поиск</string>
+    <string name="dateformat" translatable="false">d MMMM (E) </string>
+    <string name="brakets" translatable="false">(%1$s)</string>
+    <string name="surname_name">Ваше Фамилия и Имя</string>
+    <string name="no_homework">Нет домашнего задания</string>
+    <string name="choose_action">Выберите действие</string>
+    <string name="edit">Редактировать</string>
+    <string name="delete">Удалить</string>
+    <string name="set_passed_users">Отметить отсутствующих</string>
+    <string name="list_of_passed_users">Список отсутствующих</string>
+    <string name="archive_homeworks">Архив домашних заданий</string>
+    <string name="subject_name">Название предмета</string>
+    <string name="teacher">Преподаватель</string>
+    <string name="room">Аудитория</string>
+    <string name="subgroup">Подгруппа</string>
+    <string name="lesson_days">День занятия</string>
+    <string name="end">Конец</string>
+    <string name="start">Начало</string>
+    <string name="save">Сохранить</string>
+    <string name="this_field_cannot_be_empty">Это поле не может быть пустым</string>
+    <string name="saved">Сохранено</string>
+    <string name="lesson_type">Тип занятия</string>
+
+    <string name="ok">OK</string>
+    <string name="every_week">еженедельно</string>
+    <string name="monday">Понедельник</string>
+    <string name="tuesday">Вторник</string>
+    <string name="wednesday">Среда</string>
+    <string name="thursday">Четверг</string>
+    <string name="friday">Пятница</string>
+    <string name="saturday">Суббота</string>
+    <string name="sunday">Воскресенье</string>
+    <string name="day_of_week_pattern" translatable="false">%1$s(%2$s)</string>
+    <string name="n_week">(%1$s неделя)</string>
+    <string name="add">Добавить</string>
+    <string name="defalt_time_start">9:00</string>
+    <string name="defalt_time_end">15:00</string>
+    <string name="deleted">Удалено</string>
+    <string name="cancel">Отмена</string>
+    <string name="do_you_want_delete">Вы действительно хотите удалить это занятие?</string>
+    <string name="Deletion">Удаление</string>
+    <string name="warning">Предупреждениеенении дня недели домашние задания не будут перенесены.Вы хотите изменить день недели?</string>
+    <string name="homework">Домашнее задани</string>
+    <string name="change_weekdays">При изме</string>
+    <string name="comment">Комментарий</string>
+    <string name="invalid_action">Invalid action</string>
+    <string name="n_selected">%1$d выбрано</string>
+    <string name="there_are_changes">В расписании есть изменения.Посмотрите!</string>
+    <string name="link_underlined"><u>Ссылка</u></string>
+    <string name="link">Ссылкa</string>
+    <string name="current_week">Текущая неделя:</string>
+    <string name="_1_week">1 неделя</string>
+    <string name="_2_week">2 неделя</string>
+    <string name="select_current_week">Выберите текущую неделю</string>
+    <string name="choose_start_date">Выберите дату начала семестра</string>
+    <string name="continues">Продолжить</string>
+    <string name="activity_not_found">Не удалось найти приложение которое может открыть эту ссылку. Проверьте корректность ссылки или установите соответствующее приложение.Ссылка имеет вид: %1$s</string>
+
+</resources>
